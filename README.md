@@ -1,27 +1,22 @@
-# cra-template-rack
+# vue-cli-plugin-rack
+Element Plus plugin for `@vue/cli` 4.5.
 
-This is a template for [Create React App](https://github.com/facebook/create-react-app).
+### Install
 
-## usage
+First you need to install `@vue/cli` globally (follow the instructions [here](https://cli.vuejs.org/)).
 
-```sh
-$ npx create-react-app my-app --template rack
+Then create a project and add the Element Plus plugin:
+
+```bash
+vue create my-app
+cd my-app
+vue add rack
 ```
-## Highlights
-> Compared with create-react-app's official template cra-template
-- sass
-- axios
-- router
-- redux
-- prettier
-- lint
-- mock
-- test
-- dockerFile
-- stipulate directory
-## Links
 
-For more information, please refer to:
+You'll be asked some questions regarding how Element Plus is configured in your project. After that, you're good to go.
 
-- [Getting Started](https://cli.vuejs.org/guide/) – How to create a new app.
-- [User Guide](https://cli.vuejs.org) – How to develop apps bootstrapped with Create React App.
+### Use with vue-cli UI
+
+Skip this part if you've done everything in the `Install` section.
+
+If you prefer managing your project in vue-cli UI (by running `vue ui`), here's how you can add Element Plus plugin: go to the Plugins menu, click the upper right `+ Add plugin` button, find `vue-cli-plugin-rack` and install it.

@@ -1,18 +1,15 @@
 {
   "name": "vue-cli-plugin-rack",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "a vue plugin of @vue/cli.",
   "main": "index.js",
-  "scripts": {
-    "test": "npm run test"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poeticloud/vue-cli-plugin-rack.git"
   },
   "keywords": [
     "vue",
-    "cli",
+    "vue-cli",
     "@vue/cli",
     "plugin",
     "rack"

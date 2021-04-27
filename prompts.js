@@ -10,5 +10,11 @@ module.exports = [
       value: locale
     })),
     default: 'en'
-  }
+  },
+  {
+    type: 'confirm',
+    name: 'customTheme',
+    message: 'Do you want to overwrite the SCSS variables of Element Plus?',
+    default: false,
+  },
 ]

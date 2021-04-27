@@ -128,13 +128,13 @@ export default function request() {
 
   // 接口失败重试(默认状态码为5XX重试)
   axiosRetry(http, {
-    retries: 3,
+    retries: 2,
     retryDelay: (retryCount) => {
       return retryCount * 1000;
     },
     retryCondition: (axiosError) => {
       const { response } = axiosError;
-      if (response && (response.status >= 500 || response.status === 400)) {
+      if (response && response.status >= 500) {
         return true;
       }
     },

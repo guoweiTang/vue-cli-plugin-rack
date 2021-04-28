@@ -1,5 +1,11 @@
-module.exports = api => {
+module.exports = (api, opts) => {
+  // TODO: template下的以“.”开头的文件被npm忽略，未达到理想效果
   api.render('./template');
+  if (opts.customTheme) {
+    api.render({
+      './src/element-variables.scss': './element-variables.scss'
+    })
+  }
   api.extendPackage({
     scripts: {
       'dev': 'cross-env VUE_APP_MOCK=true vue-cli-service serve',

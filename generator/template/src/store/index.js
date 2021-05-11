@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { updateMyInfo } from '../views/service';
 
 export default createStore({
   state() {
@@ -12,6 +13,13 @@ export default createStore({
       },
     };
   },
+  actions: {
+    setUserInfo({ commit }, payload = {}) {
+      updateMyInfo(payload).then(() => {
+        commit('setUserInfo', payload);
+      });
+    },
+  },
   mutations: {
     setUserInfo(state, payload) {
       state.userInfo = {
@@ -23,6 +31,5 @@ export default createStore({
       state.isScreen = payload;
     },
   },
-  actions: {},
   modules: {},
 });

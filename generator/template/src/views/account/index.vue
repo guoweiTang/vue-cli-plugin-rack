@@ -31,9 +31,8 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import EditableText from '@/components/editable-text';
-import { updateMyInfo } from '../service';
 
 export default {
   components: {
@@ -48,35 +47,24 @@ export default {
   },
   computed: mapState(['userInfo']),
   methods: {
-    ...mapMutations(['setUserInfo']),
-    async handleConfirm(data) {
-      let res;
-      try {
-        res = await updateMyInfo(data);
-      } catch (e) {
-        console.error(e);
-      }
-      if (res) {
-        this.$store.commit('setUserInfo', data);
-      }
-    },
+    ...mapActions(['setUserInfo']),
     handleConfirmName(value) {
-      this.handleConfirm({
+      this.$store.dispatch('setUserInfo', {
         name: value,
       });
     },
     handleConfirmSummary(value) {
-      this.handleConfirm({
+      this.$store.dispatch('setUserInfo', {
         summary: value,
       });
     },
     handleConfirmGender(value) {
-      this.handleConfirm({
+      this.$store.dispatch('setUserInfo', {
         gender: value,
       });
     },
     handleConfirmDescription(value) {
-      this.handleConfirm({
+      this.$store.dispatch('setUserInfo', {
         description: value,
       });
     },

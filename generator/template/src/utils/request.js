@@ -8,6 +8,7 @@ import axiosRetry from 'axios-retry';
 let http;
 const MOCK = process.env.VUE_APP_MOCK === 'true';
 export default function request() {
+  if (http) return http;
   const { api_origin, api_pathname } = getSettings();
   http = axios.create({
     baseURL: MOCK ? '/' : `${api_origin}${api_pathname}`,

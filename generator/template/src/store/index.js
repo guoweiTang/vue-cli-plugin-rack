@@ -10,6 +10,7 @@ export default createStore({
         gender: '',
         summary: '',
         description: '',
+        role: '',
       },
     };
   },

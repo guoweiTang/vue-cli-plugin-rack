@@ -8,7 +8,7 @@ import { getSettings } from '../config';
  * @returns {Object} axios配置信息
  */
 export async function initToken(config) {
-  const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN_USER');
+  const { accessToken: ACCESS_TOKEN } = getToken();
   if (ACCESS_TOKEN) {
     config.headers['Authorization'] = `Bearer ${ACCESS_TOKEN}`;
   } else {
@@ -23,7 +23,7 @@ export async function initToken(config) {
  */
 export function refreshToken(failedRequest) {
   const { api_origin, api_pathname } = getSettings();
-  const REFRESH_TOKEN = localStorage.getItem('REFRESH_TOKEN_USER');
+  const { reToken: REFRESH_TOKEN } = getToken();
   if (!REFRESH_TOKEN) {
     clearToken();
   }
@@ -48,6 +48,16 @@ export function refreshToken(failedRequest) {
 export function setToken(accessToken, reToken) {
   localStorage.setItem('ACCESS_TOKEN_USER', accessToken);
   localStorage.setItem('REFRESH_TOKEN_USER', reToken);
+}
+/**
+ * 获取token
+ * @returns {accessToken, reToken}
+ */
+export function getToken() {
+  return {
+    accessToken: localStorage.getItem('ACCESS_TOKEN_USER'),
+    reToken: localStorage.getItem('REFRESH_TOKEN_USER'),
+  };
 }
 /**
  * 清除token，并重新登陆

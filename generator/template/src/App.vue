@@ -23,7 +23,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
 body {
   margin: 0;
 }
@@ -56,5 +56,34 @@ i {
   padding: 0;
   height: auto;
   min-height: 100vh;
+}
+.error-page {
+  min-width: 400px;
+  height: 100vh;
+  min-height: 500px;
+  img {
+    width: 100%;
+  }
+  h2 {
+    color: #515a6e;
+    font-size: 72px;
+    line-height: 72px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .sub-title {
+    margin-bottom: 16px;
+    color: #808695;
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .el-row {
+    height: 100%;
+  }
+  .el-col {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
 }
 </style>

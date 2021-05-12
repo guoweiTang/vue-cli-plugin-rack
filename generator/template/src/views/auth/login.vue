@@ -115,9 +115,12 @@ export default {
                 duration: 800,
                 message: '登录成功，正在跳转……',
                 onClose: () => {
-                  this.$router.push({
-                    name: 'Home',
-                  });
+                  // 重定向对象不存在则返回顶层路径
+                  this.$router.replace(
+                    this.$route.query.redirect || {
+                      name: 'Home',
+                    }
+                  );
                 },
               });
             })

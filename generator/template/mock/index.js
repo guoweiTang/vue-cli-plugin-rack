@@ -78,11 +78,11 @@ const allServices = [
   },
 ];
 const userinfo = {
-  name: 'admin',
+  name: 'ice',
   gender: '男',
   summary: '如何促进关系升级？教你省时高效的最佳方法！',
   description: '佛曰：命由己造，相由心生，世间万物皆是化相；心不动，万物皆不动，心不变，万物皆不变',
-  role: 'admin',
+  role: '普通用户',
 };
 const allUsers = [{
   email: 'admin@poeticloud.com',

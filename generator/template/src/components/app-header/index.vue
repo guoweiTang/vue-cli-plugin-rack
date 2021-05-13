@@ -25,13 +25,12 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import { clearToken } from '@/utils/token';
-import { getMyInfo } from '@/views/service';
 export default {
   computed: mapState(['userInfo']),
   methods: {
-    ...mapMutations['setUserInfo'],
+    ...mapActions['getUserInfo'],
     handleMyself() {
       this.$router.push({
         name: 'UserInfo',
@@ -46,9 +45,7 @@ export default {
     next((vm) => {
       // 通过 `vm` 访问组件实例
       if (!vm.userInfo.name) {
-        getMyInfo().then(({ data }) => {
-          vm.$store.commit('setUserInfo', data);
-        });
+        vm.$store.dispatch('getUserInfo');
       }
     });
   },

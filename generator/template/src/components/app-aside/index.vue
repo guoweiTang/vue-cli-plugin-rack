@@ -17,6 +17,12 @@
           <span>首页</span>
         </template>
       </el-menu-item>
+      <el-menu-item index="Authorzation" :route="{ name: 'Authorzation' }">
+        <template #title>
+          <i class="el-icon-lock"></i>
+          <span>权限设置</span>
+        </template>
+      </el-menu-item>
       <el-submenu class="no-drop-down" index="table">
         <template #title>
           <i class="el-icon-ice-drink"></i>

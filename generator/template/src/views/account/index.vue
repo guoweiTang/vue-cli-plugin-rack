@@ -8,6 +8,14 @@
     />
     <editable-text
       type="radio"
+      :options="['管理员', '普通用户']"
+      label="你的权限"
+      prop="role"
+      :value="userInfo.role"
+      @confirm="handleConfirmRole"
+    />
+    <editable-text
+      type="radio"
       :options="['男', '女']"
       label="性别"
       prop="gender"
@@ -51,6 +59,11 @@ export default {
     handleConfirmName(value) {
       this.$store.dispatch('setUserInfo', {
         name: value,
+      });
+    },
+    handleConfirmRole(value) {
+      this.$store.dispatch('setUserInfo', {
+        role: value,
       });
     },
     handleConfirmSummary(value) {

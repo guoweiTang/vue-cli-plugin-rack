@@ -6,12 +6,14 @@ import ResetPassword from '../views/auth/reset-password';
 import BasicTable from '../views/table/basic-table';
 import CardTable from '../views/table/card-table';
 import UserInfo from '../views/account';
+import Authorzation from '../views/account/authorzation';
 import AppAside from '@/components/app-aside';
 import AppHeader from '@/components/app-header';
 import AppFooter from '@/components/app-footer';
 import { ElLoading } from 'element-plus';
 import { getToken } from '@/utils/token';
 import Layout from '@/App.vue';
+import store from '@/store';
 
 const commonComponents = {
   AppHeader,
@@ -104,11 +106,22 @@ const routes = [
     },
     children: [
       {
+        path: 'authorzation',
+        name: 'Authorzation',
+        meta: {
+          title: '用户权限',
+        },
+        components: {
+          ...commonComponents,
+          default: Authorzation,
+        },
+      },
+      {
         path: 'userinfo',
         name: 'UserInfo',
         meta: {
           title: '我的账户',
-          auth: ['user'],
+          auth: ['普通用户'],
         },
         components: {
           ...commonComponents,
@@ -157,26 +170,60 @@ router.beforeEach(async (to, from, next) => {
     text: '精彩内容即将呈现……',
   });
   const { accessToken: token } = getToken();
-  // 如果登录状态 禁止进入登录页
-  if (to.name === 'Login' && token) {
-    next({
-      name: 'Home',
-    });
-  } else if (to.matched.some((_) => _.meta.auth)) {
-    if (token) {
-      next();
+  if (token) {
+    if (to.name === 'Login') {
+      // 如果登录状态 禁止进入登录页
+      next({
+        name: 'Home',
+      });
+    } else if (
+      to.matched.some(
+        (_) =>
+          _.meta.auth &&
+          Object.prototype.toString.call(_.meta.auth) === '[object Array]'
+      )
+    ) {
+      // 需要身份校验
+      let canVisit;
+      let currentRole = store.state.userInfo.role;
+      if (!currentRole) {
+        const data = await store.dispatch('getUserInfo');
+        currentRole = data.role;
+      }
+      for (let {
+        meta: { auth },
+      } of to.matched.reverse()) {
+        if (Object.prototype.toString.call(auth) === '[object Array]') {
+          canVisit = auth.includes(currentRole);
+          break;
+        }
+      }
+      if (canVisit) {
+        // 校验成功
+        next();
+      } else {
+        // 校验失败
+        next({
+          name: '403',
+        });
+      }
     } else {
-      // 没有登录的时候跳转到登录界面，携带上登陆成功之后需要跳转的页面完整路径
+      // 不需要身份校验 直接通过
+      next();
+    }
+  } else {
+    if (to.matched.some((_) => _.meta.auth)) {
+      // 携带上需校验登录的页面URL跳转至登录界面
       next({
         name: 'Login',
         query: {
           redirect: to.fullPath,
         },
       });
+    } else {
+      // 不需要身份校验 直接通过
+      next();
     }
-  } else {
-    // 不需要身份校验 直接通过
-    next();
   }
 });
 

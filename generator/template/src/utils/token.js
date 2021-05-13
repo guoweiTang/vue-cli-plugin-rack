@@ -51,7 +51,7 @@ export function setToken(accessToken, reToken) {
 }
 /**
  * 获取token
- * @returns {accessToken, reToken}
+ *  @returns {accessToken, reToken}
  */
 export function getToken() {
   return {

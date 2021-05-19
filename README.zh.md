@@ -45,12 +45,11 @@ npm run lint
 ```
 npm run prettier
 ```
-## Views
-![image](https://user-images.githubusercontent.com/8178166/114008164-8b9f8080-9894-11eb-824f-cb4a02712b66.png)
-![image](https://user-images.githubusercontent.com/8178166/114008200-90fccb00-9894-11eb-98b3-319c0319fbee.png)
-![image](https://user-images.githubusercontent.com/8178166/114008210-978b4280-9894-11eb-8b9c-78a47f8b220a.png)
-
-## Highlights
+## 界面示例
+![image](https://user-images.githubusercontent.com/8178166/118818566-0a052e80-b8e7-11eb-9ab2-1babc30e50a6.png)
+![image](https://user-images.githubusercontent.com/8178166/118818771-4042ae00-b8e7-11eb-888a-89a039ff2b66.png)
+![image](https://user-images.githubusercontent.com/8178166/118818855-5b152280-b8e7-11eb-9996-47aee33aa3ee.png)
+## 插件功能
 - vue3
 - element-plus
 - http请求对象封装

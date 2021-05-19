@@ -1,3 +1,10 @@
+<!--
+ * @Description: 扩展面板
+ * @Author: tangguowei
+ * @Date: 2021-05-19 19:44:29
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 20:15:05
+-->
 <template>
   <teleport to="body">
     <div v-if="isScreen" class="screen-modal">
@@ -22,6 +29,7 @@ import { defineComponent } from 'vue';
 import { mapMutations, mapState } from 'vuex';
 
 export default defineComponent({
+  name: 'Expect',
   props: {
     query: String,
   },

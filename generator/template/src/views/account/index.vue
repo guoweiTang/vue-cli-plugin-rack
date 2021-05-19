@@ -1,14 +1,32 @@
+<!--
+ * @Description: 个人详细信息
+ * @Author: tangguowei
+ * @Date: 2021-05-19 19:44:29
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 20:06:27
+-->
 <template>
+  <el-alert
+    :closable="false"
+    title="该页面只有普通用户能看到"
+    style="margin-bottom: 20px"
+    type="warning"
+  >
+  </el-alert>
   <el-card class="userinfo" body-style="{minHeight: '100%'}">
     <editable-text
       label="用户名"
       prop="username"
       :value="userInfo.name"
+      :rules="rulesOfCommon"
       @confirm="handleConfirmName"
     />
     <editable-text
       type="radio"
-      :options="['管理员', '普通用户']"
+      :options="[
+        { label: '管理员', value: '管理员' },
+        { label: '普通用户', value: '普通用户' },
+      ]"
       label="你的权限"
       prop="role"
       :value="userInfo.role"
@@ -16,7 +34,10 @@
     />
     <editable-text
       type="radio"
-      :options="['男', '女']"
+      :options="[
+        { label: '男', value: '男' },
+        { label: '女', value: '女' },
+      ]"
       label="性别"
       prop="gender"
       :value="userInfo.gender"
@@ -26,6 +47,7 @@
       label="一句话介绍"
       prop="summary"
       :value="userInfo.summary"
+      :rules="rulesOfCommon"
       @confirm="handleConfirmSummary"
     />
     <editable-text
@@ -33,6 +55,7 @@
       label="个人简介"
       prop="description"
       :value="userInfo.description"
+      :rules="rulesOfCommon"
       @confirm="handleConfirmDescription"
     />
   </el-card>
@@ -85,7 +108,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .userinfo {
   width: 60%;
   margin: 0 auto;

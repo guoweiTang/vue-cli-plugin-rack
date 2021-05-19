@@ -1,4 +1,18 @@
+<!--
+ * @Description: 卡片列表
+ * @Author: tangguowei
+ * @Date: 2021-05-19 16:58:40
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 20:21:11
+-->
 <template>
+  <el-alert
+    :closable="false"
+    title="该页面只有管理员能看到"
+    style="margin-bottom: 20px"
+    type="warning"
+  >
+  </el-alert>
   <div class="card-table">
     <el-row :gutter="10">
       <el-col
@@ -65,11 +79,13 @@ export default {
     this.getDataByPage();
   },
   methods: {
+    // 编辑
     handleEdit(item) {
       const target = this.$refs['serviceModal'];
       target.formData = { ...item };
       target.visible = true;
     },
+    // 删除
     async confirmDelete(item) {
       let res;
       try {
@@ -83,6 +99,7 @@ export default {
         this.getDataByPage();
       }
     },
+    // 获取详细信息
     async getDataByPage() {
       let res;
       try {

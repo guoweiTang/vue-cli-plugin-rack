@@ -1,3 +1,10 @@
+<!--
+ * @Description: 权限设置
+ * @Author: tangguowei
+ * @Date: 2021-05-19 19:44:29
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 20:03:01
+-->
 <template>
   <el-card class="userinfo" body-style="{minHeight: '100%'}">
     <el-alert
@@ -9,7 +16,10 @@
     </el-alert>
     <editable-text
       type="radio"
-      :options="['管理员', '普通用户']"
+      :options="[
+        { label: '管理员', value: '管理员' },
+        { label: '普通用户', value: '普通用户' },
+      ]"
       label="你的权限"
       prop="role"
       :value="userInfo.role"
@@ -37,7 +47,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .userinfo {
   width: 60%;
   margin: 0 auto;

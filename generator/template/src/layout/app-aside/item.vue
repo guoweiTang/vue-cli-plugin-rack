@@ -1,19 +1,12 @@
 <!--
- * @Description: file content
- * @Author: tangguowei
- * @Date: 2021-05-19 10:59:42
- * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 14:05:04
--->
-<!--
- * @Description: file content
+ * @Description: 侧边栏菜单项
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 10:59:42
+ * @LastEditTime: 2021-05-19 20:26:35
 -->
 <template>
-  <template v-if="!item.hidden">
+  <template v-if="isShowing">
     <el-menu-item
       v-if="!item.children || !item.children.length"
       :index="item.name"
@@ -39,6 +32,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: 'AsideItem',
   props: {
@@ -46,6 +40,19 @@ export default {
     item: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    ...mapState(['userInfo']),
+    isShowing() {
+      const isArray =
+        Object.prototype.toString.call(this.item.meta.auth) ===
+        '[object Array]';
+      return (
+        !this.item.hidden &&
+        (!isArray ||
+          (isArray && this.item.meta.auth.includes(this.userInfo.role)))
+      );
     },
   },
   setup() {},

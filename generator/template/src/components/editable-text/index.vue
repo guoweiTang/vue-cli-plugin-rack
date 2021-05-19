@@ -11,19 +11,22 @@
         <!-- 编辑区域 -->
         <el-form-item :prop="prop" v-if="visible">
           <el-input
-            v-if="fieldType === 'text' || fieldType === 'textarea'"
-            :type="fieldType"
+            v-if="type === 'text' || type === 'textarea'"
+            :type="type"
             autosize
             v-model="formModel.editValue"
             autocomplete="off"
           />
           <el-radio-group
-            v-else-if="fieldType === 'radio'"
+            v-else-if="type === 'radio'"
             v-model="formModel.editValue"
           >
-            <el-radio v-for="item in options" :key="item" :label="item">{{
-              item
-            }}</el-radio>
+            <el-radio
+              v-for="item in options"
+              :key="item.value"
+              :label="item.value"
+              >{{ item.label }}</el-radio
+            >
           </el-radio-group>
         </el-form-item>
         <!-- 展示区域 -->
@@ -40,33 +43,63 @@
   </el-form>
 </template>
 <script>
+import { computed, ref, reactive } from 'vue';
+
 export default {
   name: 'EditableText',
-  props: ['type', 'options', 'label', 'prop', 'value', 'confirm', 'rules'],
-  data() {
-    return {
-      visible: false,
-      formModel: {
-        editValue: '',
+  props: {
+    // 表单类型
+    type: {
+      validator: function (value) {
+        return ['text', 'textarea', 'radio'].includes(value);
       },
+      default: 'text',
+    },
+    // 当type为radio，options为必选项
+    options: {
+      validator: function (value) {
+        return value.every((item) => item.label && item.value) || !value;
+      },
+    },
+    label: String,
+    // 表单字段名称
+    prop: {
+      type: String,
+      required: true,
+    },
+    // 表单值
+    value: {
+      type: String,
+      required: true,
+    },
+    // 确定修改回调
+    confirm: Function,
+    // 表单校验规则
+    rules: Object,
+  },
+  setup(props) {
+    const formModel = reactive({ editValue: '' });
+    const visible = ref(false);
+    const formRules = computed(() => ({
+      [props.prop]: props.rules,
+    }));
+    const handleEdit = () => {
+      formModel.editValue = props.value;
+      visible.value = true;
+    };
+    const handleCancel = () => {
+      visible.value = false;
+    };
+    return {
+      formRules,
+      visible,
+      formModel,
+      handleCancel,
+      handleEdit,
     };
   },
-  computed: {
-    formRules() {
-      return {
-        [this.prop]: this.rules,
-      };
-    },
-    fieldType() {
-      return this.type || 'text';
-    },
-  },
-
   methods: {
-    handleEdit() {
-      this.formModel.editValue = this.value;
-      this.visible = true;
-    },
+    // 表单提交
     handleConfirm() {
       this.$refs['editForm'].validate((valid) => {
         if (valid) {
@@ -77,9 +110,6 @@ export default {
           return false;
         }
       });
-    },
-    handleCancel() {
-      this.visible = false;
     },
   },
 };

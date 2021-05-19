@@ -1,9 +1,9 @@
 <!--
- * @Description: file content
+ * @Description: 权限限制
  * @Author: tangguowei
  * @Date: 2021-05-19 15:54:56
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 15:54:56
+ * @LastEditTime: 2021-05-19 20:11:39
 -->
 <template>
   <teleport to="#app">

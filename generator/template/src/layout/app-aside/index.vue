@@ -1,9 +1,9 @@
 <!--
- * @Description: file content
+ * @Description: 页面侧边导航栏
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 15:31:30
+ * @LastEditTime: 2021-05-19 20:26:56
 -->
 <template>
   <el-aside>
@@ -14,7 +14,7 @@
     <el-menu
       router
       uniqueOpened
-      :default-active="permission.activeRoute.name"
+      :default-active="activeRoute.name"
       text-color="#7b8190"
       active-text-color="#5b73e8"
     >
@@ -29,6 +29,7 @@ import AsideItem from './item';
 import { mapState } from 'vuex';
 
 export default {
+  name: 'APPAside',
   components: {
     AsideItem,
   },
@@ -38,11 +39,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(['permission']),
+    ...mapState(['activeRoute']),
   },
 };
 </script>
 <style>
+/* 覆盖组件默认样式 */
 .el-aside {
   background-color: #fff;
 }

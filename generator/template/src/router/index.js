@@ -11,6 +11,7 @@ import { ElLoading } from 'element-plus';
 import { getToken } from '@/utils/token';
 import Layout from '@/layout/basic-layout';
 import store from '@/store';
+import { h } from 'vue';
 
 /**
  *
@@ -100,6 +101,7 @@ export const routes = [
         name: 'CardTable',
         meta: {
           title: '卡片列表',
+          auth: ['管理员'],
         },
         component: CardTable,
       },
@@ -168,6 +170,21 @@ export const routes = [
       isScreen: true,
     },
     component: () => import('../views/error/500'),
+  },
+  // 刷新路由
+  {
+    hidden: true,
+    path: '/refresh',
+    name: 'Refresh',
+    meta: {
+      title: '页面刷新',
+    },
+    component: {
+      beforeRouteEnter(to, from, next) {
+        next((instance) => instance.$router.replace({ name: from.name }));
+      },
+      render: () => h('div', ''),
+    },
   },
   // 未匹配到路由的缺省设置必须放在最后
   {

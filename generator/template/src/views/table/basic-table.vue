@@ -1,9 +1,9 @@
 <!--
- * @Description: file content
+ * @Description: 基础列表
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 16:58:41
+ * @LastEditTime: 2021-05-19 20:19:10
 -->
 <template>
   <div class="search-card">
@@ -47,13 +47,15 @@ import useGoods from './composables/useGoods';
 import useGoodsSearch from './composables/useGoodsSearch';
 
 export default defineComponent({
+  name: 'BasicTable',
   components: {
     Expect,
   },
   setup() {
     const { storeRepositories, storeId } = useStores();
     const { goodsRepositories } = useGoods(storeId);
-    const { searchQuery, repositoriesMatchingSearchQuery, setSearchQuery } = useGoodsSearch(goodsRepositories);
+    const { searchQuery, repositoriesMatchingSearchQuery, setSearchQuery } =
+      useGoodsSearch(goodsRepositories);
     return {
       storeRepositories,
       storeId,

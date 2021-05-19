@@ -1,3 +1,10 @@
+<!--
+ * @Description: 注册
+ * @Author: tangguowei
+ * @Date: 2021-05-19 19:44:29
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 20:09:47
+-->
 <template>
   <teleport to="#app">
     <div class="auth">
@@ -91,7 +98,9 @@ export default {
       }
     };
     return {
+      // 是否表单提交中
       loading: false,
+      // 表单值
       ruleForm: {
         email: '',
         password: '',
@@ -115,6 +124,7 @@ export default {
     };
   },
   methods: {
+    // 表单提交
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

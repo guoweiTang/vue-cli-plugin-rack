@@ -1,9 +1,9 @@
 <!--
- * @Description: file content
+ * @Description: 入口模板
  * @Author: tangguowei
  * @Date: 2021-05-19 14:54:00
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 16:08:36
+ * @LastEditTime: 2021-05-19 20:21:38
 -->
 <template>
   <el-container v-show="!isScreen">

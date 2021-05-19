@@ -1,9 +1,9 @@
 <!--
- * @Description: file content
+ * @Description: 页头
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 15:42:59
+ * @LastEditTime: 2021-05-19 20:25:44
 -->
 <template>
   <el-header height="75px">
@@ -35,7 +35,10 @@
 import { mapState } from 'vuex';
 import { clearToken } from '@/utils/token';
 export default {
-  computed: mapState(['userInfo']),
+  name: 'APPHeader',
+  computed: {
+    ...mapState(['userInfo']),
+  },
   methods: {
     handleMyself() {
       this.$router.push({
@@ -43,14 +46,12 @@ export default {
       });
     },
     clearToken,
-    errorHandler() {
-      return true;
-    },
   },
 };
 </script>
 
 <style>
+/* 覆盖组件默认样式 */
 .el-header {
   background-color: #fff;
   display: flex;

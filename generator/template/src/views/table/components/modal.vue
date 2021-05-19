@@ -1,5 +1,12 @@
+<!--
+ * @Description: 编辑服务弹窗
+ * @Author: tangguowei
+ * @Date: 2021-05-19 20:15:47
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 20:29:28
+-->
 <template>
-  <el-dialog v-model="visible">
+  <el-dialog v-model="visible" title="编辑">
     <el-form ref="modalForm" :model="formData" :rules="rules">
       <el-form-item label="标题" prop="title">
         <el-input v-model="formData.title" autocomplete="off" />
@@ -18,9 +25,10 @@
 </template>
 
 <script>
-import { updateService } from '../../service';
+import { updateService } from '@/views/service';
 
 export default {
+  name: 'Modal',
   emits: ['handleEditSuccess'],
   data() {
     return {

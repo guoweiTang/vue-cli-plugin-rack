@@ -1,3 +1,10 @@
+<!--
+ * @Description: 重置密码
+ * @Author: tangguowei
+ * @Date: 2021-05-19 19:44:29
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 20:10:56
+-->
 <template>
   <teleport to="#app">
     <div class="auth">
@@ -103,6 +110,7 @@ export default {
     };
   },
   methods: {
+    // 表单提交
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

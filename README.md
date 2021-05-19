@@ -2,7 +2,7 @@
 Element Plus plugin for `@vue/cli` 4.5.
 
 ## Language
-[中文](https://github.com/guoweiTang/vue-cli-plugin-rack/README.zh.md)
+[中文](https://github.com/guoweiTang/vue-cli-plugin-rack/blob/master/README.zh.md)
 
 ## Install
 

@@ -2,7 +2,7 @@
 UI基于element-plus以及构建工具基于 `@vue/cli 4.5` 的一套完整的后台系统解决方案
 
 ## 语言
-[English](https://github.com/guoweiTang/vue-cli-plugin-rack/README.md)
+[English](https://github.com/guoweiTang/vue-cli-plugin-rack/)
 
 ## 安装
 

@@ -1,67 +1,69 @@
 <template>
-  <div class="auth">
-    <div class="modal-box">
-      <div class="modal-header">
-        <dl class="auth-logo">
-          <dt>
-            <img
-              src="../../assets/logo.png"
-              alt="logo"
-              width="34"
-              height="34"
-            />
-          </dt>
-          <dd>VUE RACK</dd>
-        </dl>
-        <h2>注册</h2>
-        <p>创建你的免费账户</p>
-      </div>
-      <el-form
-        label-position="top"
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="100px"
-        class="demo-ruleForm"
-        @keyup.enter="submitForm('ruleForm')"
-      >
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input
-            show-password
-            type="password"
-            v-model="ruleForm.password"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPassword">
-          <el-input
-            show-password
-            type="password"
-            v-model="ruleForm.checkPassword"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            @click="submitForm('ruleForm')"
-            :loading="loading"
-            >注册</el-button
-          >
-        </el-form-item>
-        <div class="no-acoout">
-          已有账户？<router-link :to="{ name: 'Login' }"
-            ><el-link type="primary" :underline="false"
-              >去登录</el-link
-            ></router-link
-          >
+  <teleport to="#app">
+    <div class="auth">
+      <div class="modal-box">
+        <div class="modal-header">
+          <dl class="auth-logo">
+            <dt>
+              <img
+                src="../../assets/logo.png"
+                alt="logo"
+                width="34"
+                height="34"
+              />
+            </dt>
+            <dd>VUE RACK</dd>
+          </dl>
+          <h2>注册</h2>
+          <p>创建你的免费账户</p>
         </div>
-      </el-form>
+        <el-form
+          label-position="top"
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-width="100px"
+          class="demo-ruleForm"
+          @keyup.enter="submitForm('ruleForm')"
+        >
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input
+              show-password
+              type="password"
+              v-model="ruleForm.password"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="checkPassword">
+            <el-input
+              show-password
+              type="password"
+              v-model="ruleForm.checkPassword"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm')"
+              :loading="loading"
+              >注册</el-button
+            >
+          </el-form-item>
+          <div class="no-acoout">
+            已有账户？<router-link :to="{ name: 'Login' }"
+              ><el-link type="primary" :underline="false"
+                >去登录</el-link
+              ></router-link
+            >
+          </div>
+        </el-form>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script>

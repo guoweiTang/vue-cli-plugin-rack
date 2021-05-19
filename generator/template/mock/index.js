@@ -85,8 +85,8 @@ const userinfo = {
   role: '普通用户',
 };
 const allUsers = [{
-  email: 'admin@poeticloud.com',
-  password: 'poeticloud',
+  email: 'admin@vuerack.com',
+  password: 'vuerack',
 }];
 const allStores = [{
   id: '01',

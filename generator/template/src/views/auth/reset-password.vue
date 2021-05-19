@@ -1,66 +1,68 @@
 <template>
-  <div class="auth">
-    <div class="modal-box">
-      <div class="modal-header">
-        <dl class="auth-logo">
-          <dt>
-            <img
-              src="../../assets/logo.png"
-              alt="logo"
-              width="34"
-              height="34"
-            />
-          </dt>
-          <dd>VUE RACK</dd>
-        </dl>
-        <h2>重置密码</h2>
-      </div>
-      <el-form
-        label-position="top"
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="100px"
-        class="demo-ruleForm"
-        @keyup.enter="submitForm('ruleForm')"
-      >
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="旧密码" prop="oldPassword">
-          <el-input
-            show-password
-            type="password"
-            v-model="ruleForm.oldPassword"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="新密码" prop="newPassword">
-          <el-input
-            show-password
-            type="password"
-            v-model="ruleForm.newPassword"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            :loading="loading"
-            @click="submitForm('ruleForm')"
-            >保存</el-button
-          >
-        </el-form-item>
-        <div class="no-acoout">
-          已有账户？<router-link :to="{ name: 'Login' }"
-            ><el-link type="primary" :underline="false"
-              >去登录</el-link
-            ></router-link
-          >
+  <teleport to="#app">
+    <div class="auth">
+      <div class="modal-box">
+        <div class="modal-header">
+          <dl class="auth-logo">
+            <dt>
+              <img
+                src="../../assets/logo.png"
+                alt="logo"
+                width="34"
+                height="34"
+              />
+            </dt>
+            <dd>VUE RACK</dd>
+          </dl>
+          <h2>重置密码</h2>
         </div>
-      </el-form>
+        <el-form
+          label-position="top"
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-width="100px"
+          class="demo-ruleForm"
+          @keyup.enter="submitForm('ruleForm')"
+        >
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="旧密码" prop="oldPassword">
+            <el-input
+              show-password
+              type="password"
+              v-model="ruleForm.oldPassword"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" prop="newPassword">
+            <el-input
+              show-password
+              type="password"
+              v-model="ruleForm.newPassword"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              :loading="loading"
+              @click="submitForm('ruleForm')"
+              >保存</el-button
+            >
+          </el-form-item>
+          <div class="no-acoout">
+            已有账户？<router-link :to="{ name: 'Login' }"
+              ><el-link type="primary" :underline="false"
+                >去登录</el-link
+              ></router-link
+            >
+          </div>
+        </el-form>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script>

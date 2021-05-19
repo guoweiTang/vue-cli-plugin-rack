@@ -1,3 +1,10 @@
+<!--
+ * @Description: file content
+ * @Author: tangguowei
+ * @Date: 2021-05-19 15:31:07
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 15:31:30
+-->
 <template>
   <el-aside>
     <dl class="logo">
@@ -7,7 +14,7 @@
     <el-menu
       router
       uniqueOpened
-      :default-active="pathName"
+      :default-active="permission.activeRoute.name"
       text-color="#7b8190"
       active-text-color="#5b73e8"
     >
@@ -19,6 +26,7 @@
 <script>
 import { routes } from '@/router';
 import AsideItem from './item';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -26,15 +34,11 @@ export default {
   },
   data() {
     return {
-      pathName: '',
       routes,
     };
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.pathName = to.name;
-      // 通过 `vm` 访问组件实例
-    });
+  computed: {
+    ...mapState(['permission']),
   },
 };
 </script>

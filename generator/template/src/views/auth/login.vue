@@ -1,71 +1,73 @@
 <template>
-  <div class="auth">
-    <div class="modal-box">
-      <div class="modal-header">
-        <dl class="auth-logo">
-          <dt>
-            <img
-              src="../../assets/logo.png"
-              alt="logo"
-              width="34"
-              height="34"
-            />
-          </dt>
-          <dd>VUE RACK</dd>
-        </dl>
-        <h2>登录</h2>
-        <p>登录以继续使用</p>
+  <teleport to="#app">
+    <div class="auth">
+      <div class="modal-box">
+        <div class="modal-header">
+          <dl class="auth-logo">
+            <dt>
+              <img
+                src="../../assets/logo.png"
+                alt="logo"
+                width="34"
+                height="34"
+              />
+            </dt>
+            <dd>VUE RACK</dd>
+          </dl>
+          <h2>登录</h2>
+          <p>登录以继续使用</p>
+        </div>
+        <el-form
+          label-position="top"
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-width="100px"
+          class="demo-ruleForm"
+          @keyup.enter="submitForm('ruleForm')"
+        >
+          <el-form-item label="邮箱" prop="email">
+            <el-input
+              placeholder="admin@vuerack.com"
+              v-model="ruleForm.email"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input
+              placeholder="vuerack"
+              show-password
+              type="password"
+              v-model="ruleForm.password"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <div :style="{ marginBottom: '10px', textAlign: 'right' }">
+            <router-link to="reset-password"
+              ><el-link type="primary" :underline="false"
+                >忘记密码？</el-link
+              ></router-link
+            >
+          </div>
+          <el-form-item>
+            <el-button
+              type="primary"
+              :loading="loading"
+              @click="submitForm('ruleForm')"
+              >登录</el-button
+            >
+          </el-form-item>
+          <div class="no-acoout">
+            还没有账户？<router-link :to="{ name: 'Register' }"
+              ><el-link type="primary" :underline="false"
+                >去注册</el-link
+              ></router-link
+            >
+          </div>
+        </el-form>
       </div>
-      <el-form
-        label-position="top"
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="100px"
-        class="demo-ruleForm"
-        @keyup.enter="submitForm('ruleForm')"
-      >
-        <el-form-item label="邮箱" prop="email">
-          <el-input
-            placeholder="admin@poeticloud.com"
-            v-model="ruleForm.email"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input
-            placeholder="poeticloud"
-            show-password
-            type="password"
-            v-model="ruleForm.password"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <div :style="{ marginBottom: '10px', textAlign: 'right' }">
-          <router-link to="reset-password"
-            ><el-link type="primary" :underline="false"
-              >忘记密码？</el-link
-            ></router-link
-          >
-        </div>
-        <el-form-item>
-          <el-button
-            type="primary"
-            :loading="loading"
-            @click="submitForm('ruleForm')"
-            >登录</el-button
-          >
-        </el-form-item>
-        <div class="no-acoout">
-          还没有账户？<router-link :to="{ name: 'Register' }"
-            ><el-link type="primary" :underline="false"
-              >去注册</el-link
-            ></router-link
-          >
-        </div>
-      </el-form>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script>
@@ -141,7 +143,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100%;
+  min-height: 100vh;
   background-image: url('./assets/bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;

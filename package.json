@@ -1,11 +1,11 @@
 {
   "name": "vue-cli-plugin-rack",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0-beta.4",
   "description": "vue-cli plugin to add vuex and router and axios and authorization and mock and so on.",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/poeticloud/vue-cli-plugin-rack.git"
+    "url": "git+https://github.com/guoweiTang/vue-cli-plugin-rack.git"
   },
   "keywords": [
     "vue",
@@ -17,7 +17,7 @@
   "author": "ice",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/poeticloud/vue-cli-plugin-rack/issues"
+    "url": "https://github.com/guoweiTang/vue-cli-plugin-rack/issues"
   },
-  "homepage": "https://github.com/poeticloud/vue-cli-plugin-rack#readme"
+  "homepage": "https://github.com/guoweiTang/vue-cli-plugin-rack#readme"
 }

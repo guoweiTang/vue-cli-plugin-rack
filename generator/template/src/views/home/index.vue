@@ -1,3 +1,10 @@
+<!--
+ * @Description: 首页
+ * @Author: tangguowei
+ * @Date: 2021-05-19 14:40:07
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 14:40:14
+-->
 <template>
   <div class="home">
     <img alt="Vue logo" src="../../assets/logo.png" />
@@ -7,7 +14,7 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import HelloWorld from '@/layout/HelloWorld.vue';
 
 export default {
   name: 'Home',

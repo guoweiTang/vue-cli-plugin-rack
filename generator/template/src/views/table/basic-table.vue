@@ -1,3 +1,10 @@
+<!--
+ * @Description: file content
+ * @Author: tangguowei
+ * @Date: 2021-05-19 16:58:40
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 16:58:41
+-->
 <template>
   <div class="search-card">
     <span>商店名称：</span>
@@ -46,11 +53,7 @@ export default defineComponent({
   setup() {
     const { storeRepositories, storeId } = useStores();
     const { goodsRepositories } = useGoods(storeId);
-    const {
-      searchQuery,
-      repositoriesMatchingSearchQuery,
-      setSearchQuery,
-    } = useGoodsSearch(goodsRepositories);
+    const { searchQuery, repositoriesMatchingSearchQuery, setSearchQuery } = useGoodsSearch(goodsRepositories);
     return {
       storeRepositories,
       storeId,

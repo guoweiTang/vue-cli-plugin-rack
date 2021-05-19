@@ -7,19 +7,23 @@ import BasicTable from '../views/table/basic-table';
 import CardTable from '../views/table/card-table';
 import UserInfo from '../views/account';
 import Authorzation from '../views/account/authorzation';
-import AppAside from '@/components/app-aside';
-import AppHeader from '@/components/app-header';
-import AppFooter from '@/components/app-footer';
 import { ElLoading } from 'element-plus';
 import { getToken } from '@/utils/token';
-import Layout from '@/App.vue';
+import Layout from '@/layout/basic-layout';
 import store from '@/store';
 
-const commonComponents = {
-  AppHeader,
-  AppAside,
-  AppFooter,
-};
+/**
+ *
+ * hidden: true                   是否不出现在侧边栏导航
+ * path: 'router-path'            路由路径
+ * name:'router-name'             路由名称（必须设置）
+ * meta : {
+    isScreen: boolean            是否全屏显示（登录，注册，404等界面通常设置）
+    auth: []/boolean             账户认证级别，可以传布尔值或者数组
+    title: 'title'               标签页名称，侧边栏导航名称（必须设置）
+    icon: 'el-icon-x'            侧边栏导航图标
+  }
+ */
 export const routes = [
   {
     path: '/',
@@ -27,11 +31,9 @@ export const routes = [
     meta: {
       title: '首页',
       icon: 'el-icon-s-home',
+      auth: true,
     },
-    components: {
-      ...commonComponents,
-      default: Home,
-    },
+    component: Home,
   },
   {
     hidden: true,
@@ -39,6 +41,7 @@ export const routes = [
     name: 'Auth',
     meta: {
       title: '账户认证',
+      isScreen: true,
     },
     component: Layout,
     redirect: {
@@ -90,10 +93,7 @@ export const routes = [
         meta: {
           title: '基础列表',
         },
-        components: {
-          ...commonComponents,
-          default: BasicTable,
-        },
+        component: BasicTable,
       },
       {
         path: 'card-table',
@@ -101,10 +101,7 @@ export const routes = [
         meta: {
           title: '卡片列表',
         },
-        components: {
-          ...commonComponents,
-          default: CardTable,
-        },
+        component: CardTable,
       },
     ],
   },
@@ -128,10 +125,7 @@ export const routes = [
           title: '用户权限',
           icon: 'el-icon-lock',
         },
-        components: {
-          ...commonComponents,
-          default: Authorzation,
-        },
+        component: Authorzation,
       },
       {
         hidden: true,
@@ -139,12 +133,10 @@ export const routes = [
         name: 'UserInfo',
         meta: {
           title: '我的账户',
+          isScreen: true,
           auth: ['普通用户'],
         },
-        components: {
-          ...commonComponents,
-          default: UserInfo,
-        },
+        component: UserInfo,
       },
     ],
   },
@@ -154,6 +146,7 @@ export const routes = [
     name: '403',
     meta: {
       title: '403',
+      isScreen: true,
     },
     component: () => import('../views/error/403'),
   },
@@ -163,6 +156,7 @@ export const routes = [
     name: '404',
     meta: {
       title: '404',
+      isScreen: true,
     },
     component: () => import('../views/error/404'),
   },
@@ -172,6 +166,7 @@ export const routes = [
     name: '500',
     meta: {
       title: '500',
+      isScreen: true,
     },
     component: () => import('../views/error/500'),
   },
@@ -196,8 +191,30 @@ router.beforeEach(async (to, from, next) => {
     fullscreen: true,
     text: '精彩内容即将呈现……',
   });
+  // 判断是否全屏显示该路由（通常都是登录，注册，404等页面）
+  if (to.matched.some((item) => item.meta.isScreen)) {
+    store.commit('setIsScreen', true);
+  } else {
+    store.commit('setIsScreen', false);
+  }
   const { accessToken: token } = getToken();
   if (token) {
+    // 当前用户角色
+    let currentRole = store.state.userInfo.role;
+    // 未获取用户信息，获取用户信息
+    if (!currentRole && to.meta.auth) {
+      try {
+        const data = await store.dispatch('getUserInfo');
+        currentRole = data.role;
+      } catch (e) {
+        if (e.response.status === 500) {
+          next({
+            name: '500',
+          });
+        }
+      }
+    }
+
     if (to.name === 'Login') {
       // 如果登录状态 禁止进入登录页
       next({
@@ -212,11 +229,6 @@ router.beforeEach(async (to, from, next) => {
     ) {
       // 需要身份校验
       let canVisit;
-      let currentRole = store.state.userInfo.role;
-      if (!currentRole) {
-        const data = await store.dispatch('getUserInfo');
-        currentRole = data.role;
-      }
       for (let {
         meta: { auth },
       } of to.matched.reverse()) {
@@ -252,6 +264,9 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   }
+
+  // 更新当前活跃路由
+  store.commit('setActiveRoute', to);
 });
 
 router.afterEach((to) => {

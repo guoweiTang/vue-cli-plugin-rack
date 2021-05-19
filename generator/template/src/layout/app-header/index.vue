@@ -1,3 +1,10 @@
+<!--
+ * @Description: file content
+ * @Author: tangguowei
+ * @Date: 2021-05-19 15:42:49
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 15:42:59
+-->
 <template>
   <el-header height="75px">
     <el-dropdown trigger="click">
@@ -25,12 +32,11 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 import { clearToken } from '@/utils/token';
 export default {
   computed: mapState(['userInfo']),
   methods: {
-    ...mapActions['getUserInfo'],
     handleMyself() {
       this.$router.push({
         name: 'UserInfo',
@@ -40,14 +46,6 @@ export default {
     errorHandler() {
       return true;
     },
-  },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      // 通过 `vm` 访问组件实例
-      if (!vm.userInfo.name) {
-        vm.$store.dispatch('getUserInfo');
-      }
-    });
   },
 };
 </script>

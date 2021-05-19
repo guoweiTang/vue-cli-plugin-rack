@@ -1,12 +1,19 @@
+<!--
+ * @Description: file content
+ * @Author: tangguowei
+ * @Date: 2021-05-19 14:54:00
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-05-19 16:08:36
+-->
 <template>
   <el-container v-show="!isScreen">
-    <router-view name="AppAside" />
+    <AppAside />
     <el-container direction="vertical">
-      <router-view name="AppHeader" />
+      <AppHeader />
       <el-main>
         <router-view />
       </el-main>
-      <router-view name="AppFooter" />
+      <AppFooter />
     </el-container>
   </el-container>
 </template>
@@ -14,8 +21,16 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapState } from 'vuex';
+import AppAside from '@/layout/app-aside';
+import AppHeader from '@/layout/app-header';
+import AppFooter from '@/layout/app-footer';
 
 export default defineComponent({
+  components: {
+    AppAside,
+    AppHeader,
+    AppFooter,
+  },
   computed: {
     ...mapState(['isScreen']),
   },

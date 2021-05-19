@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-05-19 19:58:59
 -->
 <template>
-  <el-footer>PoetiCloud ©2021 Created by PoetiCloud UED</el-footer>
+  <el-footer>VueRack ©2021 Created by VueRack UED</el-footer>
 </template>
 
 <style>

@@ -20,12 +20,13 @@ const commonComponents = {
   AppAside,
   AppFooter,
 };
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',
     meta: {
-      title: 'vue-rack',
+      title: '首页',
+      icon: 'el-icon-s-home',
     },
     components: {
       ...commonComponents,
@@ -33,7 +34,12 @@ const routes = [
     },
   },
   {
+    hidden: true,
     path: '/auth',
+    name: 'Auth',
+    meta: {
+      title: '账户认证',
+    },
     component: Layout,
     redirect: {
       name: 'Login',
@@ -67,6 +73,12 @@ const routes = [
   },
   {
     path: '/table',
+    name: 'Table',
+    meta: {
+      title: '列表',
+      icon: 'el-icon-s-grid',
+      auth: true,
+    },
     component: Layout,
     redirect: {
       name: 'BasicTable',
@@ -77,7 +89,6 @@ const routes = [
         name: 'BasicTable',
         meta: {
           title: '基础列表',
-          auth: true,
         },
         components: {
           ...commonComponents,
@@ -89,7 +100,6 @@ const routes = [
         name: 'CardTable',
         meta: {
           title: '卡片列表',
-          auth: true,
         },
         components: {
           ...commonComponents,
@@ -100,6 +110,12 @@ const routes = [
   },
   {
     path: '/account',
+    name: 'Account',
+    meta: {
+      title: '个人账户',
+      icon: 'el-icon-user-solid',
+      auth: true,
+    },
     component: Layout,
     redirect: {
       name: 'UserInfo',
@@ -110,6 +126,7 @@ const routes = [
         name: 'Authorzation',
         meta: {
           title: '用户权限',
+          icon: 'el-icon-lock',
         },
         components: {
           ...commonComponents,
@@ -117,6 +134,7 @@ const routes = [
         },
       },
       {
+        hidden: true,
         path: 'userinfo',
         name: 'UserInfo',
         meta: {
@@ -131,6 +149,7 @@ const routes = [
     ],
   },
   {
+    hidden: true,
     path: '/403',
     name: '403',
     meta: {
@@ -139,6 +158,7 @@ const routes = [
     component: () => import('../views/error/403'),
   },
   {
+    hidden: true,
     path: '/404',
     name: '404',
     meta: {
@@ -147,6 +167,7 @@ const routes = [
     component: () => import('../views/error/404'),
   },
   {
+    hidden: true,
     path: '/500',
     name: '500',
     meta: {
@@ -155,7 +176,13 @@ const routes = [
     component: () => import('../views/error/500'),
   },
   // 未匹配到路由的缺省设置必须放在最后
-  { path: '/:catchAll(.*)', name: 'NotFound', redirect: { name: '404' } },
+  {
+    hidden: true,
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    meta: { title: '未找到页面' },
+    redirect: { name: '404' },
+  },
 ];
 
 const router = createRouter({

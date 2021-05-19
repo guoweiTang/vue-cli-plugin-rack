@@ -11,39 +11,23 @@
       text-color="#7b8190"
       active-text-color="#5b73e8"
     >
-      <el-menu-item index="Home" :route="{ name: 'Home' }">
-        <template #title>
-          <i class="el-icon-s-home"></i>
-          <span>首页</span>
-        </template>
-      </el-menu-item>
-      <el-menu-item index="Authorzation" :route="{ name: 'Authorzation' }">
-        <template #title>
-          <i class="el-icon-lock"></i>
-          <span>权限设置</span>
-        </template>
-      </el-menu-item>
-      <el-submenu class="no-drop-down" index="table">
-        <template #title>
-          <i class="el-icon-ice-drink"></i>
-          <span>列表</span>
-        </template>
-        <el-menu-item index="BasicTable" :route="{ name: 'BasicTable' }"
-          >基础列表</el-menu-item
-        >
-        <el-menu-item index="CardTable" :route="{ name: 'CardTable' }"
-          >卡片列表</el-menu-item
-        >
-      </el-submenu>
+      <AsideItem v-for="(route, index) of routes" :key="index" :item="route" />
     </el-menu>
   </el-aside>
 </template>
 
 <script>
+import { routes } from '@/router';
+import AsideItem from './item';
+
 export default {
+  components: {
+    AsideItem,
+  },
   data() {
     return {
       pathName: '',
+      routes,
     };
   },
   beforeRouteEnter(to, from, next) {

@@ -97,8 +97,8 @@ export default {
       loading: false,
       // 表单值
       ruleForm: {
-        email: '',
-        password: '',
+        email: 'admin@vuerack.com',
+        password: 'vuerack',
       },
       rules: {
         email: [

@@ -133,7 +133,6 @@ export const routes = [
         name: 'UserInfo',
         meta: {
           title: '我的账户',
-          isScreen: true,
           auth: ['普通用户'],
         },
         component: UserInfo,

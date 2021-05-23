@@ -3,10 +3,14 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:25:44
+ * @LastEditTime: 2021-05-24 00:49:00
 -->
 <template>
   <el-header height="75px">
+    <i
+      :class="collapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+      @click="$emit('handleToggleCollapse')"
+    ></i>
     <el-dropdown trigger="click">
       <span class="el-dropdown-link">
         <el-avatar
@@ -19,7 +23,10 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="el-icon-user" @click="handleMyself"
+          <el-dropdown-item
+            v-show="userInfo.role === '普通用户'"
+            icon="el-icon-user"
+            @click="handleMyself"
             >我的账户</el-dropdown-item
           >
           <el-dropdown-item icon="el-icon-switch-button" @click="clearToken"
@@ -36,6 +43,8 @@ import { mapState } from 'vuex';
 import { clearToken } from '@/utils/token';
 export default {
   name: 'APPHeader',
+  props: ['collapse'],
+  emits: ['handleToggleCollapse'],
   computed: {
     ...mapState(['userInfo']),
   },
@@ -56,7 +65,7 @@ export default {
   background-color: #fff;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 .el-header .el-avatar {

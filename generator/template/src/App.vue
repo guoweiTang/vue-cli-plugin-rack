@@ -3,13 +3,16 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 14:54:00
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:21:38
+ * @LastEditTime: 2021-05-24 00:47:05
 -->
 <template>
   <el-container v-show="!isScreen">
-    <AppAside />
+    <AppAside :collapse="collapse" />
     <el-container direction="vertical">
-      <AppHeader />
+      <AppHeader
+        :collapse="collapse"
+        @handleToggleCollapse="handleToggleCollapse"
+      />
       <el-main>
         <router-view />
       </el-main>
@@ -19,7 +22,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import { mapState } from 'vuex';
 import AppAside from '@/layout/app-aside';
 import AppHeader from '@/layout/app-header';
@@ -34,7 +37,29 @@ export default defineComponent({
   computed: {
     ...mapState(['isScreen']),
   },
-  setup() {},
+  setup() {
+    const collapse = ref(false);
+    const handleToggleCollapse = () => {
+      collapse.value = !collapse.value;
+    };
+    const handleResize = () => {
+      const widthOfWindow = document.documentElement.clientWidth;
+      if (widthOfWindow < 1281) {
+        collapse.value = true;
+      } else {
+        collapse.value = false;
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    // 初始化浏览视口以正确显示
+    onMounted(() => {
+      handleResize();
+    });
+    return {
+      collapse,
+      handleToggleCollapse,
+    };
+  },
 });
 </script>
 

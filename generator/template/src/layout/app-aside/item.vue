@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:26:35
+ * @LastEditTime: 2021-05-24 00:48:21
 -->
 <template>
   <template v-if="isShowing">
@@ -12,8 +12,8 @@
       :index="item.name"
       :route="{ name: item.name }"
     >
+      <i v-if="item.meta.icon" :class="item.meta.icon"></i>
       <template #title>
-        <i v-if="item.meta.icon" :class="item.meta.icon"></i>
         <span>{{ item.meta.title }}</span>
       </template>
     </el-menu-item>

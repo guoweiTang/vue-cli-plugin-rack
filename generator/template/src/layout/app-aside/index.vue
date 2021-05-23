@@ -3,15 +3,19 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:26:56
+ * @LastEditTime: 2021-05-24 00:47:59
 -->
 <template>
-  <el-aside>
-    <dl class="logo">
-      <dt><img src="../../assets/logo.png" alt="logo" /></dt>
-      <dd>VUE RACK</dd>
-    </dl>
+  <el-aside style="width: unset">
+    <div class="logo-bar" :style="{ width: collapse ? '64px' : 'inherit' }">
+      <div class="logo-content">
+        <img src="../../assets/logo.png" alt="logo" />
+        <span v-show="!collapse">VUE RACK</span>
+      </div>
+    </div>
     <el-menu
+      class="aside-menu"
+      :collapse="collapse"
       router
       uniqueOpened
       :default-active="activeRoute.name"
@@ -33,6 +37,7 @@ export default {
   components: {
     AsideItem,
   },
+  props: ['collapse'],
   data() {
     return {
       routes,
@@ -45,27 +50,36 @@ export default {
 </script>
 <style>
 /* 覆盖组件默认样式 */
+.aside-menu:not(.el-menu--collapse) {
+  width: 240px;
+}
 .el-aside {
   background-color: #fff;
 }
-.logo {
+.logo-bar {
+  overflow: hidden;
+  border-bottom: 1px solid #dcdfe6;
+  padding: 15px 0 16px;
+}
+.logo-content {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  align-content: center;
   font-size: 20px;
+  line-height: 44px;
   font-weight: bold;
   color: #1d3042;
-  padding: 18px;
 }
-.logo img {
-  width: 40px;
-  height: 40px;
+.logo-content > * {
+  margin: 0 12px;
+}
+.logo-content img {
+  width: 44px;
 }
 .el-menu {
   border-right: none !important;
 }
 .el-aside {
-  width: 200px !important;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 .el-submenu__title:hover,

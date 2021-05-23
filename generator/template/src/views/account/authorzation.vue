@@ -3,13 +3,13 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:03:01
+ * @LastEditTime: 2021-05-24 00:49:30
 -->
 <template>
   <el-card class="userinfo" body-style="{minHeight: '100%'}">
     <el-alert
       :closable="false"
-      title="默认仅普通用户可访问我的账户页面"
+      title="默认仅“普通用户”可访问「我的账户」页面，“管理员”可访问「卡片列表」页面，"
       :style="{ marginBottom: '20px' }"
       type="warning"
     >

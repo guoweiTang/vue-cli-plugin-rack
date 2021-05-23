@@ -14,6 +14,20 @@ const allServices = [
       'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
   },
   {
+    id: 'b9RpYEPa',
+    title: '示例2',
+    version: '0.3.11',
+    imgUrl:
+      'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
+  },
+  {
+    id: 'b9RpYEPa',
+    title: '示例1',
+    version: '0.2.0',
+    imgUrl:
+      'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
+  },
+  {
     id: 'OZE8QKMA',
     title: '用友累死了',
     version: '0.0.1',
@@ -245,7 +259,6 @@ export default {
         userinfo[item] = req.body[item]
       }
     }
-    console.log(userinfo)
     return res.json(userinfo)
   },
   'GET /goods/:id': function (req, res) {

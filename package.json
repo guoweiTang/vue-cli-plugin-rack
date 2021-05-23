@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-rack",
-  "version": "0.2.0",
+  "version": "0.2.1-beta.0",
   "description": "vue-cli plugin to add vuex and router and axios and authorization and mock and so on.",
   "main": "index.js",
   "repository": {
@@ -9,6 +9,7 @@
   },
   "keywords": [
     "vue",
+    "vue3",
     "vue-cli",
     "@vue/cli",
     "plugin",

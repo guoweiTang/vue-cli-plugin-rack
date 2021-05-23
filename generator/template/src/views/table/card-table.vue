@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:21:11
+ * @LastEditTime: 2021-05-24 00:50:09
 -->
 <template>
   <el-alert
@@ -27,28 +27,26 @@
         <el-card shadow="hover">
           <img :src="item.imgUrl" class="card-picture" />
           <div class="card-main">
-            <span class="card-header">{{ item.title }}</span>
-            <el-row type="flex" align="middle" justify="space-between">
-              <el-col :span="16" class="sub-title">{{ item.version }}</el-col>
-              <el-col :span="6">
-                <el-button-group class="service-options">
-                  <el-button
-                    type="text"
-                    icon="el-icon-edit"
-                    @click="handleEdit(item)"
-                  />
-                  <el-button type="text" icon="el-icon-share" />
-                  <el-popconfirm
-                    title="确定删除该服务吗？"
-                    @confirm="confirmDelete(item)"
-                  >
-                    <template #reference>
-                      <el-button type="text" icon="el-icon-delete" />
-                    </template>
-                  </el-popconfirm>
-                </el-button-group>
-              </el-col>
-            </el-row>
+            <div class="card-header">{{ item.title }}</div>
+            <div class="card-content">
+              <div class="sub-title">{{ item.version }}</div>
+              <el-button-group class="service-options">
+                <el-button
+                  type="text"
+                  icon="el-icon-edit"
+                  @click="handleEdit(item)"
+                />
+                <el-button type="text" icon="el-icon-share" />
+                <el-popconfirm
+                  title="确定删除该服务吗？"
+                  @confirm="confirmDelete(item)"
+                >
+                  <template #reference>
+                    <el-button type="text" icon="el-icon-delete" />
+                  </template>
+                </el-popconfirm>
+              </el-button-group>
+            </div>
           </div>
         </el-card>
       </el-col>
@@ -71,7 +69,7 @@ export default {
       pagination: {
         current: 1,
         total: 0,
-        pageSize: 10,
+        pageSize: 12,
       },
     };
   },
@@ -105,7 +103,7 @@ export default {
       try {
         res = await getAllServices({
           current: this.pagination.current,
-          pageSize: this.pagination.pageSize,
+          page_size: this.pagination.pageSize,
         });
       } catch (e) {
         console.error(e);
@@ -129,12 +127,26 @@ export default {
 .card-main {
   margin-top: 14px;
 }
+.card-header {
+  width: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .card-footer {
   display: flex;
+}
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .sub-title {
   color: #999;
   font-size: 14px;
+}
+.service-options {
+  width: 88px;
 }
 .service-options button:not(:last-child)::after {
   content: '';

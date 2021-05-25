@@ -3,27 +3,34 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-24 00:47:59
+ * @LastEditTime: 2021-05-26 01:30:14
 -->
 <template>
-  <el-aside style="width: unset">
-    <div class="logo-bar" :style="{ width: collapse ? '64px' : 'inherit' }">
-      <div class="logo-content">
-        <img src="../../assets/logo.png" alt="logo" />
-        <span v-show="!collapse">VUE RACK</span>
-      </div>
-    </div>
-    <el-menu
-      class="aside-menu"
-      :collapse="collapse"
-      router
-      uniqueOpened
-      :default-active="activeRoute.name"
-      text-color="#7b8190"
-      active-text-color="#5b73e8"
+  <el-aside style="width: unset" class="aside">
+    <div
+      class="logo-bar"
+      :style="{ width: collapse ? '64px' : '100%', transition: 'width .15s' }"
     >
-      <AsideItem v-for="(route, index) of routes" :key="index" :item="route" />
-    </el-menu>
+      <img src="../../assets/logo.png" alt="logo" />
+      <span>VUE RACK</span>
+    </div>
+    <div class="menu-content">
+      <el-menu
+        class="aside-menu"
+        :collapse="collapse"
+        router
+        uniqueOpened
+        :default-active="activeRoute.name"
+        text-color="#7b8190"
+        active-text-color="#5b73e8"
+      >
+        <AsideItem
+          v-for="(route, index) of routes"
+          :key="index"
+          :item="route"
+        />
+      </el-menu>
+    </div>
   </el-aside>
 </template>
 
@@ -48,32 +55,68 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+.menu-content {
+  height: calc(100vh - 76px);
+  margin-top: 1px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    box-shadow: inset 0 0 5px rgba(0, 21, 41, 0.05);
+    // background: hsla(0, 0%, 100%, 0.2);
+    // border-radius: 3px;
+    // box-shadow: inset 0 0 5px hsla(0, 0%, 100%, 0.05);
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 3px;
+    box-shadow: inset 0 0 5px rgba(0, 21, 41, 0.05);
+    // background: hsla(0, 0%, 100%, 0.15);
+    // border-radius: 3px;
+    // box-shadow: inset 0 0 5px rgba(37, 37, 37, 0.05);
+  }
+}
+</style>
 <style>
 /* 覆盖组件默认样式 */
 .aside-menu:not(.el-menu--collapse) {
   width: 240px;
+}
+.aside {
+  position: relative;
+}
+.aside::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: #dcdfe6;
+  top: 75px;
+  left: 0;
+  z-index: 1;
 }
 .el-aside {
   background-color: #fff;
 }
 .logo-bar {
   overflow: hidden;
-  border-bottom: 1px solid #dcdfe6;
-  padding: 15px 0 16px;
-}
-.logo-content {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  padding: 15px 0;
   font-size: 20px;
   line-height: 44px;
+  text-align: center;
   font-weight: bold;
   color: #1d3042;
+  white-space: nowrap;
 }
-.logo-content > * {
+.logo-bar > * {
   margin: 0 12px;
 }
-.logo-content img {
+.logo-bar img {
   width: 44px;
 }
 .el-menu {

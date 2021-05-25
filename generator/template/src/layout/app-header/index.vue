@@ -3,13 +3,14 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-24 00:49:00
+ * @LastEditTime: 2021-05-26 01:00:29
 -->
 <template>
   <el-header height="75px">
     <i
       :class="collapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
       @click="$emit('handleToggleCollapse')"
+      style="cursor: pointer"
     ></i>
     <el-dropdown trigger="click">
       <span class="el-dropdown-link">

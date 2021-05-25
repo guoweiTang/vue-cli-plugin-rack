@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-26 01:30:14
+ * @LastEditTime: 2021-05-26 01:36:43
 -->
 <template>
   <el-aside style="width: unset" class="aside">
@@ -59,7 +59,7 @@ export default {
 .menu-content {
   height: calc(100vh - 76px);
   margin-top: 1px;
-  overflow-y: scroll;
+  overflow-y: auto;
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;

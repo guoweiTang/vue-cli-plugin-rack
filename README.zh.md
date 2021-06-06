@@ -46,6 +46,8 @@ npm run lint
 npm run prettier
 ```
 ## 界面示例
+> [在线预览](http://guoweitang.net:8080/)（这是本地运行模式，非生产模式，所以代码未优化，加载很慢，这是正常的）
+
 ![image](https://user-images.githubusercontent.com/8178166/118818566-0a052e80-b8e7-11eb-9ab2-1babc30e50a6.png)
 ![image](https://user-images.githubusercontent.com/8178166/118818771-4042ae00-b8e7-11eb-888a-89a039ff2b66.png)
 ![image](https://user-images.githubusercontent.com/8178166/118818855-5b152280-b8e7-11eb-9996-47aee33aa3ee.png)

@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:06:27
+ * @LastEditTime: 2021-06-10 14:58:49
 -->
 <template>
   <el-alert
@@ -16,7 +16,6 @@
   <el-card class="userinfo" body-style="{minHeight: '100%'}">
     <editable-text
       label="用户名"
-      prop="username"
       :value="userInfo.name"
       :rules="rulesOfCommon"
       @confirm="handleConfirmName"
@@ -28,7 +27,6 @@
         { label: '普通用户', value: '普通用户' },
       ]"
       label="你的权限"
-      prop="role"
       :value="userInfo.role"
       @confirm="handleConfirmRole"
     />
@@ -39,13 +37,11 @@
         { label: '女', value: '女' },
       ]"
       label="性别"
-      prop="gender"
       :value="userInfo.gender"
       @confirm="handleConfirmGender"
     />
     <editable-text
       label="一句话介绍"
-      prop="summary"
       :value="userInfo.summary"
       :rules="rulesOfCommon"
       @confirm="handleConfirmSummary"
@@ -53,7 +49,6 @@
     <editable-text
       type="textarea"
       label="个人简介"
-      prop="description"
       :value="userInfo.description"
       :rules="rulesOfCommon"
       @confirm="handleConfirmDescription"

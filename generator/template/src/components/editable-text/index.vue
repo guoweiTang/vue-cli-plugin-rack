@@ -2,24 +2,23 @@
   <el-form
     label-position="left"
     :model="formModel"
-    :rules="formRules"
     ref="editForm"
     label-width="140px"
   >
     <div class="edit-able">
       <el-form-item :label="label">
         <!-- 编辑区域 -->
-        <el-form-item :prop="prop" v-if="visible">
+        <el-form-item prop="targetProp" v-if="visible" :rules="rules">
           <el-input
             v-if="type === 'text' || type === 'textarea'"
             :type="type"
             autosize
-            v-model="formModel.editValue"
+            v-model="formModel.targetProp"
             autocomplete="off"
           />
           <el-radio-group
             v-else-if="type === 'radio'"
-            v-model="formModel.editValue"
+            v-model="formModel.targetProp"
           >
             <el-radio
               v-for="item in options"
@@ -43,7 +42,7 @@
   </el-form>
 </template>
 <script>
-import { computed, ref, reactive } from 'vue';
+import { ref, reactive } from 'vue';
 
 export default {
   name: 'EditableText',
@@ -62,11 +61,6 @@ export default {
       },
     },
     label: String,
-    // 表单字段名称
-    prop: {
-      type: String,
-      required: true,
-    },
     // 表单值
     value: {
       type: String,
@@ -78,20 +72,16 @@ export default {
     rules: Object,
   },
   setup(props) {
-    const formModel = reactive({ editValue: '' });
+    const formModel = reactive({ targetProp: '' });
     const visible = ref(false);
-    const formRules = computed(() => ({
-      [props.prop]: props.rules,
-    }));
     const handleEdit = () => {
-      formModel.editValue = props.value;
+      formModel.targetProp = props.value;
       visible.value = true;
     };
     const handleCancel = () => {
       visible.value = false;
     };
     return {
-      formRules,
       visible,
       formModel,
       handleCancel,
@@ -103,7 +93,7 @@ export default {
     handleConfirm() {
       this.$refs['editForm'].validate((valid) => {
         if (valid) {
-          this.$emit('confirm', this.formModel.editValue);
+          this.$emit('confirm', this.formModel.targetProp);
           this.handleCancel();
         } else {
           console.log('error submit!!');

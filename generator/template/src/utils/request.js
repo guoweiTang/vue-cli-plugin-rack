@@ -31,6 +31,7 @@ export default function request() {
     return tipsText;
   }
 
+  let loadingMessage;
   /**
    * 请求拦截
    */
@@ -39,7 +40,7 @@ export default function request() {
       // 非get,post请求错误处理
       let tipsText = getTipsText(config.method);
       if (tipsText) {
-        Message({
+        loadingMessage = Message({
           message: `正在${tipsText}`,
           iconClass: 'el-icon-loading',
         });
@@ -71,7 +72,7 @@ export default function request() {
       // 非get请求错误处理
       let tipsText = getTipsText(response.config.method);
       if (tipsText) {
-        Message.closeAll();
+        loadingMessage.close();
         if (response.status === 200) {
           Message.success(`${tipsText}成功`);
         } else {
@@ -82,11 +83,11 @@ export default function request() {
       return response;
     },
     (error) => {
-      Message.closeAll();
       const { response, request, message, config } = error;
       // 非get,post请求错误处理
       let tipsText = getTipsText(config.method);
       if (tipsText) {
+        loadingMessage.close();
         if (!response || response.status === 400 || response.status === 403) {
           Message.error(`${tipsText}失败请重试！`);
         }

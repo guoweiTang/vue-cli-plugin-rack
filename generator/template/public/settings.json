@@ -1,5 +1,5 @@
 {
   "is_production": "false",
-  "api_origin": "http://guoweitang.net:8000",
-  "api_pathname": "/api"
+  "api_origin": "http://localhost:3000",
+  "api_pathname": ""
 }

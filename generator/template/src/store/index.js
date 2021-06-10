@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 18:24:20
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 18:48:14
+ * @LastEditTime: 2021-06-10 15:35:03
  */
 import { createStore } from 'vuex';
 import { updateMyInfo, getMyInfo } from '../views/service';
@@ -35,7 +35,6 @@ export default createStore({
             resolve(data);
           })
           .catch((e) => {
-            console.log('cuowu');
             reject(e);
           });
       });

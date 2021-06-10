@@ -6,12 +6,11 @@ import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import axiosRetry from 'axios-retry';
 
 let http;
-const MOCK = process.env.VUE_APP_MOCK === 'true';
 export default function request() {
   if (http) return http;
   const { api_origin, api_pathname } = getSettings();
   http = axios.create({
-    baseURL: MOCK ? '/' : `${api_origin}${api_pathname}`,
+    baseURL: `${api_origin}${api_pathname}`,
     timeout: 10 * 1000,
     withCredentials: false,
   });

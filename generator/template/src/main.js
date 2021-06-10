@@ -6,7 +6,14 @@ import store from './store';
 import axios from 'axios';
 import { setSettings } from './config';
 
-axios('/settings.json')
+const { VUE_APP_MOCK, NODE_ENV } = process.env;
+const url =
+  VUE_APP_MOCK === 'true'
+    ? 'settings-mock.json'
+    : NODE_ENV === 'development'
+    ? 'settings.json'
+    : 'settings-pro.json';
+axios(url)
   .then(({ data }) => {
     setSettings(data);
 

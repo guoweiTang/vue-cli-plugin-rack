@@ -164,7 +164,7 @@ const allStores = [{
 }];
 
 export default {
-  'POST /auth/login': function (req, res) {
+  'POST /api/auth/login': function (req, res) {
     let result;
     const targetIndex = allUsers.findIndex(item => item.email === req.body.email && item.password === req.body.password);
     if (targetIndex > -1) {
@@ -179,7 +179,7 @@ export default {
     }
     return result;
   },
-  'POST /auth/register': function (req, res) {
+  'POST /api/auth/register': function (req, res) {
     let result;
     const targetIndex = allUsers.findIndex(item => item.email === req.body.email);
     if (targetIndex > -1) {
@@ -197,7 +197,7 @@ export default {
     }
     return result;
   },
-  'POST /auth/reset-password': function (req, res) {
+  'POST /api/auth/reset-password': function (req, res) {
     let result;
     const targetIndex = allUsers.findIndex(item => item.email === req.body.email && item.password === req.body.oldPassword);
     if (targetIndex > -1) {
@@ -218,7 +218,7 @@ export default {
     }
     return result;
   },
-  'GET /svc': function (req, res) {
+  'GET /api/services': function (req, res) {
     let {k, page, page_size} = req.query || {};
     let lists = [...allServices];
     const _page_size = page_size || 10;
@@ -232,10 +232,10 @@ export default {
     });
 
   },
-  'POST /svc': {
+  'POST /api/services': {
     message: 'OK',
   },
-  'PUT /svc/:id': function (req, res) {
+  'PUT /api/services/:id': function (req, res) {
     const targetIndex = allServices.findIndex(item => item.id === req.params.id);
     if (targetIndex > -1) {
       allServices[targetIndex] = {
@@ -245,15 +245,15 @@ export default {
     }
     return res.json(allServices)
   },
-  'DELETE /svc/:id': function (req, res) {
+  'DELETE /api/services/:id': function (req, res) {
     const targetIndex = allServices.findIndex(item => item.id === req.params.id);
     if (targetIndex > -1) {
       allServices.splice(targetIndex, 1);
     }
     return res.json(allServices)
   },
-  'GET /userinfo': userinfo,
-  'PUT /userinfo': function (req, res) {
+  'GET /api/account/userinfo': userinfo,
+  'PUT /api/account/userinfo': function (req, res) {
     for(let item of Object.getOwnPropertyNames(userinfo)) {
       if (req.body[item]) {
         userinfo[item] = req.body[item]
@@ -261,7 +261,7 @@ export default {
     }
     return res.json(userinfo)
   },
-  'GET /goods/:id': function (req, res) {
+  'GET /api/stores/:id/goods': function (req, res) {
     const result = allStores.find(item => item.id === req.params.id);
     if (!result) {
       return res.status(400).json({
@@ -274,7 +274,7 @@ export default {
       })
     }
   },
-  'GET /stores': function (req, res) {
+  'GET /api/stores': function (req, res) {
     const result = allStores.map(item => ({
       id: item.id,
       name: item.name,

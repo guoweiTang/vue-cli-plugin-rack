@@ -291,14 +291,14 @@ router.afterEach((to) => {
   window.document.title = to.meta.title;
 
   // 百度统计
-  if (process.env.NODE_ENV === 'production') {
-    const hm = document.createElement('script');
-    hm.src = 'https://hm.baidu.com/hm.js?dd07d83cfbb3ab824ccac61f2cd16467';
-    document.body.appendChild(hm);
-    setTimeout(() => {
-      document.body.removeChild(hm);
-    }, 1000);
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  //   const hm = document.createElement('script');
+  //   hm.src = 'https://hm.baidu.com/hm.js?dd07d83cfbb3ab824ccac61f2cd16467';
+  //   document.body.appendChild(hm);
+  //   setTimeout(() => {
+  //     document.body.removeChild(hm);
+  //   }, 1000);
+  // }
 });
 
 export default router;

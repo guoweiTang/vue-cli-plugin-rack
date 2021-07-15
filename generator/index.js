@@ -7,9 +7,9 @@ module.exports = (api, opts) => {
   }
   api.extendPackage({
     scripts: {
+      'prepare': 'husky install',
       'dev': 'cross-env VUE_APP_MOCK=true vue-cli-service serve',
       'lint': 'vue-cli-service lint && npm run lint:prettier',
-      'lint:js': 'eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src',
       'lint:prettier': 'prettier --check "src/**/*" --end-of-line auto',
       'prettier': 'prettier -c --write "src/**/*"'
     },
@@ -23,16 +23,11 @@ module.exports = (api, opts) => {
     },
     devDependencies: {
       'cross-env': '^7.0.3',
-      'husky': '^6.0.0',
+      'husky': '^7.0.1',
       'prettier': '^2.2.1',
       'sass': '^1.32.11',
       'sass-loader': '^10',
       'vue-cli-plugin-mock': '^1.0.3'
-    },
-    'husky': {
-      'hooks': {
-        'pre-commit': 'npm run lint'
-      }
     },
   })
 }

@@ -1,6 +1,9 @@
 # vue-cli-plugin-rack
 Element Plus plugin for `@vue/cli` 4.5.
 
+[![npm](https://img.shields.io/npm/dm/vue-cli-plugin-rack.svg)](https://github.com/guoweiTang/vue-cli-plugin-rack)
+![NPM](https://img.shields.io/npm/l/vue-cli-plugin-rack)
+
 ## Language
 [中文](https://github.com/guoweiTang/vue-cli-plugin-rack/blob/master/README.zh.md)
 

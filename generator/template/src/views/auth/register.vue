@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:09:47
+ * @LastEditTime: 2021-08-25 15:48:27
 -->
 <template>
   <teleport to="#app">
@@ -61,7 +61,7 @@
             >
           </el-form-item>
           <div class="no-acoout">
-            已有账户？<router-link :to="{ name: 'Login' }"
+            已有账户？<router-link :to="{ name: 'login' }"
               ><el-link type="primary" :underline="false"
                 >去登录</el-link
               ></router-link
@@ -137,7 +137,7 @@ export default {
                 message: '注册成功，请继续登录',
                 onClose: () => {
                   this.$router.push({
-                    name: 'Login',
+                    name: 'login',
                   });
                 },
               });

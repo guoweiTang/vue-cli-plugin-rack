@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:08:46
+ * @LastEditTime: 2021-08-25 15:48:16
 -->
 <template>
   <teleport to="#app">
@@ -65,7 +65,7 @@
             >
           </el-form-item>
           <div class="no-acoout">
-            还没有账户？<router-link :to="{ name: 'Register' }"
+            还没有账户？<router-link :to="{ name: 'register' }"
               ><el-link type="primary" :underline="false"
                 >去注册</el-link
               ></router-link
@@ -130,7 +130,7 @@ export default {
                   // 重定向对象不存在则返回顶层路径
                   this.$router.replace(
                     this.$route.query.redirect || {
-                      name: 'Home',
+                      name: 'home',
                     }
                   );
                 },

@@ -1,5 +1,13 @@
+/*
+ * @Description: file content
+ * @Author: tangguowei
+ * @Date: 2021-08-19 15:47:29
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-08-25 15:07:29
+ */
 import axios from 'axios';
-import { getSettings } from '../config';
+import { apiBaseURL } from '@/config';
+import store from '@/store';
 
 /**
  * 发送请求前判断token是否存在，是否需要重新登录
@@ -22,12 +30,11 @@ export async function initToken(config) {
  * @returns 返回一个Promise对象
  */
 export function refreshToken(failedRequest) {
-  const { api_origin, api_pathname } = getSettings();
   const { reToken: REFRESH_TOKEN } = getToken();
   if (!REFRESH_TOKEN) {
     clearToken();
   }
-  return axios(`${api_origin}${api_pathname}/auth/refresh-token`, {
+  return axios(`${apiBaseURL}/auth/refresh-token`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${REFRESH_TOKEN}`,
@@ -65,6 +72,5 @@ export function getToken() {
 export function clearToken() {
   localStorage.removeItem('ACCESS_TOKEN_USER');
   localStorage.removeItem('REFRESH_TOKEN_USER');
-  // 重新登录
-  window.location.href = '/#/auth/login';
+  store.commit('clearUserInfo');
 }

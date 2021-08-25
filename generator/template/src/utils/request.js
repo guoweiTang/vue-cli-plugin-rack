@@ -1,16 +1,15 @@
 import axios from 'axios';
 import { ElMessage as Message } from 'element-plus';
 import { initToken, refreshToken } from './token';
-import { getSettings } from '../config';
+import { apiBaseURL } from '../config';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import axiosRetry from 'axios-retry';
 
 let http;
 export default function request() {
   if (http) return http;
-  const { api_origin, api_pathname } = getSettings();
   http = axios.create({
-    baseURL: `${api_origin}${api_pathname}`,
+    baseURL: apiBaseURL,
     timeout: 10 * 1000,
     withCredentials: false,
   });

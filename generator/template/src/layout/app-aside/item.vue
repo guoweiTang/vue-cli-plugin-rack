@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-24 00:48:21
+ * @LastEditTime: 2021-08-25 15:04:03
 -->
 <template>
   <template v-if="isShowing">
@@ -22,7 +22,7 @@
         <i v-if="item.meta.icon" :class="item.meta.icon"></i>
         <span>{{ item.meta.title }}</span>
       </template>
-      <AsideItem
+      <MenuItem
         v-for="(child, index) of item.children"
         :key="index"
         :item="child"
@@ -34,7 +34,7 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-  name: 'AsideItem',
+  name: 'MenuItem',
   props: {
     // route object
     item: {
@@ -45,13 +45,14 @@ export default {
   computed: {
     ...mapState(['userInfo']),
     isShowing() {
-      const isArray =
-        Object.prototype.toString.call(this.item.meta.auth) ===
-        '[object Array]';
+      const { hidden, meta } = this.item;
+      const role = this.userInfo.role;
+      const isArray = Array.isArray(meta.auth);
       return (
-        !this.item.hidden &&
-        (!isArray ||
-          (isArray && this.item.meta.auth.includes(this.userInfo.role)))
+        !hidden &&
+        (!meta.auth ||
+          (role &&
+            ((isArray && meta.auth.includes(role)) || meta.auth === true)))
       );
     },
   },

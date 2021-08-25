@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:54:56
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:11:39
+ * @LastEditTime: 2021-08-25 15:23:53
 -->
 <template>
   <teleport to="#app">
@@ -14,7 +14,7 @@
           <h2>403</h2>
           <div class="sub-title">抱歉，你没有权限访问该页面</div>
           <div>
-            <el-button type="primary" @click="$router.replace({ name: 'Home' })"
+            <el-button type="primary" @click="$router.replace({ name: 'home' })"
               >返回首页</el-button
             >
           </div>

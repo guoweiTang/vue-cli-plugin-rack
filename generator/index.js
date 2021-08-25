@@ -8,7 +8,7 @@ module.exports = (api, opts) => {
   api.extendPackage({
     scripts: {
       'prepare': 'husky install && npx husky add .husky/pre-commit "npm run lint"',
-      'dev': 'cross-env VUE_APP_MOCK=true vue-cli-service serve',
+      'mock': 'vue-cli-service serve --mode mock',
       'lint': 'vue-cli-service lint && npm run lint:prettier',
       'lint:prettier': 'prettier --check "src/**/*" --end-of-line auto',
       'prettier': 'prettier -c --write "src/**/*"'
@@ -19,8 +19,9 @@ module.exports = (api, opts) => {
       'axios-retry': '^3.1.9',
       'element-plus': '^1.0.2-beta.35',
       'vue-router': '^4.0.5',
-      'vuex': '^4.0.0'
-    },
+      'vuex': '^4.0.0',
+      'vuex-persistedstate': '^4.0.0'
+  },
     devDependencies: {
       'cross-env': '^7.0.3',
       'husky': '^7.0.1',

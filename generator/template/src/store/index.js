@@ -3,11 +3,12 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 18:24:20
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-06-10 15:35:03
+ * @LastEditTime: 2021-08-25 16:22:10
  */
 import { createStore } from 'vuex';
 import { updateMyInfo, getMyInfo } from '../views/service';
 import router from '@/router';
+import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
   state() {
@@ -15,7 +16,9 @@ export default createStore({
       // 是否全屏显示，隐藏标准文档（利用teleport显示期待的内容）
       isScreen: false,
       // 当前激活路由
-      activeRoute: {},
+      activeRoute: {
+        name: '',
+      },
       // 登录用户信息
       userInfo: {
         name: '',
@@ -44,7 +47,7 @@ export default createStore({
         commit('setUserInfo', payload);
 
         if (payload.role) {
-          router.push({ name: 'Refresh' });
+          router.push({ name: 'refresh' });
         }
       });
     },
@@ -56,12 +59,18 @@ export default createStore({
         ...payload,
       };
     },
+    clearUserInfo(state) {
+      state.userInfo = {};
+    },
     setIsScreen(state, payload) {
       state.isScreen = payload;
     },
-    setActiveRoute(state, payload) {
-      state.activeRoute = payload;
+    setActiveRoute(state, { name }) {
+      if (state.activeRoute.name !== name) {
+        state.activeRoute.name = name;
+      }
     },
   },
   modules: {},
+  plugins: [createPersistedState()],
 });

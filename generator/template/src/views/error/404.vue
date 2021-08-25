@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:55:09
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:12:00
+ * @LastEditTime: 2021-08-25 15:24:01
 -->
 <template>
   <teleport to="#app">
@@ -14,7 +14,7 @@
           <h2>404</h2>
           <div class="sub-title">抱歉，你访问的页面不存在</div>
           <div>
-            <el-button type="primary" @click="$router.replace({ name: 'Home' })"
+            <el-button type="primary" @click="$router.replace({ name: 'home' })"
               >返回首页</el-button
             >
           </div>

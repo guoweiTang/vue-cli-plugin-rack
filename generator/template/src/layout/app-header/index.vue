@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-26 01:00:29
+ * @LastEditTime: 2021-08-25 15:23:21
 -->
 <template>
   <el-header height="75px">
@@ -30,7 +30,7 @@
             @click="handleMyself"
             >我的账户</el-dropdown-item
           >
-          <el-dropdown-item icon="el-icon-switch-button" @click="clearToken"
+          <el-dropdown-item icon="el-icon-switch-button" @click="logout"
             >登出</el-dropdown-item
           >
         </el-dropdown-menu>
@@ -52,10 +52,15 @@ export default {
   methods: {
     handleMyself() {
       this.$router.push({
-        name: 'UserInfo',
+        name: 'userInfo',
       });
     },
-    clearToken,
+    logout() {
+      clearToken();
+      this.$router.push({
+        name: 'refresh',
+      });
+    },
   },
 };
 </script>

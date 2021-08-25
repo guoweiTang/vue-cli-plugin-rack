@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:10:56
+ * @LastEditTime: 2021-08-25 15:48:39
 -->
 <template>
   <teleport to="#app">
@@ -60,7 +60,7 @@
             >
           </el-form-item>
           <div class="no-acoout">
-            已有账户？<router-link :to="{ name: 'Login' }"
+            已有账户？<router-link :to="{ name: 'login' }"
               ><el-link type="primary" :underline="false"
                 >去登录</el-link
               ></router-link
@@ -123,7 +123,7 @@ export default {
                 message: '密码重置成功，请重新登录',
                 onClose: () => {
                   this.$router.push({
-                    name: 'Login',
+                    name: 'login',
                   });
                 },
               });

@@ -28,7 +28,7 @@ import { h } from 'vue';
 export const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     meta: {
       title: '首页',
       icon: 'el-icon-s-home',
@@ -39,19 +39,19 @@ export const routes = [
   {
     hidden: true,
     path: '/auth',
-    name: 'Auth',
+    name: 'auth',
     meta: {
       title: '账户认证',
       isScreen: true,
     },
     component: Layout,
     redirect: {
-      name: 'Login',
+      name: 'login',
     },
     children: [
       {
         path: 'login',
-        name: 'Login',
+        name: 'login',
         meta: {
           title: '登录',
         },
@@ -59,7 +59,7 @@ export const routes = [
       },
       {
         path: 'register',
-        name: 'Register',
+        name: 'register',
         meta: {
           title: '注册',
         },
@@ -67,7 +67,7 @@ export const routes = [
       },
       {
         path: 'reset-password',
-        name: 'ResetPassword',
+        name: 'resetPassword',
         meta: {
           title: '重置密码',
         },
@@ -77,7 +77,7 @@ export const routes = [
   },
   {
     path: '/table',
-    name: 'Table',
+    name: 'table',
     meta: {
       title: '列表',
       icon: 'el-icon-s-grid',
@@ -85,12 +85,12 @@ export const routes = [
     },
     component: Layout,
     redirect: {
-      name: 'BasicTable',
+      name: 'basicTable',
     },
     children: [
       {
         path: 'basic-table',
-        name: 'BasicTable',
+        name: 'basicTable',
         meta: {
           title: '基础列表',
         },
@@ -98,7 +98,7 @@ export const routes = [
       },
       {
         path: 'card-table',
-        name: 'CardTable',
+        name: 'cardTable',
         meta: {
           title: '卡片列表',
           auth: ['管理员'],
@@ -109,7 +109,7 @@ export const routes = [
   },
   {
     path: '/account',
-    name: 'Account',
+    name: 'account',
     meta: {
       title: '个人账户',
       icon: 'el-icon-user-solid',
@@ -117,12 +117,12 @@ export const routes = [
     },
     component: Layout,
     redirect: {
-      name: 'UserInfo',
+      name: 'userInfo',
     },
     children: [
       {
         path: 'authorzation',
-        name: 'Authorzation',
+        name: 'authorzation',
         meta: {
           title: '用户权限',
           icon: 'el-icon-lock',
@@ -132,7 +132,7 @@ export const routes = [
       {
         hidden: true,
         path: 'userinfo',
-        name: 'UserInfo',
+        name: 'userInfo',
         meta: {
           title: '我的账户',
           auth: ['普通用户'],
@@ -175,7 +175,7 @@ export const routes = [
   {
     hidden: true,
     path: '/refresh',
-    name: 'Refresh',
+    name: 'refresh',
     meta: {
       title: '页面刷新',
     },
@@ -190,7 +190,7 @@ export const routes = [
   {
     hidden: true,
     path: '/:catchAll(.*)',
-    name: 'NotFound',
+    name: 'notFound',
     meta: { title: '未找到页面' },
     redirect: { name: '404' },
   },
@@ -208,17 +208,16 @@ router.beforeEach(async (to, from, next) => {
     text: '精彩内容即将呈现……',
   });
   // 判断是否全屏显示该路由（通常都是登录，注册，404等页面）
-  if (to.matched.some((item) => item.meta.isScreen)) {
-    store.commit('setIsScreen', true);
-  } else {
-    store.commit('setIsScreen', false);
+  const isScreen = to.matched.some((item) => item.meta.isScreen);
+  if (isScreen !== store.state.isScreen) {
+    store.commit('setIsScreen', isScreen);
   }
   const { accessToken: token } = getToken();
   if (token) {
     // 当前用户角色
     let currentRole = store.state.userInfo.role;
     // 未获取用户信息，获取用户信息
-    if (!currentRole && to.meta.auth) {
+    if (!currentRole) {
       try {
         const data = await store.dispatch('getUserInfo');
         currentRole = data.role;
@@ -231,24 +230,20 @@ router.beforeEach(async (to, from, next) => {
       }
     }
 
-    if (to.name === 'Login') {
+    if (to.name === 'login') {
       // 如果登录状态 禁止进入登录页
       next({
-        name: 'Home',
+        name: 'home',
       });
     } else if (
-      to.matched.some(
-        (_) =>
-          _.meta.auth &&
-          Object.prototype.toString.call(_.meta.auth) === '[object Array]'
-      )
+      to.matched.some((_) => _.meta.auth && Array.isArray(_.meta.auth))
     ) {
       // 需要身份校验
       let canVisit;
       for (let {
         meta: { auth },
       } of to.matched.reverse()) {
-        if (Object.prototype.toString.call(auth) === '[object Array]') {
+        if (Array.isArray(auth)) {
           canVisit = auth.includes(currentRole);
           break;
         }
@@ -270,7 +265,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.matched.some((_) => _.meta.auth)) {
       // 携带上需校验登录的页面URL跳转至登录界面
       next({
-        name: 'Login',
+        name: 'login',
         query: {
           redirect: to.fullPath,
         },
@@ -280,7 +275,6 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   }
-
   // 更新当前活跃路由
   store.commit('setActiveRoute', to);
 });
@@ -289,16 +283,6 @@ router.afterEach((to) => {
   loadingInstance.close();
   // 更改标题
   window.document.title = to.meta.title;
-
-  // 百度统计
-  // if (process.env.NODE_ENV === 'production') {
-  //   const hm = document.createElement('script');
-  //   hm.src = 'https://hm.baidu.com/hm.js?dd07d83cfbb3ab824ccac61f2cd16467';
-  //   document.body.appendChild(hm);
-  //   setTimeout(() => {
-  //     document.body.removeChild(hm);
-  //   }, 1000);
-  // }
 });
 
 export default router;

@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:48:27
+ * @LastEditTime: 2021-08-26 11:09:08
 -->
 <template>
   <teleport to="#app">
@@ -129,7 +129,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
-          register(this.ruleForm)
+          register({ router: this.$router, data: this.ruleForm })
             .then(() => {
               this.loading = false;
               this.$message.success({

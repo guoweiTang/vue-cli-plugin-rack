@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:48:16
+ * @LastEditTime: 2021-08-26 11:05:37
 -->
 <template>
   <teleport to="#app">
@@ -118,7 +118,10 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
-          getToken(this.ruleForm)
+          getToken({
+            router: this.$router,
+            data: this.ruleForm,
+          })
             .then(({ data }) => {
               this.loading = false;
               const { access_token, refresh_token } = data;

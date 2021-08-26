@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 14:54:00
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-24 00:47:05
+ * @LastEditTime: 2021-08-26 15:02:47
 -->
 <template>
   <el-container v-show="!isScreen">
@@ -24,9 +24,9 @@
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
 import { mapState } from 'vuex';
-import AppAside from '@/layout/app-aside';
-import AppHeader from '@/layout/app-header';
-import AppFooter from '@/layout/app-footer';
+import AppAside from '@/layouts/app-aside';
+import AppHeader from '@/layouts/app-header';
+import AppFooter from '@/layouts/app-footer';
 
 export default defineComponent({
   components: {

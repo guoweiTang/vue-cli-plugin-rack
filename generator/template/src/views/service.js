@@ -1,103 +1,75 @@
 /*
- * @Description: file content
+ * @Description: 接口文件
  * @Author: tangguowei
  * @Date: 2021-06-10 08:42:53
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-06-10 09:15:14
+ * @LastEditTime: 2021-08-26 14:27:17
  */
-import request from '../utils/request';
+import axiosInstance from '../utils/request';
 
 /**
  * auth相关接口
  */
 const baseDir = '/api';
-export function getToken(data) {
-  return request()(`${baseDir}/auth/login`, {
-    skipAuthRefresh: true,
+export function getToken(config = {}) {
+  return axiosInstance(`${baseDir}/auth/login`, {
     method: 'POST',
-    data: {
-      ...data,
-    },
+    skipAuthRefresh: true,
+    ...config,
   });
 }
-export function register(data) {
-  return request()(`${baseDir}/auth/register`, {
-    skipAuthRefresh: true,
+export function register(config = {}) {
+  return axiosInstance(`${baseDir}/auth/register`, {
     method: 'POST',
-    data,
+    skipAuthRefresh: true,
+    ...config,
   });
 }
-export function resetPassword(data) {
-  return request()(`${baseDir}/auth/reset-password`, {
-    skipAuthRefresh: true,
+export function resetPassword(config = {}) {
+  return axiosInstance(`${baseDir}/auth/reset-password`, {
     method: 'POST',
-    data: {
-      ...data,
-    },
+    skipAuthRefresh: true,
+    ...config,
   });
 }
 
 /**
  * service相关接口
  */
-export function getAllServices(params = {}) {
-  return request()(`${baseDir}/services`, {
-    params,
-  });
-}
-export function addService(params = {}) {
-  return request()(`${baseDir}/services`, {
-    method: 'POST',
-    data: {
-      ...params,
-    },
-  });
+export function getAllServices(config = {}) {
+  return axiosInstance(`${baseDir}/services`, config);
 }
 
-export function updateService(pathParams, params = {}) {
+export function updateService(pathParams, config = {}) {
   const { serviceId } = pathParams;
-  return request()(`${baseDir}/services/${serviceId}`, {
+  return axiosInstance(`${baseDir}/services/${serviceId}`, {
     method: 'PUT',
-    data: {
-      ...params,
-    },
+    ...config,
   });
 }
 
-export function deleteService(pathParams, params = {}) {
+export function deleteService(pathParams, config = {}) {
   const { serviceId } = pathParams;
-  return request()(`${baseDir}/services/${serviceId}`, {
+  return axiosInstance(`${baseDir}/services/${serviceId}`, {
     method: 'DELETE',
-    data: {
-      ...params,
-    },
+    ...config,
   });
 }
 
-export function getMyInfo(params = {}) {
-  return request()(`${baseDir}/account/userinfo`, {
-    data: {
-      ...params,
-    },
-  });
+export function getMyInfo(config = {}) {
+  return axiosInstance(`${baseDir}/account/userinfo`, config);
 }
 
-export function updateMyInfo(params = {}) {
-  return request()(`${baseDir}/account/userinfo`, {
+export function updateMyInfo(config = {}) {
+  return axiosInstance(`${baseDir}/account/userinfo`, {
     method: 'PUT',
-    data: {
-      ...params,
-    },
+    ...config,
   });
 }
-export function getGoods(pathParams, params = {}) {
+export function getGoods(pathParams, config = {}) {
   const { storeId } = pathParams;
-  return request()(`${baseDir}/stores/${storeId}/goods`, {
-    params,
-  });
+  return axiosInstance(`${baseDir}/stores/${storeId}/goods`, config);
 }
-export function getStores(params = {}) {
-  return request()(`${baseDir}/stores`, {
-    params,
-  });
+export function getStores(config = {}) {
+  return axiosInstance(`${baseDir}/stores`, config);
 }

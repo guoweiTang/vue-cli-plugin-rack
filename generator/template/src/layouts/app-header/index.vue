@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:23:21
+ * @LastEditTime: 2021-08-26 11:57:33
 -->
 <template>
   <el-header height="75px">
@@ -56,10 +56,7 @@ export default {
       });
     },
     logout() {
-      clearToken();
-      this.$router.push({
-        name: 'refresh',
-      });
+      clearToken(this.$router);
     },
   },
 };

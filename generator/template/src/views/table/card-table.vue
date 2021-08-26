@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-24 00:50:09
+ * @LastEditTime: 2021-08-26 15:00:00
 -->
 <template>
   <el-alert
@@ -102,8 +102,11 @@ export default {
       let res;
       try {
         res = await getAllServices({
-          current: this.pagination.current,
-          page_size: this.pagination.pageSize,
+          router: this.$router,
+          params: {
+            current: this.pagination.current,
+            page_size: this.pagination.pageSize,
+          },
         });
       } catch (e) {
         console.error(e);

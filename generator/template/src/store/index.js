@@ -1,9 +1,9 @@
 /*
- * @Description: file content
+ * @Description: 统一状态管理
  * @Author: tangguowei
  * @Date: 2021-05-19 18:24:20
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 16:22:10
+ * @LastEditTime: 2021-08-26 11:47:08
  */
 import { createStore } from 'vuex';
 import { updateMyInfo, getMyInfo } from '../views/service';
@@ -32,7 +32,7 @@ export default createStore({
   actions: {
     async getUserInfo({ commit }, payload = {}) {
       return new Promise((resolve, reject) => {
-        getMyInfo(payload)
+        getMyInfo({ params: payload })
           .then(({ data }) => {
             commit('setUserInfo', data);
             resolve(data);
@@ -43,7 +43,7 @@ export default createStore({
       });
     },
     async setUserInfo({ commit }, payload = {}) {
-      updateMyInfo(payload).then(() => {
+      updateMyInfo({ data: payload }).then(() => {
         commit('setUserInfo', payload);
 
         if (payload.role) {

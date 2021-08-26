@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 20:15:47
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-19 20:29:28
+ * @LastEditTime: 2021-08-26 11:22:58
 -->
 <template>
   <el-dialog v-model="visible" title="编辑">
@@ -49,8 +49,10 @@ export default {
               serviceId: this.formData.id,
             },
             {
-              title: this.formData.title,
-              version: this.formData.version,
+              data: {
+                title: this.formData.title,
+                version: this.formData.version,
+              },
             }
           ).then(() => {
             this.visible = false;

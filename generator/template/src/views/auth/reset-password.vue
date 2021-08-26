@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:48:39
+ * @LastEditTime: 2021-08-26 11:10:25
 -->
 <template>
   <teleport to="#app">
@@ -115,7 +115,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
-          resetPassword(this.ruleForm)
+          resetPassword({ router: this.$router, data: this.ruleForm })
             .then(() => {
               this.loading = false;
               this.$message.success({

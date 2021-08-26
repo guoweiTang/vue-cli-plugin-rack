@@ -9,7 +9,7 @@ import UserInfo from '../views/account';
 import Authorzation from '../views/account/authorzation';
 import { ElLoading } from 'element-plus';
 import { getToken } from '@/utils/token';
-import Layout from '@/layout/basic-layout';
+import Layout from '@/layouts/basic-layout';
 import store from '@/store';
 import { h } from 'vue';
 

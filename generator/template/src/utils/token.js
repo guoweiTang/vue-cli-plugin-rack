@@ -1,9 +1,9 @@
 /*
- * @Description: file content
+ * @Description: 登录认证
  * @Author: tangguowei
  * @Date: 2021-08-19 15:47:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:07:29
+ * @LastEditTime: 2021-08-26 14:45:57
  */
 import axios from 'axios';
 import { apiBaseURL } from '@/config';
@@ -20,7 +20,7 @@ export async function initToken(config) {
   if (ACCESS_TOKEN) {
     config.headers['Authorization'] = `Bearer ${ACCESS_TOKEN}`;
   } else {
-    clearToken();
+    clearToken(config.router);
   }
 }
 
@@ -32,7 +32,7 @@ export async function initToken(config) {
 export function refreshToken(failedRequest) {
   const { reToken: REFRESH_TOKEN } = getToken();
   if (!REFRESH_TOKEN) {
-    clearToken();
+    return clearToken(failedRequest.config.router);
   }
   return axios(`${apiBaseURL}/auth/refresh-token`, {
     method: 'POST',
@@ -69,8 +69,9 @@ export function getToken() {
 /**
  * 清除token，并重新登陆
  */
-export function clearToken() {
+export function clearToken(router) {
   localStorage.removeItem('ACCESS_TOKEN_USER');
   localStorage.removeItem('REFRESH_TOKEN_USER');
   store.commit('clearUserInfo');
+  router && router.push({ name: 'refresh' });
 }

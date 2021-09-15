@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 11:57:33
+ * @LastEditTime: 2021-09-15 16:25:44
 -->
 <template>
   <el-header height="75px">
@@ -12,30 +12,36 @@
       @click="$emit('handleToggleCollapse')"
       style="cursor: pointer"
     ></i>
-    <el-dropdown trigger="click">
-      <span class="el-dropdown-link">
-        <el-avatar
-          :class="userInfo.gender === '女' ? 'user-woman' : 'user-man'"
-          :size="30"
-          icon="el-icon-user-solid"
-        ></el-avatar>
-        <span>{{ userInfo.name }}</span>
-        <i class="el-icon-arrow-down el-icon--right"></i>
-      </span>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item
-            v-show="userInfo.role === '普通用户'"
-            icon="el-icon-user"
-            @click="handleMyself"
-            >我的账户</el-dropdown-item
-          >
-          <el-dropdown-item icon="el-icon-switch-button" @click="logout"
-            >登出</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
+    <div class="logo-bar">
+      <img src="../../assets/logo.png" alt="logo" />
+      <span>VUE RACK</span>
+    </div>
+    <div class="avatar">
+      <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          <el-avatar
+            :class="userInfo.gender === '女' ? 'user-woman' : 'user-man'"
+            :size="30"
+            icon="el-icon-user-solid"
+          ></el-avatar>
+          <span>{{ userInfo.name }}</span>
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item
+              v-show="userInfo.role === '普通用户'"
+              icon="el-icon-user"
+              @click="handleMyself"
+              >我的账户</el-dropdown-item
+            >
+            <el-dropdown-item icon="el-icon-switch-button" @click="logout"
+              >登出</el-dropdown-item
+            >
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
   </el-header>
 </template>
 
@@ -61,7 +67,6 @@ export default {
   },
 };
 </script>
-
 <style>
 /* 覆盖组件默认样式 */
 .el-header {
@@ -70,9 +75,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-}
-.el-header .el-avatar {
-  margin-right: 12px;
+  font-size: 18px;
 }
 .el-header .el-dropdown-link {
   cursor: default;
@@ -80,7 +83,26 @@ export default {
   align-items: center;
 }
 </style>
-<style scoped>
+<style lang="scss" scoped>
+.avatar {
+  flex: 1;
+  text-align: right;
+}
+.logo-bar {
+  font-size: 22px;
+  line-height: 44px;
+  font-weight: bold;
+  color: #304456;
+  margin-left: 40px;
+  img {
+    width: 44px;
+    margin-right: 10px;
+  }
+}
+.user-man,
+.user-woman {
+  margin-right: 12px;
+}
 .user-man {
   background-color: cornflowerblue;
 }

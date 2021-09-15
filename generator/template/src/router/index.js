@@ -8,7 +8,6 @@ import CardTable from '../views/table/card-table';
 import UserInfo from '../views/account';
 import Authorzation from '../views/account/authorzation';
 import { ElLoading } from 'element-plus';
-import { getToken } from '@/utils/token';
 import Layout from '@/layouts/basic-layout';
 import store from '@/store';
 import { h } from 'vue';
@@ -212,8 +211,7 @@ router.beforeEach(async (to, from, next) => {
   if (isScreen !== store.state.isScreen) {
     store.commit('setIsScreen', isScreen);
   }
-  const { accessToken: token } = getToken();
-  if (token) {
+  if (store.state.token.access_token) {
     // 当前用户角色
     let currentRole = store.state.userInfo.role;
     // 未获取用户信息，获取用户信息

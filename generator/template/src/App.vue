@@ -3,20 +3,22 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 14:54:00
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 15:02:47
+ * @LastEditTime: 2021-09-15 16:25:15
 -->
 <template>
   <el-container v-show="!isScreen">
     <AppAside :collapse="collapse" />
-    <el-container direction="vertical">
-      <AppHeader
-        :collapse="collapse"
-        @handleToggleCollapse="handleToggleCollapse"
-      />
+    <el-container>
       <el-main>
-        <router-view />
+        <AppHeader
+          :collapse="collapse"
+          @handleToggleCollapse="handleToggleCollapse"
+        />
+        <div class="app-container">
+          <router-view />
+        </div>
+        <AppFooter />
       </el-main>
-      <AppFooter />
     </el-container>
   </el-container>
 </template>
@@ -63,6 +65,13 @@ export default defineComponent({
 });
 </script>
 
+<style scoped>
+.app-container {
+  box-sizing: border-box;
+  padding: var(--el-main-padding);
+  min-height: calc(100vh - 75px - 60px);
+}
+</style>
 <style lang="scss">
 body {
   margin: 0;
@@ -83,19 +92,17 @@ i {
   font-style: normal;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto,
+    helvetica neue, Arial, noto sans, sans-serif, apple color emoji,
+    segoe ui emoji, segoe ui symbol, noto color emoji;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #303133;
   background-color: #f5f6f8;
 }
-.el-main {
-  height: calc(100vh - 75px - 60px);
-}
 .el-main:only-child {
   padding: 0;
-  height: auto;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 .error-page {
   min-width: 400px;

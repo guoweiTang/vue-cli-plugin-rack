@@ -29,6 +29,10 @@ function getTipsText(method = '') {
 let loadingMessage;
 /**
  * 请求拦截
+ *
+ * config扩展了以下属性：
+ *  skipAuthRefresh: boolean, // 是否跳过登录验证
+ *  [postType]: 'file', // post类型，默认为空，“file”为文件以流形式上传
  */
 aiosInstance.interceptors.request.use(
   (config) => {
@@ -41,13 +45,20 @@ aiosInstance.interceptors.request.use(
       });
     }
 
-    config.headers['content-type'] = 'application/json' || '';
+    config.headers['content-type'] = 'application/json';
     // 防止缓存，GET请求默认带_t参数
     if (config.method === 'get') {
       config.params = {
         ...config.params,
         ...{ _t: new Date().getTime() },
       };
+    } else if (config.method === 'post' && config.postType === 'file') {
+      config.headers['content-type'] = 'multipart/form-data';
+      let data = new FormData();
+      for (let [key, value] of Object.entries(config.data)) {
+        data.append(key, value);
+      }
+      config.data = data;
     }
     if (!config.skipAuthRefresh) {
       initToken(config);

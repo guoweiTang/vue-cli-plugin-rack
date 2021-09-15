@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 18:24:20
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 11:47:08
+ * @LastEditTime: 2021-09-14 17:34:08
  */
 import { createStore } from 'vuex';
 import { updateMyInfo, getMyInfo } from '../views/service';
@@ -18,6 +18,10 @@ export default createStore({
       // 当前激活路由
       activeRoute: {
         name: '',
+      },
+      token: {
+        access_token: '',
+        refresh_token: '',
       },
       // 登录用户信息
       userInfo: {
@@ -53,6 +57,15 @@ export default createStore({
     },
   },
   mutations: {
+    setToken(state, payload) {
+      state.token = {
+        ...state.token,
+        ...payload,
+      };
+    },
+    clearToken(state) {
+      state.token = {};
+    },
     setUserInfo(state, payload) {
       state.userInfo = {
         ...state.userInfo,

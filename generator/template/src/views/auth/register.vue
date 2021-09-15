@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 11:09:08
+ * @LastEditTime: 2021-09-14 17:24:06
 -->
 <template>
   <teleport to="#app">
@@ -34,7 +34,10 @@
           @keyup.enter="submitForm('ruleForm')"
         >
           <el-form-item label="邮箱" prop="email">
-            <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
+            <el-input
+              v-model.trim="ruleForm.email"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input

@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 11:05:37
+ * @LastEditTime: 2021-09-14 17:43:25
 -->
 <template>
   <teleport to="#app">
@@ -36,7 +36,7 @@
           <el-form-item label="邮箱" prop="email">
             <el-input
               placeholder="admin@vuerack.com"
-              v-model="ruleForm.email"
+              v-model.trim="ruleForm.email"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -80,7 +80,7 @@
 <script>
 import { emailPattern } from '@/config';
 import { getToken } from '../service';
-import { setToken } from '@/utils/token';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'Login',
@@ -113,6 +113,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['setToken']),
     // 表单提交
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -125,7 +126,7 @@ export default {
             .then(({ data }) => {
               this.loading = false;
               const { access_token, refresh_token } = data;
-              setToken(access_token, refresh_token);
+              this.setToken({ access_token, refresh_token });
               this.$message.success({
                 duration: 800,
                 message: '登录成功，正在跳转……',

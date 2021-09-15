@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-08-19 15:47:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 14:45:57
+ * @LastEditTime: 2021-09-14 17:47:32
  */
 import axios from 'axios';
 import { apiBaseURL } from '@/config';
@@ -16,7 +16,7 @@ import store from '@/store';
  * @returns {Object} axios配置信息
  */
 export async function initToken(config) {
-  const { accessToken: ACCESS_TOKEN } = getToken();
+  const ACCESS_TOKEN = store.state.token.access_token;
   if (ACCESS_TOKEN) {
     config.headers['Authorization'] = `Bearer ${ACCESS_TOKEN}`;
   } else {
@@ -30,7 +30,7 @@ export async function initToken(config) {
  * @returns 返回一个Promise对象
  */
 export function refreshToken(failedRequest) {
-  const { reToken: REFRESH_TOKEN } = getToken();
+  const REFRESH_TOKEN = store.state.token.refresh_token;
   if (!REFRESH_TOKEN) {
     return clearToken(failedRequest.config.router);
   }
@@ -41,37 +41,18 @@ export function refreshToken(failedRequest) {
     },
   }).then(({ data }) => {
     const { access_token } = data;
-    access_token && localStorage.setItem('ACCESS_TOKEN_USER', access_token);
+    store.commit('setToken', { access_token });
     failedRequest.response.config.headers['Authorization'] =
       'Bearer ' + access_token;
     return Promise.resolve();
   });
 }
-/**
- * 登录设置token
- * @param accessToken
- * @param reToken
- */
-export function setToken(accessToken, reToken) {
-  localStorage.setItem('ACCESS_TOKEN_USER', accessToken);
-  localStorage.setItem('REFRESH_TOKEN_USER', reToken);
-}
-/**
- * 获取token
- *  @returns {accessToken, reToken}
- */
-export function getToken() {
-  return {
-    accessToken: localStorage.getItem('ACCESS_TOKEN_USER'),
-    reToken: localStorage.getItem('REFRESH_TOKEN_USER'),
-  };
-}
+
 /**
  * 清除token，并重新登陆
  */
 export function clearToken(router) {
-  localStorage.removeItem('ACCESS_TOKEN_USER');
-  localStorage.removeItem('REFRESH_TOKEN_USER');
+  store.commit('clearToken');
   store.commit('clearUserInfo');
   router && router.push({ name: 'refresh' });
 }

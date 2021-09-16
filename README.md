@@ -52,10 +52,6 @@ npm run prettier
 ## Preview
 > [online preview](http://guoweitang.net:3000/)
 
-![image](https://user-images.githubusercontent.com/8178166/118818566-0a052e80-b8e7-11eb-9ab2-1babc30e50a6.png)
-![image](https://user-images.githubusercontent.com/8178166/118818771-4042ae00-b8e7-11eb-888a-89a039ff2b66.png)
-![image](https://user-images.githubusercontent.com/8178166/118818855-5b152280-b8e7-11eb-9996-47aee33aa3ee.png)
-
 ## Highlights
 - vue3
 - element-plus

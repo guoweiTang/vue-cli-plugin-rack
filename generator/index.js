@@ -22,7 +22,6 @@ module.exports = (api, opts) => {
       'vuex-persistedstate': '^4.0.0'
   },
     devDependencies: {
-      'cross-env': '^7.0.3',
       'husky': '^7.0.1',
       'prettier': '^2.2.1',
       'sass': '^1.32.11',

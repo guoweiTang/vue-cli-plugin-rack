@@ -50,7 +50,7 @@ npm run lint
 npm run prettier
 ```
 ## Preview
-> [online preview](http://guoweitang.net:3000/)
+> [online preview](https://guoweitang.net/)
 
 ## Highlights
 - vue3

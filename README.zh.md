@@ -47,7 +47,7 @@ npm run lint
 npm run prettier
 ```
 ## 界面示例
-> [在线预览](http://guoweitang.net:3000/)
+> [在线预览](https://guoweitang.net/)
 
 ## 插件功能
 - vue3

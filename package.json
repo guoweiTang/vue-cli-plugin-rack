@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-rack",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "vue-cli plugin to add vuex and router and axios and authorization and mock and so on.",
   "main": "index.js",
   "repository": {
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/guoweiTang/vue-cli-plugin-rack/issues"
   },
-  "homepage": "http://guoweitang.net:8080/",
+  "homepage": "https://guoweitang.net/",
   "engines": {
     "node": ">= 12.0.0"
   }

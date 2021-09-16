@@ -92,6 +92,7 @@ const allServices = [
   },
 ];
 const userinfo = {
+  avatarUrl: '',
   name: 'ice',
   gender: '男',
   summary: '如何促进关系升级？教你省时高效的最佳方法！',
@@ -201,7 +202,7 @@ export default {
     let result;
     const targetIndex = allUsers.findIndex(item => item.email === req.body.email && item.password === req.body.oldPassword);
     if (targetIndex > -1) {
-      if (allUsers[targetIndex].password === req.body.newPassword){
+      if (allUsers[targetIndex].password === req.body.newPassword) {
         result = res.status(400).json({
           message: '新密码不能与原密码相同',
         })
@@ -219,7 +220,7 @@ export default {
     return result;
   },
   'GET /api/services': function (req, res) {
-    let {k, page, page_size} = req.query || {};
+    let { k, page, page_size } = req.query || {};
     let lists = [...allServices];
     const _page_size = page_size || 10;
     const _page = page || 1;
@@ -252,9 +253,14 @@ export default {
     }
     return res.json(allServices)
   },
+  'POST /api/account/uploadAvatar': function (req, res) {
+    return res.json({
+      avatarUrl: '/1.jpg'
+    })
+  },
   'GET /api/account/userinfo': userinfo,
   'PUT /api/account/userinfo': function (req, res) {
-    for(let item of Object.getOwnPropertyNames(userinfo)) {
+    for (let item of Object.getOwnPropertyNames(userinfo)) {
       if (req.body[item]) {
         userinfo[item] = req.body[item]
       }
@@ -272,6 +278,23 @@ export default {
         count: result.goods.length,
         results: result.goods,
       })
+    }
+  },
+  'GET /api/stores/:storeId/goods/:goodId': function (req, res) {
+    let result = allStores.find(item => item.id === req.params.storeId);
+    if (!result) {
+      return res.status(400).json({
+        message: '该商店不存在',
+      })
+    } else {
+      result = result.goods.find(item => item.id === req.params.goodId);
+      if (!result) {
+        return res.status(400).json({
+          message: '该商品不存在',
+        })
+      } else {
+        return res.json(result);
+      }
     }
   },
   'GET /api/stores': function (req, res) {

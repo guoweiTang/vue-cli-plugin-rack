@@ -54,12 +54,14 @@
     <h3>Ecosystem</h3>
     <ul>
       <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
+        <a href="https://next.router.vuejs.org" target="_blank" rel="noopener"
           >vue-router</a
         >
       </li>
       <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
+        <a href="https://next.vuex.vuejs.org" target="_blank" rel="noopener"
+          >vuex</a
+        >
       </li>
       <li>
         <a

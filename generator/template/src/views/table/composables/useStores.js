@@ -1,7 +1,10 @@
-import { getStores } from '../../service';
-import { ref, onMounted } from 'vue';
+import { getStores } from '@/views/service';
+import { ref, onMounted, watch } from 'vue';
+import { useStore } from 'vuex';
 
 export default function useStoreRepositories() {
+  const store = useStore();
+
   const storeId = ref('');
   const storeRepositories = ref([]);
   const getStoreRepositories = async () => {
@@ -16,6 +19,12 @@ export default function useStoreRepositories() {
     }
   };
 
+  watch(storeId, (val) => {
+    const currentStore = storeRepositories.value.filter(
+      (item) => item.id === val
+    )[0];
+    store.commit('basic-table/setCurrentStore', currentStore);
+  });
   onMounted(getStoreRepositories);
 
   return {

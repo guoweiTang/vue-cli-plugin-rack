@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-08-19 15:47:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-14 17:47:32
+ * @LastEditTime: 2021-09-16 16:19:30
  */
 import axios from 'axios';
 import { apiBaseURL } from '@/config';
@@ -16,7 +16,7 @@ import store from '@/store';
  * @returns {Object} axios配置信息
  */
 export async function initToken(config) {
-  const ACCESS_TOKEN = store.state.token.access_token;
+  const ACCESS_TOKEN = store.state.admin.user.token.access_token;
   if (ACCESS_TOKEN) {
     config.headers['Authorization'] = `Bearer ${ACCESS_TOKEN}`;
   } else {
@@ -30,7 +30,7 @@ export async function initToken(config) {
  * @returns 返回一个Promise对象
  */
 export function refreshToken(failedRequest) {
-  const REFRESH_TOKEN = store.state.token.refresh_token;
+  const REFRESH_TOKEN = store.state.admin.user.token.refresh_token;
   if (!REFRESH_TOKEN) {
     return clearToken(failedRequest.config.router);
   }
@@ -41,7 +41,7 @@ export function refreshToken(failedRequest) {
     },
   }).then(({ data }) => {
     const { access_token } = data;
-    store.commit('setToken', { access_token });
+    store.commit('admin/user/setToken', { access_token });
     failedRequest.response.config.headers['Authorization'] =
       'Bearer ' + access_token;
     return Promise.resolve();
@@ -52,7 +52,7 @@ export function refreshToken(failedRequest) {
  * 清除token，并重新登陆
  */
 export function clearToken(router) {
-  store.commit('clearToken');
-  store.commit('clearUserInfo');
+  store.commit('admin/user/clearToken');
+  store.commit('admin/user/clearUserInfo');
   router && router.push({ name: 'refresh' });
 }

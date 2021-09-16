@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 15:00:00
+ * @LastEditTime: 2021-09-16 15:41:55
 -->
 <template>
   <el-alert
@@ -57,7 +57,7 @@
 
 <script>
 import Modal from './components/modal';
-import { getAllServices, deleteService } from '../service';
+import { getAllServices, deleteService } from '@/views/service';
 export default {
   name: 'CardTable',
   components: {

@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:04:03
+ * @LastEditTime: 2021-09-16 16:02:59
 -->
 <template>
   <template v-if="isShowing">
@@ -43,7 +43,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['userInfo']),
+    ...mapState('admin/user', ['userInfo']),
     isShowing() {
       const { hidden, meta } = this.item;
       const role = this.userInfo.role;

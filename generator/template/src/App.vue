@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 14:54:00
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-15 16:25:15
+ * @LastEditTime: 2021-09-16 16:02:29
 -->
 <template>
   <el-container v-show="!isScreen">
@@ -37,7 +37,7 @@ export default defineComponent({
     AppFooter,
   },
   computed: {
-    ...mapState(['isScreen']),
+    ...mapState('admin/common', ['isScreen']),
   },
   setup() {
     const collapse = ref(false);
@@ -70,6 +70,7 @@ export default defineComponent({
   box-sizing: border-box;
   padding: var(--el-main-padding);
   min-height: calc(100vh - 75px - 60px);
+  min-width: 1000px;
 }
 </style>
 <style lang="scss">
@@ -103,6 +104,9 @@ i {
 .el-main:only-child {
   padding: 0;
   max-height: 100vh;
+}
+.el-form--inline .el-form-item {
+  margin-bottom: 0;
 }
 .error-page {
   min-width: 400px;

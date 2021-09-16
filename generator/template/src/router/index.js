@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '../views/home';
-import Login from '../views/auth/login';
-import Register from '../views/auth/register';
-import ResetPassword from '../views/auth/reset-password';
-import BasicTable from '../views/table/basic-table';
-import CardTable from '../views/table/card-table';
-import UserInfo from '../views/account';
-import Authorzation from '../views/account/authorzation';
+import Home from '@/views/home';
+import Login from '@/views/auth/login';
+import Register from '@/views/auth/register';
+import ResetPassword from '@/views/auth/reset-password';
+import BasicTable from '@/views/table/basic-table';
+import CardTable from '@/views/table/card-table';
+import UserInfo from '@/views/account';
+import Authorzation from '@/views/account/authorzation';
 import { ElLoading } from 'element-plus';
 import Layout from '@/layouts/basic-layout';
 import store from '@/store';
@@ -208,16 +208,17 @@ router.beforeEach(async (to, from, next) => {
   });
   // 判断是否全屏显示该路由（通常都是登录，注册，404等页面）
   const isScreen = to.matched.some((item) => item.meta.isScreen);
-  if (isScreen !== store.state.isScreen) {
-    store.commit('setIsScreen', isScreen);
+  if (isScreen !== store.state.admin.common.isScreen) {
+    store.commit('admin/common/setIsScreen', isScreen);
   }
-  if (store.state.token.access_token) {
+  const { token, userInfo } = store.state.admin.user;
+  if (token.access_token) {
     // 当前用户角色
-    let currentRole = store.state.userInfo.role;
+    let currentRole = userInfo.role;
     // 未获取用户信息，获取用户信息
     if (!currentRole) {
       try {
-        const data = await store.dispatch('getUserInfo');
+        const data = await store.dispatch('admin/user/getUserInfo');
         currentRole = data.role;
       } catch (e) {
         if (e.response.status === 500) {
@@ -274,7 +275,7 @@ router.beforeEach(async (to, from, next) => {
     }
   }
   // 更新当前活跃路由
-  store.commit('setActiveRoute', to);
+  store.commit('admin/common/setActiveRoute', to);
 });
 
 router.afterEach((to) => {

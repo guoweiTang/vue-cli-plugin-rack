@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-14 17:43:25
+ * @LastEditTime: 2021-09-16 15:40:54
 -->
 <template>
   <teleport to="#app">
@@ -79,7 +79,7 @@
 
 <script>
 import { emailPattern } from '@/config';
-import { getToken } from '../service';
+import { getToken } from '@/views/service';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -113,7 +113,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['setToken']),
+    ...mapMutations('admin/user', ['setToken']),
     // 表单提交
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

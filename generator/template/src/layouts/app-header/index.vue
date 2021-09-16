@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-15 16:25:44
+ * @LastEditTime: 2021-09-16 16:03:28
 -->
 <template>
   <el-header height="75px">
@@ -22,8 +22,11 @@
           <el-avatar
             :class="userInfo.gender === '女' ? 'user-woman' : 'user-man'"
             :size="30"
-            icon="el-icon-user-solid"
-          ></el-avatar>
+            :src="userInfo.avatarUrl"
+            @error="() => true"
+          >
+            <i class="el-icon-user-solid"></i>
+          </el-avatar>
           <span>{{ userInfo.name }}</span>
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
@@ -53,7 +56,7 @@ export default {
   props: ['collapse'],
   emits: ['handleToggleCollapse'],
   computed: {
-    ...mapState(['userInfo']),
+    ...mapState('admin/user', ['userInfo']),
   },
   methods: {
     handleMyself() {

@@ -17,6 +17,7 @@ Then create a project and add the rack plugin:
 vue create my-app
 cd my-app
 vue add rack
+husky install && npx husky add .husky/pre-commit "npm run lint"
 ```
 
 You'll be asked some questions regarding how rack is configured in your project. After that, you're good to go.

@@ -3,10 +3,10 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-24 00:49:30
+ * @LastEditTime: 2021-09-16 16:21:23
 -->
 <template>
-  <el-card class="userinfo" body-style="{minHeight: '100%'}">
+  <el-card>
     <el-alert
       :closable="false"
       title="默认仅“普通用户”可访问「我的账户」页面，“管理员”可访问「卡片列表」页面，"
@@ -36,10 +36,12 @@ export default {
   components: {
     EditableText,
   },
-  computed: mapState(['userInfo']),
+  computed: {
+    ...mapState('admin/user', ['userInfo']),
+  },
   methods: {
     handleConfirmRole(value) {
-      this.$store.dispatch('setUserInfo', {
+      this.$store.dispatch('admin/user/setUserInfo', {
         role: value,
       });
     },
@@ -47,14 +49,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.userinfo {
-  width: 60%;
-  margin: 0 auto;
-}
-.userinfo .el-card {
-  min-height: calc(100vh - 75px - 60px - 40px);
-  padding: 30px 100px;
-  box-sizing: border-box;
-}
-</style>
+<style scoped></style>

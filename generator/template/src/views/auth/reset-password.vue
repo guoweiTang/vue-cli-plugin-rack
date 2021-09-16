@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-14 17:24:29
+ * @LastEditTime: 2021-09-16 15:41:29
 -->
 <template>
   <teleport to="#app">
@@ -77,7 +77,7 @@
 
 <script>
 import { emailPattern } from '@/config';
-import { resetPassword } from '../service';
+import { resetPassword } from '@/views/service';
 
 export default {
   name: 'ResetPassword',

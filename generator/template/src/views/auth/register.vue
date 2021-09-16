@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-14 17:24:06
+ * @LastEditTime: 2021-09-16 15:41:17
 -->
 <template>
   <teleport to="#app">
@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import { emailPattern } from '../../config';
-import { register } from '../service';
+import { emailPattern } from '@/config';
+import { register } from '@/views/service';
 
 export default {
   name: 'Register',

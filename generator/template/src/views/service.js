@@ -3,9 +3,9 @@
  * @Author: tangguowei
  * @Date: 2021-06-10 08:42:53
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-26 14:27:17
+ * @LastEditTime: 2021-09-16 17:21:08
  */
-import axiosInstance from '../utils/request';
+import axiosInstance from '@/utils/request';
 
 /**
  * auth相关接口
@@ -56,6 +56,17 @@ export function deleteService(pathParams, config = {}) {
   });
 }
 
+/**
+ * 账户
+ */
+export function uploadFile(config = {}) {
+  return axiosInstance(`${baseDir}/account/uploadAvatar`, {
+    method: 'POST',
+    postType: 'file',
+    ...config,
+  });
+}
+
 export function getMyInfo(config = {}) {
   return axiosInstance(`${baseDir}/account/userinfo`, config);
 }
@@ -69,6 +80,10 @@ export function updateMyInfo(config = {}) {
 export function getGoods(pathParams, config = {}) {
   const { storeId } = pathParams;
   return axiosInstance(`${baseDir}/stores/${storeId}/goods`, config);
+}
+export function getGoodDetail(pathParams, config = {}) {
+  const { storeId, goodId } = pathParams;
+  return axiosInstance(`${baseDir}/stores/${storeId}/goods/${goodId}`, config);
 }
 export function getStores(config = {}) {
   return axiosInstance(`${baseDir}/stores`, config);

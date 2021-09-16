@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-15 16:36:43
+ * @LastEditTime: 2021-09-16 16:02:40
 -->
 <template>
   <el-aside width="auto" class="aside">
@@ -45,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['activeRoute']),
+    ...mapState('admin/common', ['activeRoute']),
   },
 };
 </script>

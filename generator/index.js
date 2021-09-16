@@ -7,7 +7,6 @@ module.exports = (api, opts) => {
   }
   api.extendPackage({
     scripts: {
-      'prepare': 'husky install && npx husky add .husky/pre-commit "npm run lint"',
       'mock': 'vue-cli-service serve --mode mock',
       'lint': 'vue-cli-service lint && npm run lint:prettier',
       'lint:prettier': 'prettier --check "src/**/*" --end-of-line auto',

@@ -3,87 +3,38 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 18:24:20
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-14 17:34:08
+ * @LastEditTime: 2021-09-16 15:36:46
  */
 import { createStore } from 'vuex';
-import { updateMyInfo, getMyInfo } from '../views/service';
-import router from '@/router';
 import createPersistedState from 'vuex-persistedstate';
 
-export default createStore({
-  state() {
-    return {
-      // 是否全屏显示，隐藏标准文档（利用teleport显示期待的内容）
-      isScreen: false,
-      // 当前激活路由
-      activeRoute: {
-        name: '',
-      },
-      token: {
-        access_token: '',
-        refresh_token: '',
-      },
-      // 登录用户信息
-      userInfo: {
-        name: '',
-        gender: '',
-        summary: '',
-        description: '',
-        role: '',
-      },
-    };
-  },
-  actions: {
-    async getUserInfo({ commit }, payload = {}) {
-      return new Promise((resolve, reject) => {
-        getMyInfo({ params: payload })
-          .then(({ data }) => {
-            commit('setUserInfo', data);
-            resolve(data);
-          })
-          .catch((e) => {
-            reject(e);
-          });
-      });
-    },
-    async setUserInfo({ commit }, payload = {}) {
-      updateMyInfo({ data: payload }).then(() => {
-        commit('setUserInfo', payload);
+const modules = {};
 
-        if (payload.role) {
-          router.push({ name: 'refresh' });
-        }
-      });
-    },
-  },
-  mutations: {
-    setToken(state, payload) {
-      state.token = {
-        ...state.token,
-        ...payload,
-      };
-    },
-    clearToken(state) {
-      state.token = {};
-    },
-    setUserInfo(state, payload) {
-      state.userInfo = {
-        ...state.userInfo,
-        ...payload,
-      };
-    },
-    clearUserInfo(state) {
-      state.userInfo = {};
-    },
-    setIsScreen(state, payload) {
-      state.isScreen = payload;
-    },
-    setActiveRoute(state, { name }) {
-      if (state.activeRoute.name !== name) {
-        state.activeRoute.name = name;
-      }
-    },
-  },
-  modules: {},
-  plugins: [createPersistedState()],
+let files = require.context('./modules', false, /\.js$/);
+files.keys().forEach((key) => {
+  modules[key.replace(/(\.\/|\.js)/g, '')] = files(key).default;
 });
+files = require.context('./admin', false, /\.js$/);
+modules['admin'] = {
+  namespaced: true,
+  modules: {},
+};
+files.keys().forEach((key) => {
+  modules.admin.modules[key.replace(/(\.\/|\.js)/g, '')] = files(key).default;
+});
+
+const store = createStore({
+  modules,
+  plugins: [
+    createPersistedState({
+      reducer(val) {
+        return {
+          // 只有该模块数据持久化（浏览器localstorage）
+          admin: val.admin,
+        };
+      },
+    }),
+  ],
+});
+
+export default store;

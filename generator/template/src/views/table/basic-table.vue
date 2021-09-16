@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-05-24 00:49:41
+ * @LastEditTime: 2021-09-16 17:49:18
 -->
 <template>
   <div class="search-card">
@@ -45,7 +45,18 @@
     <el-table-column prop="spec" label="商品规格"> </el-table-column>
     <el-table-column prop="sale_date" label="发售日期"> </el-table-column>
     <el-table-column prop="description" label="商品介绍"> </el-table-column>
+    <el-table-column fixed="right" label="操作" width="150">
+      <template #default="{ row }">
+        <el-button
+          type="text"
+          size="small"
+          @click="$refs.previewModal.init(row.id)"
+          >详情</el-button
+        >
+      </template>
+    </el-table-column>
   </el-table>
+  <PreviewModal ref="previewModal" />
 </template>
 <script>
 import { defineComponent } from 'vue';
@@ -53,11 +64,13 @@ import Expect from './components/expect';
 import useStores from './composables/useStores';
 import useGoods from './composables/useGoods';
 import useGoodsSearch from './composables/useGoodsSearch';
+import PreviewModal from './components/basic-preview.vue';
 
 export default defineComponent({
   name: 'BasicTable',
   components: {
     Expect,
+    PreviewModal,
   },
   setup() {
     const { storeRepositories, storeId } = useStores();

@@ -1,4 +1,4 @@
-import { getGoods } from '../../service';
+import { getGoods } from '@/views/service';
 import { ref, onMounted, watch } from 'vue';
 
 export default function useStoreRepositories(storeId) {

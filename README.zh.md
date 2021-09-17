@@ -31,7 +31,7 @@ npm run serve
 ```
 ### 编译并热重载以模拟数据开发模式启动
 ```
-npm run dev
+npm run mock
 ```
 ### 生产模式
 ```

@@ -34,7 +34,7 @@ npm run serve
 ```
 ### Compiles and hot-reloads for development and mock data
 ```
-npm run dev
+npm run mock
 ```
 ### Compiles and minifies for production
 ```

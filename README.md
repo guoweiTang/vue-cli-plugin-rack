@@ -15,9 +15,13 @@ Then create a project and add the rack plugin:
 
 ```bash
 vue create my-app
+```
+![image](https://user-images.githubusercontent.com/8178166/135064607-68168bc4-5db6-450c-8c63-0d56f0f96518.png)
+![ca9900bb884162dad1dfe24d6ba0004](https://user-images.githubusercontent.com/8178166/135064237-1375cbaa-afbe-4e8f-85ae-6fb972b3372a.png)
+![9e57c916ff23251da497fb2c5b1252c](https://user-images.githubusercontent.com/8178166/135064278-c74b2018-9484-45da-a7e6-180a068ff140.png)
+```bash
 cd my-app
 vue add rack
-husky install && npx husky add .husky/pre-commit "npm run lint"
 ```
 
 You'll be asked some questions regarding how rack is configured in your project. After that, you're good to go.

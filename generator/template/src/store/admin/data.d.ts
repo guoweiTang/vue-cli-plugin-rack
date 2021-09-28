@@ -14,8 +14,8 @@ export interface UserInfo {
 }
 export interface UserData {
   token: {
-    access_token?: string;
-    refresh_token?: string;
+    accessToken?: string;
+    refreshToken?: string;
   };
   userInfo: UserInfo;
 }

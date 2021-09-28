@@ -30,7 +30,7 @@ export function clearToken(router: Router | undefined) {
  * @returns {Object} axios配置信息
  */
 export function initToken(config: AxiosRequestConfigCustom):string | undefined {
-  const ACCESS_TOKEN = store.state.admin.user.token.access_token;
+  const ACCESS_TOKEN = store.state.admin.user.token.accessToken;
   if (ACCESS_TOKEN) {
     return `Bearer ${ACCESS_TOKEN}`;
   }
@@ -44,7 +44,7 @@ export function initToken(config: AxiosRequestConfigCustom):string | undefined {
  * @returns 返回一个Promise对象
  */
 export function refreshToken(failedRequest: any) {
-  const REFRESH_TOKEN = store.state.admin.user.token.refresh_token;
+  const REFRESH_TOKEN = store.state.admin.user.token.refreshToken;
   if (!REFRESH_TOKEN) {
     clearToken(failedRequest.config.router);
     return Promise.reject(failedRequest);

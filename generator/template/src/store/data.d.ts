@@ -5,8 +5,8 @@
  * @LastEditors: tangguowei
  * @LastEditTime: 2021-09-24 15:26:26
  */
-import {Module} from 'vuex';
-import {UserData} from './admin/data';
+import { Module } from 'vuex';
+import { UserData } from './admin/data.d';
 
 export interface AdminStore {
   user: Module<UserData, unknown>;

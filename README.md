@@ -45,23 +45,32 @@ npm run build
 ```
 npm run lint
 ```
-### Prettier
-```
-npm run prettier
-```
 ## Preview
 > [online preview](https://guoweitang.net/)
 
 ## Highlights
-- vue3
-- element-plus
-- axios
-- router
-- vuex
-- authorization
-- mock
-- lint
-- prettier
+- **Passport**
+  - login
+  - register
+  - reset password
+- **Permission Authentication**
+  - Page permission
+  - menu item permission
+- **Error Page**
+  - 403
+  - 404
+  - 500
+- **Async Request(axios)**
+  - retry
+  - refresh token 
+  - feedback message
+- **Element-plus**
+- **Router**
+- **Vuex**
+  - namespacing
+  - data persistence
+- **Mock**
+  - dynamic data
 
 ## Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

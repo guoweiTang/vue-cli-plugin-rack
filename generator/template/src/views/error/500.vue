@@ -3,13 +3,13 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:55:19
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:24:05
+ * @LastEditTime: 2021-09-28 13:53:14
 -->
 <template>
   <teleport to="#app">
     <div class="error-page">
       <el-row type="flex" justify="center" align="center" class="lsl">
-        <el-col :span="6"><img :src="icon500" alt="500 icon" /></el-col>
+        <el-col :span="6"><img src="../../assets/icon-500-color.svg" alt="500 icon" /></el-col>
         <el-col :span="4" :offset="2">
           <h2>500</h2>
           <div class="sub-title">抱歉，服务器报错</div>
@@ -23,16 +23,9 @@
     </div>
   </teleport>
 </template>
-<script>
-import { defineComponent } from 'vue';
-import icon500 from '@/assets/icon-500-color.svg';
 
-export default defineComponent({
-  name: '500',
-  setup() {
-    return {
-      icon500,
-    };
-  },
-});
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+
+export default class Error500 extends Vue {}
 </script>

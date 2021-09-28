@@ -3,13 +3,13 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:54:56
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-08-25 15:23:53
+ * @LastEditTime: 2021-09-28 12:04:23
 -->
 <template>
   <teleport to="#app">
     <div class="error-page">
       <el-row type="flex" justify="center" align="center" class="lsl">
-        <el-col :span="6"><img :src="icon403" alt="403 icon" /></el-col>
+        <el-col :span="6"><img src="../../assets/icon-403-color.svg" alt="403 icon" /></el-col>
         <el-col :span="4" :offset="2">
           <h2>403</h2>
           <div class="sub-title">抱歉，你没有权限访问该页面</div>
@@ -23,16 +23,9 @@
     </div>
   </teleport>
 </template>
-<script>
-import { defineComponent } from 'vue';
-import icon403 from '@/assets/icon-403-color.svg';
 
-export default defineComponent({
-  name: '403',
-  setup() {
-    return {
-      icon403,
-    };
-  },
-});
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+
+export default class Error403 extends Vue {}
 </script>

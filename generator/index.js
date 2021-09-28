@@ -1,32 +1,17 @@
-module.exports = (api, opts) => {
+module.exports = (api) => {
   api.render('./template');
-  if (opts.customTheme) {
-    api.render({
-      './src/element-variables.scss': './element-variables.scss'
-    })
-  }
   api.extendPackage({
     scripts: {
-      'mock': 'vue-cli-service serve --mode mock',
-      'lint': 'vue-cli-service lint && npm run lint:prettier',
-      'lint:prettier': 'prettier --check "src/**/*" --end-of-line auto',
-      'prettier': 'prettier -c --write "src/**/*"'
+      'mock': 'vue-cli-service serve --mode mock'
     },
     dependencies: {
-      'axios': '^0.21.1',
-      'axios-auth-refresh': '^3.1.0',
+      'axios': '^0.21.4',
+      'axios-auth-refresh': '^3.2.1',
       'axios-retry': '^3.1.9',
-      'element-plus': '^1.0.2-beta.35',
-      'vue-router': '^4.0.5',
-      'vuex': '^4.0.0',
-      'vuex-persistedstate': '^4.0.0'
-  },
-    devDependencies: {
-      'husky': '^7.0.1',
-      'prettier': '^2.2.1',
-      'sass': '^1.32.11',
-      'sass-loader': '^10',
-      'vue-cli-plugin-mock': '^1.0.3'
+      'element-plus': '^1.1.0-beta.17',
+      'lodash': '^4.17.21',
+      '@types/lodash': '^4.14.174',
+      'vuex-persistedstate': '^4.1.0'
     },
   })
 }

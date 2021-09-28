@@ -12,9 +12,13 @@ UI基于element-plus以及构建工具基于 `@vue/cli 4.5` 的一套完整的�
 
 ```bash
 vue create my-app
+```
+![image](https://user-images.githubusercontent.com/8178166/135064607-68168bc4-5db6-450c-8c63-0d56f0f96518.png)
+![ca9900bb884162dad1dfe24d6ba0004](https://user-images.githubusercontent.com/8178166/135064237-1375cbaa-afbe-4e8f-85ae-6fb972b3372a.png)
+![9e57c916ff23251da497fb2c5b1252c](https://user-images.githubusercontent.com/8178166/135064278-c74b2018-9484-45da-a7e6-180a068ff140.png)
+```bash
 cd my-app
 vue add rack
-husky install && npx husky add .husky/pre-commit "npm run lint"
 ```
 
 您将被问及一些有关如何在项目中配置rack的问题。命令执行完之后，就能启动项目了

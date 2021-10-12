@@ -1,5 +1,5 @@
-import {AxiosRequestConfig, AxiosInstance} from 'axios';
-import {Router} from 'vue-router';
+import { AxiosRequestConfig, AxiosInstance } from 'axios';
+import { Router } from 'vue-router';
 import { MessageHandle, MessageParamsTyped } from 'element-plus';
 
 export interface AxiosRequestConfigCustom extends AxiosRequestConfig {

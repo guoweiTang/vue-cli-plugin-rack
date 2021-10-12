@@ -3,14 +3,15 @@
  * @Author: tangguowei
  * @Date: 2021-08-19 15:47:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-27 18:42:28
+ * @LastEditTime: 2021-10-12 16:01:53
  */
 import axios from 'axios';
 import { Router } from 'vue-router';
 import { apiBaseURL } from '@/config';
 import store from '@/store';
 import { AxiosRequestConfigCustom } from './data.d';
-import { FreeObject } from '@/views/data.d';
+// import { FreeObject } from '@/views/data.d';
+import { Token } from '@/store/admin/data.d';
 
 /**
  * 清除token，并重新登陆
@@ -54,8 +55,8 @@ export function refreshToken(failedRequest: any) {
     headers: {
       Authorization: `Bearer ${REFRESH_TOKEN}`,
     },
-  }).then(({ data }: FreeObject) => {
-    const { accessToken } = data;
+  }).then(({ data }) => {
+    const { accessToken } = data as Token;
     store.commit('admin/user/setToken', { accessToken });
     // eslint-disable-next-line
     failedRequest.response.config.headers.Authorization = `Bearer ${accessToken}`;

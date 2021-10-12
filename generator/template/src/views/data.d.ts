@@ -1,3 +1,1 @@
-export interface FreeObject {
-  [k: string]: any;
-}
+export type FreeObject = Record<string | number | symbol, unknown>

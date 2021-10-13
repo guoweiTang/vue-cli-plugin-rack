@@ -100,7 +100,7 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach((to) => {
   loadingInstance.close();
   // 更改标题
-  window.document.title = (to.meta.title as string) || process.env.VUE_APP_TITLE;
+  (window as any).document.title = (to.meta.title as string) || process.env.VUE_APP_TITLE;
 });
 
 export default router;

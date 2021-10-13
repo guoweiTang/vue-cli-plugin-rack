@@ -3,133 +3,19 @@
  * @Author: tangguowei
  * @Date: 2021-09-27 17:52:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-12 16:31:41
+ * @LastEditTime: 2021-10-13 17:08:54
  */
-import { h } from 'vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { ElLoading, ILoadingInstance } from 'element-plus';
-import Home from '@/views/Home.vue';
-import Login from '@/views/auth/login.vue';
-import Register from '@/views/auth/register.vue';
-import ResetPassword from '@/views/auth/reset-password.vue';
-import Layout from '@/layouts/basic-layout.vue';
 import store from '@/store';
+import commonRoutes from './modules/common';
+import authRoutes from './modules/auth';
+import mainRoutes from './modules/index';
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'home',
-    meta: {
-      title: 'home',
-    },
-    component: Home,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    meta: {
-      auth: true,
-      title: 'about',
-    },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-  },
-  {
-    path: '/auth',
-    name: 'auth',
-    meta: {
-      hidden: true,
-      isScreen: true,
-      title: '账户认证',
-    },
-    component: Layout,
-    redirect: {
-      name: 'login',
-    },
-    children: [
-      {
-        path: 'login',
-        name: 'login',
-        meta: {
-          title: '登录',
-        },
-        component: Login,
-      },
-      {
-        path: 'register',
-        name: 'register',
-        meta: {
-          title: '注册',
-        },
-        component: Register,
-      },
-      {
-        path: 'reset-password',
-        name: 'resetPassword',
-        meta: {
-          title: '重置密码',
-        },
-        component: ResetPassword,
-      },
-    ],
-  },
-  {
-    path: '/403',
-    name: '403',
-    meta: {
-      hidden: true,
-      isScreen: true,
-      title: '403',
-    },
-    component: () => import('../views/error/403.vue'),
-  },
-  {
-    path: '/404',
-    name: '404',
-    meta: {
-      hidden: true,
-      isScreen: true,
-      title: '404',
-    },
-    component: () => import('../views/error/404.vue'),
-  },
-  {
-    path: '/500',
-    name: '500',
-    meta: {
-      hidden: true,
-      isScreen: true,
-      title: '500',
-    },
-    component: () => import('../views/error/500.vue'),
-  },
-  // 刷新路由
-  {
-    path: '/refresh',
-    name: 'refresh',
-    meta: {
-      hidden: true,
-      title: '页面刷新',
-    },
-    component: {
-      beforeRouteEnter(to, from, next) {
-        next((instance) => instance.$router.replace({ name: from.name || undefined }));
-      },
-      render: () => h('div', ''),
-    },
-  },
-  // 未匹配到路由的缺省设置必须放在最后
-  {
-    path: '/:catchAll(.*)',
-    name: 'notFound',
-    meta: {
-      hidden: true,
-      title: '未找到页面',
-    },
-    redirect: { name: '404' },
-  },
+export const routes: Array<RouteRecordRaw> = [
+  ...mainRoutes,
+  ...authRoutes,
+  ...commonRoutes,
 ];
 
 const router = createRouter({
@@ -208,7 +94,6 @@ router.beforeEach(async (to, from, next) => {
     // 不需要是否登录校验 直接通过
     next();
   }
-
   // 更新当前活跃路由
   store.commit('admin/common/setActiveRoute', to);
 });

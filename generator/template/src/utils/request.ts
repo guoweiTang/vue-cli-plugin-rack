@@ -1,5 +1,11 @@
+/*
+ * @Description: 异步请求包装器
+ * @Author: tangguowei
+ * @Date: 2021-09-30 14:15:56
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-10-13 15:39:51
+ */
 import axios from 'axios';
-import _ from 'lodash';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import axiosRetry from 'axios-retry';
 import { AxiosRequestConfigCustom, AxiosInstanceCustom } from './data.d';
@@ -19,10 +25,9 @@ const aiosInstance: AxiosInstanceCustom = axios.create({
  *  skipAuthRefresh: boolean, // 是否跳过登录验证
  *  [postType]: 'file', // post类型，默认为空，“file”为文件以流形式上传
  */
+/* eslint-disable no-param-reassign */
 aiosInstance.interceptors.request.use(
-  (_config: AxiosRequestConfigCustom) => {
-    const config = _.cloneDeep(_config);
-
+  (config: AxiosRequestConfigCustom) => {
     config.headers['content-type'] = 'application/json';
     // 防止缓存，GET请求默认带_t参数
     if (config.method === 'get') {
@@ -46,6 +51,7 @@ aiosInstance.interceptors.request.use(
   },
   (error: Error): Promise<Error> => Promise.reject(error),
 );
+/* eslint-enable no-param-reassign */
 
 /**
  * 响应拦截

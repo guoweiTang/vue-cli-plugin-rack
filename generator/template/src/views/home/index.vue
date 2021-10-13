@@ -3,11 +3,11 @@
  * @Author: tangguowei
  * @Date: 2021-09-27 17:52:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-28 13:55:28
+ * @LastEditTime: 2021-10-13 16:35:56
 -->
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../../assets/logo.png">
     <HelloWorld :msg="`Welcome to Your ${appTitle} App`"/>
   </div>
 </template>
@@ -26,5 +26,12 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
     };
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+}
 </script>
+
+<style scoped>
+.home {
+  text-align: center;
+}
+</style>

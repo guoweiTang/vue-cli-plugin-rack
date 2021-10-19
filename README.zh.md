@@ -13,6 +13,7 @@ UI基于element-plus以及构建工具基于 `@vue/cli 4.5` 的一套完整的�
 ```bash
 vue create my-app
 ```
+![1634636776(1)](https://user-images.githubusercontent.com/8178166/137889017-fdf89a0f-6b63-44e2-a3bd-4edb94a65a2e.jpg)
 ```bash
 cd my-app
 vue add rack

@@ -19,7 +19,7 @@ vue create my-app
 ![1634636776(1)](https://user-images.githubusercontent.com/8178166/137888838-9e760516-103c-45bf-85b5-92ba2be3d6cf.jpg)
 ```bash
 cd my-app
-vue add rack@next
+vue add rack
 ```
 
 You'll be asked some questions regarding how rack is configured in your project. After that, you're good to go.

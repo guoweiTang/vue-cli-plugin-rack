@@ -1,0 +1,2 @@
+VUE_APP_BASE_URL = 'https://guoweitang.net'
+VUE_APP_TITLE = '云南省智慧学习能力开放平台'

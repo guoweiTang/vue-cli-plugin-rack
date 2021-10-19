@@ -13,9 +13,6 @@ UI基于element-plus以及构建工具基于 `@vue/cli 4.5` 的一套完整的�
 ```bash
 vue create my-app
 ```
-![image](https://user-images.githubusercontent.com/8178166/135064607-68168bc4-5db6-450c-8c63-0d56f0f96518.png)
-![ca9900bb884162dad1dfe24d6ba0004](https://user-images.githubusercontent.com/8178166/135064237-1375cbaa-afbe-4e8f-85ae-6fb972b3372a.png)
-![9e57c916ff23251da497fb2c5b1252c](https://user-images.githubusercontent.com/8178166/135064278-c74b2018-9484-45da-a7e6-180a068ff140.png)
 ```bash
 cd my-app
 vue add rack
@@ -37,32 +34,44 @@ npm run serve
 ```
 npm run serve:mock
 ```
-### 生产模式
+### 开发模式构建
+```
+npm run build:prod
+```
+### 生产模式构建
 ```
 npm run build
 ```
-
-### 检查代码格式
+### 检查代码格式（修复部分语法）
 ```
 npm run lint
-```
-### 美化代码格式
-```
-npm run prettier
 ```
 ## 界面示例
 > [在线预览](https://guoweitang.net/)
 
 ## 插件功能
-- vue3
-- element-plus
-- http请求对象封装
-- 路由
-- 仓库
-- 权限认证
-- 模拟数据
-- 检查代码格式
-- 代码格式化
+- **通行证**
+  - 登录
+  - 注册
+  - 重置密码
+- **权限认证**
+  - 路由认证
+  - 菜单认证
+- **错误页面**
+  - 403
+  - 404
+  - 500
+- **异步请求包装器**
+  - 重试
+  - 无痛刷新token
+  - 请求反馈
+- **Element-plus**
+- **路由**
+- **状态管理器**
+  - 命名空间
+  - 数据持久化
+- **Mock**
+  - 动态数据
 
 ## 自定义配置
 看 [配置参考](https://cli.vuejs.org/zh/config/).

@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 15:40:54
+ * @LastEditTime: 2021-10-20 10:53:54
 -->
 <template>
   <teleport to="#app">
@@ -12,12 +12,7 @@
         <div class="modal-header">
           <dl class="auth-logo">
             <dt>
-              <img
-                src="../../assets/logo.png"
-                alt="logo"
-                width="34"
-                height="34"
-              />
+              <img src="../../assets/logo.png" alt="logo" width="34" height="34" />
             </dt>
             <dd>VUE RACK</dd>
           </dl>
@@ -51,24 +46,17 @@
           </el-form-item>
           <div :style="{ marginBottom: '10px', textAlign: 'right' }">
             <router-link to="reset-password"
-              ><el-link type="primary" :underline="false"
-                >忘记密码？</el-link
-              ></router-link
+              ><el-link type="primary" :underline="false">忘记密码？</el-link></router-link
             >
           </div>
           <el-form-item>
-            <el-button
-              type="primary"
-              :loading="loading"
-              @click="submitForm('ruleForm')"
+            <el-button type="primary" :loading="loading" @click="submitForm('ruleForm')"
               >登录</el-button
             >
           </el-form-item>
           <div class="no-acoout">
             还没有账户？<router-link :to="{ name: 'register' }"
-              ><el-link type="primary" :underline="false"
-                >去注册</el-link
-              ></router-link
+              ><el-link type="primary" :underline="false">去注册</el-link></router-link
             >
           </div>
         </el-form>
@@ -78,9 +66,9 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import { emailPattern } from '@/config';
 import { getToken } from '@/views/service';
-import { mapMutations } from 'vuex';
 
 export default {
   name: 'Login',

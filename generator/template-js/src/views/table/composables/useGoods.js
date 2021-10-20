@@ -1,5 +1,5 @@
-import { getGoods } from '@/views/service';
 import { ref, onMounted, watch } from 'vue';
+import { getGoods } from '@/views/service';
 
 export default function useStoreRepositories(storeId) {
   const goodsRepositories = ref([]);

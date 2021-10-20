@@ -38,9 +38,7 @@
               @click="handleMyself"
               >我的账户</el-dropdown-item
             >
-            <el-dropdown-item icon="el-icon-switch-button" @click="logout"
-              >登出</el-dropdown-item
-            >
+            <el-dropdown-item icon="el-icon-switch-button" @click="logout">登出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>

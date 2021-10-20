@@ -18,11 +18,7 @@
         uniqueOpened
         :default-active="activeRoute.name"
       >
-        <AsideItem
-          v-for="(route, index) of routes"
-          :key="index"
-          :item="route"
-        />
+        <AsideItem v-for="(route, index) of routes" :key="index" :item="route" />
       </el-menu>
     </div>
   </el-aside>

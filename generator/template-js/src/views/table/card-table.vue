@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 15:41:55
+ * @LastEditTime: 2021-10-20 10:55:58
 -->
 <template>
   <el-alert
@@ -31,16 +31,9 @@
             <div class="card-content">
               <div class="sub-title">{{ item.version }}</div>
               <el-button-group class="service-options">
-                <el-button
-                  type="text"
-                  icon="el-icon-edit"
-                  @click="handleEdit(item)"
-                />
+                <el-button type="text" icon="el-icon-edit" @click="handleEdit(item)" />
                 <el-button type="text" icon="el-icon-share" />
-                <el-popconfirm
-                  title="确定删除该服务吗？"
-                  @confirm="confirmDelete(item)"
-                >
+                <el-popconfirm title="确定删除该服务吗？" @confirm="confirmDelete(item)">
                   <template #reference>
                     <el-button type="text" icon="el-icon-delete" />
                   </template>
@@ -58,6 +51,7 @@
 <script>
 import Modal from './components/modal';
 import { getAllServices, deleteService } from '@/views/service';
+
 export default {
   name: 'CardTable',
   components: {

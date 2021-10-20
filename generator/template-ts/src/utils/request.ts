@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-09-30 14:15:56
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-13 15:39:51
+ * @LastEditTime: 2021-10-20 11:41:20
  */
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
@@ -28,6 +28,7 @@ const aiosInstance: AxiosInstanceCustom = axios.create({
 /* eslint-disable no-param-reassign */
 aiosInstance.interceptors.request.use(
   (config: AxiosRequestConfigCustom) => {
+    config.headers = config.headers || {};
     config.headers['content-type'] = 'application/json';
     // 防止缓存，GET请求默认带_t参数
     if (config.method === 'get') {
@@ -45,7 +46,7 @@ aiosInstance.interceptors.request.use(
       config.data = data;
     }
     if (!config.skipAuthRefresh) {
-      config.headers.Authorization = initToken(config);
+      config.headers.Authorization = (initToken(config) as string);
     }
     return config;
   },

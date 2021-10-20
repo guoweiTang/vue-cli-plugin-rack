@@ -1,10 +1,5 @@
 <template>
-  <el-form
-    label-position="left"
-    :model="formModel"
-    ref="editForm"
-    label-width="140px"
-  >
+  <el-form label-position="left" :model="formModel" ref="editForm" label-width="140px">
     <div class="edit-able">
       <el-form-item :label="label">
         <!-- 编辑区域 -->
@@ -16,16 +11,10 @@
             v-model="formModel.targetProp"
             autocomplete="off"
           />
-          <el-radio-group
-            v-else-if="type === 'radio'"
-            v-model="formModel.targetProp"
-          >
-            <el-radio
-              v-for="item in options"
-              :key="item.value"
-              :label="item.value"
-              >{{ item.label }}</el-radio
-            >
+          <el-radio-group v-else-if="type === 'radio'" v-model="formModel.targetProp">
+            <el-radio v-for="item in options" :key="item.value" :label="item.value">{{
+              item.label
+            }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- 展示区域 -->

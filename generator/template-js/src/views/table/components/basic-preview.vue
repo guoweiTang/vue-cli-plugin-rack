@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 20:15:47
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 18:09:06
+ * @LastEditTime: 2021-10-20 10:54:38
 -->
 <template>
   <el-dialog v-model="visible" title="商品详情">
@@ -18,9 +18,9 @@
 
 <script>
 import { defineComponent, ref, reactive, computed } from 'vue';
-import { getGoodDetail } from '@/views/service';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { getGoodDetail } from '@/views/service';
 
 export default defineComponent({
   setup() {
@@ -28,9 +28,7 @@ export default defineComponent({
     const router = useRouter();
     const visible = ref(false);
     const formData = reactive({});
-    const storeName = computed(
-      () => store.getters['basic-table/currentStoreName']
-    );
+    const storeName = computed(() => store.getters['basic-table/currentStoreName']);
     const init = async (goodId) => {
       visible.value = true;
       // 查询详情

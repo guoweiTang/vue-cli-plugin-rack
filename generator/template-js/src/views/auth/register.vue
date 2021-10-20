@@ -12,12 +12,7 @@
         <div class="modal-header">
           <dl class="auth-logo">
             <dt>
-              <img
-                src="../../assets/logo.png"
-                alt="logo"
-                width="34"
-                height="34"
-              />
+              <img src="../../assets/logo.png" alt="logo" width="34" height="34" />
             </dt>
             <dd>VUE RACK</dd>
           </dl>
@@ -34,10 +29,7 @@
           @keyup.enter="submitForm('ruleForm')"
         >
           <el-form-item label="邮箱" prop="email">
-            <el-input
-              v-model.trim="ruleForm.email"
-              autocomplete="off"
-            ></el-input>
+            <el-input v-model.trim="ruleForm.email" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
@@ -56,18 +48,13 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button
-              type="primary"
-              @click="submitForm('ruleForm')"
-              :loading="loading"
+            <el-button type="primary" @click="submitForm('ruleForm')" :loading="loading"
               >注册</el-button
             >
           </el-form-item>
           <div class="no-acoout">
             已有账户？<router-link :to="{ name: 'login' }"
-              ><el-link type="primary" :underline="false"
-                >去登录</el-link
-              ></router-link
+              ><el-link type="primary" :underline="false">去登录</el-link></router-link
             >
           </div>
         </el-form>

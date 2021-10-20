@@ -42,8 +42,7 @@ export function refreshToken(failedRequest) {
   }).then(({ data }) => {
     const { access_token } = data;
     store.commit('admin/user/setToken', { access_token });
-    failedRequest.response.config.headers['Authorization'] =
-      'Bearer ' + access_token;
+    failedRequest.response.config.headers['Authorization'] = 'Bearer ' + access_token;
     return Promise.resolve();
   });
 }

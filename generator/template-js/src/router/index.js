@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { h } from 'vue';
+import { ElLoading } from 'element-plus';
 import Home from '@/views/home';
 import Login from '@/views/auth/login';
 import Register from '@/views/auth/register';
@@ -7,10 +9,8 @@ import BasicTable from '@/views/table/basic-table';
 import CardTable from '@/views/table/card-table';
 import UserInfo from '@/views/account';
 import Authorzation from '@/views/account/authorzation';
-import { ElLoading } from 'element-plus';
 import Layout from '@/layouts/basic-layout';
 import store from '@/store';
-import { h } from 'vue';
 
 /**
  *
@@ -234,9 +234,7 @@ router.beforeEach(async (to, from, next) => {
       next({
         name: 'home',
       });
-    } else if (
-      to.matched.some((_) => _.meta.auth && Array.isArray(_.meta.auth))
-    ) {
+    } else if (to.matched.some((_) => _.meta.auth && Array.isArray(_.meta.auth))) {
       // 需要身份校验
       let canVisit;
       for (let {

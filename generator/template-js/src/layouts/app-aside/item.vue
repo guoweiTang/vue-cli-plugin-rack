@@ -22,11 +22,7 @@
         <i v-if="item.meta.icon" :class="item.meta.icon"></i>
         <span>{{ item.meta.title }}</span>
       </template>
-      <MenuItem
-        v-for="(child, index) of item.children"
-        :key="index"
-        :item="child"
-      />
+      <MenuItem v-for="(child, index) of item.children" :key="index" :item="child" />
     </el-submenu>
   </template>
 </template>
@@ -50,9 +46,7 @@ export default {
       const isArray = Array.isArray(meta.auth);
       return (
         !hidden &&
-        (!meta.auth ||
-          (role &&
-            ((isArray && meta.auth.includes(role)) || meta.auth === true)))
+        (!meta.auth || (role && ((isArray && meta.auth.includes(role)) || meta.auth === true)))
       );
     },
   },

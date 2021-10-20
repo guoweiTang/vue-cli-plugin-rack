@@ -1,9 +1,9 @@
 # vue-cli-plugin-rack
-UI基于element-plus以及构建工具基于 `@vue/cli 4.5` 的一套完整的后台系统解决方案
+**基于vue3的一套完整的后台系统解决方案**
+> 提供js和typescript两种模式
 
 ## 语言
 [English](https://github.com/guoweiTang/vue-cli-plugin-rack/)
-
 ## 安装
 
 首先你需要全局安装`@vue/cli` (参考说明) [这里](https://cli.vuejs.org/zh/)).
@@ -17,6 +17,7 @@ vue create my-app
 ```bash
 cd my-app
 vue add rack
+npm run initPrecommit  #如果添加插件的模式不是typescript,跳过这一步
 ```
 
 您将被问及一些有关如何在项目中配置rack的问题。命令执行完之后，就能启动项目了

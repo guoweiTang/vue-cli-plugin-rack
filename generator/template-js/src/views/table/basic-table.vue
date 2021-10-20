@@ -47,10 +47,7 @@
     <el-table-column prop="description" label="商品介绍"> </el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
       <template #default="{ row }">
-        <el-button
-          type="text"
-          size="small"
-          @click="$refs.previewModal.init(row.id)"
+        <el-button type="text" size="small" @click="$refs.previewModal.init(row.id)"
           >详情</el-button
         >
       </template>

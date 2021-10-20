@@ -21,11 +21,7 @@
       :on-change="handleAvatarChange"
       :auto-upload="false"
     >
-      <el-image
-        class="avatar"
-        v-if="userInfo.avatarUrl"
-        :src="userInfo.avatarUrl"
-      >
+      <el-image class="avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl">
         <template #error>
           <div class="image-slot">
             <i class="el-icon-picture-outline"></i>
@@ -87,9 +83,7 @@ export default {
   },
   data() {
     return {
-      rulesOfCommon: [
-        { required: true, message: '内容不能为空', trigger: 'blur' },
-      ],
+      rulesOfCommon: [{ required: true, message: '内容不能为空', trigger: 'blur' }],
     };
   },
   computed: {

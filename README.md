@@ -1,8 +1,9 @@
 # vue-cli-plugin-rack
-Element Plus plugin for `@vue/cli` 4.5.
-
 [![npm](https://img.shields.io/npm/dm/vue-cli-plugin-rack.svg)](https://github.com/guoweiTang/vue-cli-plugin-rack)
 ![NPM](https://img.shields.io/npm/l/vue-cli-plugin-rack)
+
+**It is a complete background system solution based on vue3.**
+> It provides JS and typescript modes
 
 ## Language
 [中文](https://github.com/guoweiTang/vue-cli-plugin-rack/blob/master/README.zh.md)
@@ -20,6 +21,7 @@ vue create my-app
 ```bash
 cd my-app
 vue add rack
+npm run initPrecommit  #If the typescript answer is no, Otherwise, skip this step
 ```
 
 You'll be asked some questions regarding how rack is configured in your project. After that, you're good to go.

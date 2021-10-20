@@ -10,10 +10,7 @@
     <AppAside :collapse="collapse" />
     <el-container>
       <el-main>
-        <AppHeader
-          :collapse="collapse"
-          @handleToggleCollapse="handleToggleCollapse"
-        />
+        <AppHeader :collapse="collapse" @handleToggleCollapse="handleToggleCollapse" />
         <div class="app-container">
           <router-view />
         </div>
@@ -93,9 +90,8 @@ i {
   font-style: normal;
 }
 #app {
-  font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto,
-    helvetica neue, Arial, noto sans, sans-serif, apple color emoji,
-    segoe ui emoji, segoe ui symbol, noto color emoji;
+  font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, noto sans,
+    sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #303133;

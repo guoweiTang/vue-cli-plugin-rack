@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { ElMessage as Message } from 'element-plus';
+import axiosRetry from 'axios-retry';
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { initToken, refreshToken } from './token';
 import { apiBaseURL } from '@/config';
-import createAuthRefreshInterceptor from 'axios-auth-refresh';
-import axiosRetry from 'axios-retry';
 
 const aiosInstance = axios.create({
   baseURL: apiBaseURL,

@@ -17,6 +17,7 @@ module.exports = (api, { typescript }) => {
   });
   if (typescript) {
     api.render('./template-ts');
+    api.render((files) => delete files['src/main.js'])
     api.extendPackage({
       scripts: {
         'serve:mock': 'vue-cli-service serve --mode mock',

@@ -40,7 +40,7 @@ module.exports = (api, { typescript }) => {
         "eslint-plugin-import": "^2.20.2",
         "typescript": "~4.1.5",
       },
-      eslintConfig: false,
+      eslintConfig: undefined,
     })
   } else {
     api.render('./template-js');

@@ -3,78 +3,76 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-13 10:27:46
+ * @LastEditTime: 2021-11-29 17:06:51
 -->
 <template>
-  <teleport to="#app">
-    <div class="auth">
-      <div class="modal-box">
-        <div class="modal-header">
-          <dl class="auth-logo">
-            <dt>
-              <img
-                src="../../assets/logo.png"
-                alt="logo"
-                width="34"
-                height="34"
-              />
-            </dt>
-            <dd>VUE RACK</dd>
-          </dl>
-          <h2>登录</h2>
-          <p>登录以继续使用</p>
-        </div>
-        <el-form
-          label-position="top"
-          :model="formData"
-          :rules="rules"
-          ref="ruleForm"
-          label-width="100px"
-          class="demo-ruleForm"
-          @keyup.enter="submitForm"
-        >
-          <el-form-item label="邮箱" prop="email">
-            <el-input
-              placeholder="admin@vuerack.com"
-              v-model.trim="formData.email"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input
-              placeholder="vuerack"
-              show-password
-              type="password"
-              v-model="formData.password"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-          <div :style="{ marginBottom: '10px', textAlign: 'right' }">
-            <router-link :to="{ name: 'resetPassword' }"
-              ><el-link type="primary" :underline="false"
-                >忘记密码？</el-link
-              ></router-link
-            >
-          </div>
-          <el-form-item>
-            <el-button
-              type="primary"
-              :loading="loading"
-              @click="submitForm"
-              >登录</el-button
-            >
-          </el-form-item>
-          <div class="no-acoout">
-            还没有账户？<router-link :to="{ name: 'register' }"
-              ><el-link type="primary" :underline="false"
-                >去注册</el-link
-              ></router-link
-            >
-          </div>
-        </el-form>
+  <div class="auth">
+    <div class="modal-box">
+      <div class="modal-header">
+        <dl class="auth-logo">
+          <dt>
+            <img
+              src="../../assets/logo.png"
+              alt="logo"
+              width="34"
+              height="34"
+            />
+          </dt>
+          <dd>VUE RACK</dd>
+        </dl>
+        <h2>登录</h2>
+        <p>登录以继续使用</p>
       </div>
+      <el-form
+        label-position="top"
+        :model="formData"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+        @keyup.enter="submitForm"
+      >
+        <el-form-item label="邮箱" prop="email">
+          <el-input
+            placeholder="admin@vuerack.com"
+            v-model.trim="formData.email"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input
+            placeholder="vuerack"
+            show-password
+            type="password"
+            v-model="formData.password"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <div :style="{ marginBottom: '10px', textAlign: 'right' }">
+          <router-link :to="{ name: 'resetPassword' }"
+            ><el-link type="primary" :underline="false"
+              >忘记密码？</el-link
+            ></router-link
+          >
+        </div>
+        <el-form-item>
+          <el-button
+            type="primary"
+            :loading="loading"
+            @click="submitForm"
+            >登录</el-button
+          >
+        </el-form-item>
+        <div class="no-acoout">
+          还没有账户？<router-link :to="{ name: 'register' }"
+            ><el-link type="primary" :underline="false"
+              >去注册</el-link
+            ></router-link
+          >
+        </div>
+      </el-form>
     </div>
-  </teleport>
+  </div>
 </template>
 
 <script lang="ts">
@@ -87,7 +85,7 @@ import { getToken } from '@/views/service';
   name: 'Login',
 })
 export default class extends Vue {
-  private validEmail = (rule: any, value: string, callback: (arg0: Error|undefined) => void) => {
+  validEmail = (rule: any, value: string, callback: (arg0: Error|undefined) => void) => {
     if (!emailPattern.test(value)) {
       callback(new Error('请输入正确的邮箱'));
     } else {
@@ -95,14 +93,14 @@ export default class extends Vue {
     }
   }
 
-  private loading = false;
+  loading = false;
 
   private formData = {
     email: 'admin@vuerack.com',
     password: 'vuerack',
   };
 
-  private rules = {
+  rules = {
     // email: [
     //   { required: true, message: '请输入邮箱', trigger: 'blur' },
     //   { validator: this.validEmail, trigger: 'blur' },
@@ -113,7 +111,7 @@ export default class extends Vue {
     ],
   };
 
-  private submitForm() {
+  submitForm() {
     (this as any).$refs.ruleForm.validate((valid: any) => {
       if (valid) {
         this.loading = true;

@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-08-19 15:47:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-12 16:01:53
+ * @LastEditTime: 2021-11-29 15:53:48
  */
 import axios from 'axios';
 import { Router } from 'vue-router';
@@ -16,7 +16,7 @@ import { Token } from '@/store/admin/data.d';
 /**
  * 清除token，并重新登陆
  */
-export function clearToken(router: Router | undefined) {
+export function clearToken(router?: Router) {
   store.commit('admin/user/clearToken');
   store.commit('admin/user/clearUserInfo');
   if (router) {

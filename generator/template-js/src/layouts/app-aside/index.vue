@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 16:02:40
+ * @LastEditTime: 2021-11-29 15:27:28
 -->
 <template>
   <el-aside width="auto" class="aside">
@@ -47,8 +47,10 @@ export default {
 </script>
 <style scoped lang="scss">
 .menu-content {
-  max-height: 100vh;
-  overflow-y: auto;
+  height: 100vh;
+  overflow: hidden auto;
+  scrollbar-color: hsla(0, 0%, 100%, 0.2) hsla(0, 0%, 100%, 0.15);
+  scrollbar-width: thin;
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;

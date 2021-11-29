@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-08-19 15:47:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 16:19:30
+ * @LastEditTime: 2021-11-29 11:04:13
  */
 import axios from 'axios';
 import { apiBaseURL } from '@/config';
@@ -16,7 +16,7 @@ import store from '@/store';
  * @returns {Object} axios配置信息
  */
 export async function initToken(config) {
-  const ACCESS_TOKEN = store.state.admin.user.token.access_token;
+  const ACCESS_TOKEN = store.state.admin.user.token.accessToken;
   if (ACCESS_TOKEN) {
     config.headers['Authorization'] = `Bearer ${ACCESS_TOKEN}`;
   } else {
@@ -40,9 +40,9 @@ export function refreshToken(failedRequest) {
       Authorization: `Bearer ${REFRESH_TOKEN}`,
     },
   }).then(({ data }) => {
-    const { access_token } = data;
-    store.commit('admin/user/setToken', { access_token });
-    failedRequest.response.config.headers['Authorization'] = 'Bearer ' + access_token;
+    const { accessToken } = data;
+    store.commit('admin/user/setToken', { accessToken });
+    failedRequest.response.config.headers['Authorization'] = 'Bearer ' + accessToken;
     return Promise.resolve();
   });
 }

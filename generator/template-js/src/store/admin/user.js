@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-09-16 15:13:33
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 15:37:52
+ * @LastEditTime: 2021-11-29 11:02:45
  */
 import { updateMyInfo, getMyInfo } from '@/views/service';
 import router from '@/router';
@@ -12,8 +12,8 @@ export default {
   namespaced: true,
   state: {
     token: {
-      access_token: '',
-      refresh_token: '',
+      accessToken: '',
+      refreshToken: '',
     },
     // 登录用户信息
     userInfo: {

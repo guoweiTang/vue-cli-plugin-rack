@@ -3,66 +3,64 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-20 10:53:54
+ * @LastEditTime: 2021-11-29 17:32:18
 -->
 <template>
-  <teleport to="#app">
-    <div class="auth">
-      <div class="modal-box">
-        <div class="modal-header">
-          <dl class="auth-logo">
-            <dt>
-              <img src="../../assets/logo.png" alt="logo" width="34" height="34" />
-            </dt>
-            <dd>VUE RACK</dd>
-          </dl>
-          <h2>登录</h2>
-          <p>登录以继续使用</p>
-        </div>
-        <el-form
-          label-position="top"
-          :model="ruleForm"
-          :rules="rules"
-          ref="ruleForm"
-          label-width="100px"
-          class="demo-ruleForm"
-          @keyup.enter="submitForm('ruleForm')"
-        >
-          <el-form-item label="邮箱" prop="email">
-            <el-input
-              placeholder="admin@vuerack.com"
-              v-model.trim="ruleForm.email"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input
-              placeholder="vuerack"
-              show-password
-              type="password"
-              v-model="ruleForm.password"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-          <div :style="{ marginBottom: '10px', textAlign: 'right' }">
-            <router-link to="reset-password"
-              ><el-link type="primary" :underline="false">忘记密码？</el-link></router-link
-            >
-          </div>
-          <el-form-item>
-            <el-button type="primary" :loading="loading" @click="submitForm('ruleForm')"
-              >登录</el-button
-            >
-          </el-form-item>
-          <div class="no-acoout">
-            还没有账户？<router-link :to="{ name: 'register' }"
-              ><el-link type="primary" :underline="false">去注册</el-link></router-link
-            >
-          </div>
-        </el-form>
+  <div class="auth">
+    <div class="modal-box">
+      <div class="modal-header">
+        <dl class="auth-logo">
+          <dt>
+            <img src="../../assets/logo.png" alt="logo" width="34" height="34" />
+          </dt>
+          <dd>VUE RACK</dd>
+        </dl>
+        <h2>登录</h2>
+        <p>登录以继续使用</p>
       </div>
+      <el-form
+        label-position="top"
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+        @keyup.enter="submitForm('ruleForm')"
+      >
+        <el-form-item label="邮箱" prop="email">
+          <el-input
+            placeholder="admin@vuerack.com"
+            v-model.trim="ruleForm.email"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input
+            placeholder="vuerack"
+            show-password
+            type="password"
+            v-model="ruleForm.password"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <div :style="{ marginBottom: '10px', textAlign: 'right' }">
+          <router-link to="reset-password"
+            ><el-link type="primary" :underline="false">忘记密码？</el-link></router-link
+          >
+        </div>
+        <el-form-item>
+          <el-button type="primary" :loading="loading" @click="submitForm('ruleForm')"
+            >登录</el-button
+          >
+        </el-form-item>
+        <div class="no-acoout">
+          还没有账户？<router-link :to="{ name: 'register' }"
+            ><el-link type="primary" :underline="false">去注册</el-link></router-link
+          >
+        </div>
+      </el-form>
     </div>
-  </teleport>
+  </div>
 </template>
 
 <script>
@@ -113,8 +111,8 @@ export default {
           })
             .then(({ data }) => {
               this.loading = false;
-              const { access_token, refresh_token } = data;
-              this.setToken({ access_token, refresh_token });
+              const { accessToken, refreshToken } = data;
+              this.setToken({ accessToken, refreshToken });
               this.$message.success({
                 duration: 800,
                 message: '登录成功，正在跳转……',

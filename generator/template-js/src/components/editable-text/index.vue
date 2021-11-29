@@ -53,7 +53,7 @@ export default {
     // 表单值
     value: {
       type: String,
-      required: true,
+      default: '',
     },
     // 确定修改回调
     confirm: Function,

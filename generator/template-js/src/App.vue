@@ -3,20 +3,25 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 14:54:00
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 16:02:29
+ * @LastEditTime: 2021-11-29 17:34:48
 -->
 <template>
-  <el-container v-show="!isScreen">
-    <AppAside :collapse="collapse" />
-    <el-container>
-      <el-main>
-        <AppHeader :collapse="collapse" @handleToggleCollapse="handleToggleCollapse" />
-        <div class="app-container">
-          <router-view />
-        </div>
-        <AppFooter />
-      </el-main>
-    </el-container>
+  <el-container>
+    <el-main v-if="isScreen">
+      <router-view />
+    </el-main>
+    <template v-else>
+      <AppAside :collapse="collapse" />
+      <el-container>
+        <el-main>
+          <AppHeader :collapse="collapse" @handleToggleCollapse="handleToggleCollapse" />
+          <div class="app-container">
+            <router-view />
+          </div>
+          <AppFooter />
+        </el-main>
+      </el-container>
+    </template>
   </el-container>
 </template>
 

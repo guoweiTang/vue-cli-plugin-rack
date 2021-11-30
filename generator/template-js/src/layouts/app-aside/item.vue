@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 16:02:59
+ * @LastEditTime: 2021-11-30 18:23:52
 -->
 <template>
   <template v-if="isShowing">
@@ -17,13 +17,13 @@
         <span>{{ item.meta.title }}</span>
       </template>
     </el-menu-item>
-    <el-submenu v-else class="no-drop-down" :index="item.name">
+    <el-sub-menu v-else class="no-drop-down" :index="item.name">
       <template #title>
         <i v-if="item.meta.icon" :class="item.meta.icon"></i>
         <span>{{ item.meta.title }}</span>
       </template>
       <MenuItem v-for="(child, index) of item.children" :key="index" :item="child" />
-    </el-submenu>
+    </el-sub-menu>
   </template>
 </template>
 

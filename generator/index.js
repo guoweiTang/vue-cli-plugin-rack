@@ -8,6 +8,7 @@ module.exports = (api, { typescript }) => {
       "vue-router": "^4.0.0-0",
       "vuex": "^4.0.0-0",
       'vuex-persistedstate': '^4.1.0',
+      'element-plus': '1.1.0-beta.18',
     },
     devDependencies: {
       'sass': '^1.32.11',
@@ -24,7 +25,6 @@ module.exports = (api, { typescript }) => {
         'build:dev': 'vue-cli-service build --mode development'
       },
       dependencies: {
-        'element-plus': '1.1.0-beta.18',
         'lodash': '^4.17.21',
         '@types/lodash': '^4.14.174',
         "vue-class-component": "^8.0.0-0",
@@ -51,9 +51,6 @@ module.exports = (api, { typescript }) => {
         'lint': 'vue-cli-service lint && npm run lint:prettier',
         'lint:prettier': 'prettier --check "src/**/*" --end-of-line auto',
         'prettier': 'prettier -c --write "src/**/*"'
-      },
-      dependencies: {
-        'element-plus': '^1.0.2-beta.35',
       },
       devDependencies: {
         'husky': '^7.0.1',

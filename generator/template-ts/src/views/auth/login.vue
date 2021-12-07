@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-07 10:52:09
+ * @LastEditTime: 2021-12-07 15:43:54
 -->
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
@@ -11,15 +11,21 @@ import {
   useStore,
   mapMutations,
 } from 'vuex';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute, LocationQueryValue } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { emailPattern } from '@/config';
 import { getToken } from '@/views/service';
 
 const store = useStore();
 const router = useRouter();
+const route = useRoute();
+
+// 同步store数据
 const setToken = mapMutations('admin/user', ['setToken']).setToken.bind({ $store: store });
+
+// 是否加载中
 const loading = ref(false);
+// 邮箱校验
 const validEmail = (rule: any, value: string, callback: (arg0?: Error) => void) => {
   if (!emailPattern.test(value)) {
     callback(new Error('请输入正确的邮箱'));
@@ -27,11 +33,13 @@ const validEmail = (rule: any, value: string, callback: (arg0?: Error) => void) 
     callback();
   }
 };
+// 表单数据
 const formData = reactive({
   email: 'admin@vuerack.com',
   password: 'vuerack',
 });
-const rules = {
+// 表单校验规则
+const rules = reactive({
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
     { validator: validEmail, trigger: 'blur' },
@@ -40,8 +48,10 @@ const rules = {
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 3, message: '密码至少为3个字符', trigger: 'blur' },
   ],
-};
+});
+// 表单标识
 const ruleForm = ref();
+// 登录提交
 const submitForm = () => {
   ruleForm.value.validate((valid: any) => {
     if (valid) {
@@ -60,7 +70,7 @@ const submitForm = () => {
             onClose: () => {
               // 重定向对象不存在则返回顶层路径
               router.replace(
-                router.currentRoute.value.query.redirect || {
+                (route.query.redirect as LocationQueryValue) || {
                   name: 'home',
                 },
               );

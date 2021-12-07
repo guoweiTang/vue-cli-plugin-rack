@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-06 17:14:18
+ * @LastEditTime: 2021-12-07 15:31:39
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
@@ -11,11 +11,15 @@ import { useStore, mapState } from 'vuex';
 import { routes } from '@/router/index';
 import AsideItem from './item.vue';
 
-defineProps({
-  collapse: Boolean,
-});
+/**
+ * 父组件传入的数据及事件
+ */
+defineProps<{
+  collapse: boolean
+}>();
+
 const store = useStore();
-// 获取路由状态
+// 同步store数据
 const activeRoute = computed(mapState('admin/common', ['activeRoute']).activeRoute.bind({ $store: store }));
 </script>
 

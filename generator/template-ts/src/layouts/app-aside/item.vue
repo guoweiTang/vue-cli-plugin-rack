@@ -3,19 +3,24 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-06 17:46:40
+ * @LastEditTime: 2021-12-07 15:32:10
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useStore, mapState } from 'vuex';
 import { RouteRecordRaw, RouteMeta } from 'vue-router';
 
+/**
+ * 父组件传入的数据及事件
+ */
 const props = defineProps<{
   item: RouteRecordRaw,
 }>();
+
 const store = useStore();
-// 获取路由状态
+// 同步store数据
 const userInfo: any = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+
 const isShowing = computed(() => {
   const meta = props.item.meta as RouteMeta;
   const { auth, hidden } = meta;

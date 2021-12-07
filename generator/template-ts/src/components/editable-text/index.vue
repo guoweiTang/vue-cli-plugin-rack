@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 
+/**
+ * 父组件传入的数据及事件
+ */
 const props = defineProps({
   // 表单类型
   type: {
@@ -27,16 +30,23 @@ const props = defineProps({
   rules: Object,
 });
 const emit = defineEmits(['confirm']);
+
+// 表单数据
 const formModel = reactive({ targetProp: '' });
-const visible = ref(false);
+// 是否为编辑状态
+const isEdit = ref(false);
+// 编辑状态展示回调
 const handleEdit = () => {
   formModel.targetProp = props.value;
-  visible.value = true;
+  isEdit.value = true;
 };
+// 取消编辑
 const handleCancel = () => {
-  visible.value = false;
+  isEdit.value = false;
 };
+// form组件标识
 const editForm = ref();
+// 确定回调
 const handleConfirm = () => {
   editForm.value.validate((valid: any) => {
     if (valid) {
@@ -58,7 +68,7 @@ const handleConfirm = () => {
     <div class="edit-able">
       <el-form-item :label="label">
         <!-- 编辑区域 -->
-        <el-form-item prop="targetProp" v-if="visible" :rules="rules">
+        <el-form-item prop="targetProp" v-if="isEdit" :rules="rules">
           <el-input
             v-if="type === 'text' || type === 'textarea'"
             :type="type"
@@ -84,7 +94,7 @@ const handleConfirm = () => {
           <i class="el-icon-edit" @click="handleEdit">修改</i>
         </div>
       </el-form-item>
-      <el-form-item v-if="visible">
+      <el-form-item v-if="isEdit">
         <el-button type="primary" @click="handleConfirm">保存</el-button>
         <el-button @click="handleCancel">取消</el-button>
       </el-form-item>

@@ -3,14 +3,13 @@
  * @Author: tangguowei
  * @Date: 2021-08-19 15:47:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 15:53:48
+ * @LastEditTime: 2021-12-07 15:20:50
  */
 import axios from 'axios';
 import { Router } from 'vue-router';
 import { apiBaseURL } from '@/config';
 import store from '@/store';
 import { AxiosRequestConfigCustom } from './data.d';
-// import { FreeObject } from '@/views/data.d';
 import { Token } from '@/store/admin/data.d';
 
 /**

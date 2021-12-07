@@ -3,21 +3,24 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-06 18:02:14
+ * @LastEditTime: 2021-12-07 15:33:02
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useStore, mapState } from 'vuex';
+import { useStore, mapState, mapActions } from 'vuex';
 import EditableText from '@/components/editable-text/index.vue';
 
 const store = useStore();
+// 同步store数据
+const userInfo: any = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+const setUserInfo = mapActions('admin/user', ['setUserInfo']).setUserInfo.bind({ $store: store });
+
+// 更新角色回调
 const handleConfirmRole = (value: string) => {
-  store.dispatch('admin/user/setUserInfo', {
+  setUserInfo({
     role: value,
   });
 };
-// 获取路由状态
-const userInfo: any = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
 </script>
 
 <template>

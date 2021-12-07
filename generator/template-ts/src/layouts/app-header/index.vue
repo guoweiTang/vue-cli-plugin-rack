@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-06 17:58:10
+ * @LastEditTime: 2021-12-07 15:32:24
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
@@ -11,15 +11,19 @@ import { useRouter } from 'vue-router';
 import { useStore, mapState } from 'vuex';
 import { clearToken } from '@/utils/token';
 
+/**
+ * 继承至父组件的属性和方法
+ */
 defineProps<{
   collapse: boolean
 }>();
 defineEmits(['handleToggleCollapse']);
+
 const router = useRouter();
 const store = useStore();
-
-// 获取路由状态
+// 同步store数据
 const userInfo: any = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+
 // 退出
 const logout = () => clearToken(router);
 // 跳转个人主页

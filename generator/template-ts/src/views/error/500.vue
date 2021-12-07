@@ -3,11 +3,11 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:55:19
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-07 10:48:28
+ * @LastEditTime: 2021-12-07 16:02:47
 -->
 <template>
   <div class="error-page">
-    <el-row type="flex" justify="center" align="center" class="lsl">
+    <el-row type="flex" justify="center" align="center">
       <el-col :span="6"><img src="../../assets/icon-500-color.svg" alt="500 icon" /></el-col>
       <el-col :span="4" :offset="2">
         <h2>500</h2>

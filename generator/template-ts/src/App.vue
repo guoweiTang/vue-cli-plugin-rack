@@ -3,20 +3,53 @@
  * @Author: tangguowei
  * @Date: 2021-09-27 17:52:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 16:54:33
+ * @LastEditTime: 2021-12-07 16:07:30
 -->
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue';
+import { mapState, useStore } from 'vuex';
+import AppAside from '@/layouts/app-aside/index.vue';
+import AppHeader from '@/layouts/app-header/index.vue';
+import AppFooter from '@/layouts/app-footer/index.vue';
+
+const store = useStore();
+// 同步store数据
+const isScreen = computed(mapState('admin/common', ['isScreen']).isScreen.bind({ $store: store }));
+
+// 是否收起菜单
+const collapse = ref(false);
+// 菜单收起展开回调
+const handleToggleCollapse = () => {
+  collapse.value = !collapse.value;
+};
+// 根据窗口大小切换菜单显示
+const handleResize = () => {
+  const widthOfWindow = document.documentElement.clientWidth;
+  if (widthOfWindow < 1281) {
+    collapse.value = true;
+  } else {
+    collapse.value = false;
+  }
+};
+window.addEventListener('resize', handleResize);
+// 初始化浏览视口以正确显示
+onMounted(() => {
+  handleResize();
+});
+</script>
+
 <template>
   <el-container>
     <el-main v-if="isScreen">
       <router-view />
     </el-main>
     <template v-else>
-      <AppAside :collapse="haha.collapse" />
+      <AppAside :collapse="collapse" />
       <el-container>
         <el-main>
           <AppHeader
-            :collapse="haha.collapse"
-            @handleToggleCollapse="haha.handleToggleCollapse"
+            :collapse="collapse"
+            @handleToggleCollapse="handleToggleCollapse"
           />
           <div class="app-container">
             <router-view />
@@ -27,50 +60,6 @@
     </template>
   </el-container>
 </template>
-
-<script lang="ts">
-import { ref, onMounted } from 'vue';
-import { Options, Vue, setup } from 'vue-class-component';
-import { mapState } from 'vuex';
-import AppAside from '@/layouts/app-aside/index.vue';
-import AppHeader from '@/layouts/app-header/index.vue';
-import AppFooter from '@/layouts/app-footer/index.vue';
-
-@Options({
-  name: 'App',
-  components: {
-    AppAside,
-    AppHeader,
-    AppFooter,
-  },
-  computed: mapState('admin/common', ['isScreen']),
-})
-export default class extends Vue {
-  haha = setup(() => {
-    const collapse = ref(false);
-    const handleToggleCollapse = () => {
-      collapse.value = !collapse.value;
-    };
-    const handleResize = () => {
-      const widthOfWindow = document.documentElement.clientWidth;
-      if (widthOfWindow < 1281) {
-        collapse.value = true;
-      } else {
-        collapse.value = false;
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    // 初始化浏览视口以正确显示
-    onMounted(() => {
-      handleResize();
-    });
-    return {
-      collapse,
-      handleToggleCollapse,
-    };
-  })
-}
-</script>
 
 <style scoped>
 .app-container {
@@ -111,9 +100,6 @@ i {
 .el-main:only-child {
   padding: 0;
   max-height: 100vh;
-}
-.el-form--inline .el-form-item {
-  margin-bottom: 0;
 }
 .error-page {
   min-width: 400px;

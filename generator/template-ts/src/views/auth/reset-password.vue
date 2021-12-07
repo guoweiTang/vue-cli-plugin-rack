@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-07 10:44:26
+ * @LastEditTime: 2021-12-07 15:45:55
 -->
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
@@ -13,7 +13,9 @@ import { emailPattern } from '@/config';
 import { resetPassword } from '@/views/service';
 
 const router = useRouter();
+// 是否提交中
 const loading = ref(false);
+// 表单数据
 const formData = reactive({
   email: '',
   oldPassword: '',
@@ -33,7 +35,7 @@ const validNewPassword = (rule: any, value: string, callback: (arg0?: Error) => 
     callback();
   }
 };
-const rules = {
+const rules = reactive({
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
     { validator: validEmail, trigger: 'blur' },
@@ -47,8 +49,10 @@ const rules = {
     { min: 3, message: '新密码至少为3个字符', trigger: 'blur' },
     { validator: validNewPassword, trigger: 'blur' },
   ],
-};
+});
+// 表单标识
 const ruleForm = ref();
+// 表单提交
 const submitForm = async () => {
   ruleForm.value.validate((valid: any) => {
     if (valid) {

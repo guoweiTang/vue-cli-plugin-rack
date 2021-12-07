@@ -3,10 +3,10 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-06 18:24:51
+ * @LastEditTime: 2021-12-07 15:34:13
 -->
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, reactive } from 'vue';
 import {
   useStore,
   mapState,
@@ -19,12 +19,13 @@ import { uploadFile } from '@/views/service';
 
 const store = useStore();
 const router = useRouter();
-// 获取路由状态
+// 同步store数据
 const userInfo: any = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
 const setUserInfo = mapActions('admin/user', ['setUserInfo']).setUserInfo.bind({ $store: store });
-const rulesOfCommon = [
+
+const rulesOfCommon = reactive([
   { required: true, message: '内容不能为空', trigger: 'blur' },
-];
+]);
 // 图片上传
 const handleAvatarChange = async ({ size, raw: file } : { size: number; raw: any}) => {
   const isJPG = file.type === 'image/jpeg';

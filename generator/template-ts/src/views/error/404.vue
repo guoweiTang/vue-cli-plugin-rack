@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:55:09
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 16:55:06
+ * @LastEditTime: 2021-12-07 10:48:21
 -->
 <template>
   <div class="error-page">
@@ -21,9 +21,3 @@
     </el-row>
   </div>
 </template>
-
-<script lang="ts">
-import { Vue } from 'vue-class-component';
-
-export default class Error404 extends Vue {}
-</script>

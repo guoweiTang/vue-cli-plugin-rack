@@ -3,8 +3,23 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-13 16:26:13
+ * @LastEditTime: 2021-12-06 18:02:14
 -->
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useStore, mapState } from 'vuex';
+import EditableText from '@/components/editable-text/index.vue';
+
+const store = useStore();
+const handleConfirmRole = (value: string) => {
+  store.dispatch('admin/user/setUserInfo', {
+    role: value,
+  });
+};
+// 获取路由状态
+const userInfo: any = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+</script>
+
 <template>
   <el-card>
     <el-alert
@@ -27,25 +42,3 @@
     />
   </el-card>
 </template>
-
-<script lang="ts">
-import { mapState } from 'vuex';
-import { Options, Vue } from 'vue-class-component';
-import EditableText from '@/components/editable-text/index.vue';
-
-@Options({
-  components: {
-    EditableText,
-  },
-  computed: mapState('admin/user', ['userInfo']),
-})
-export default class extends Vue {
-  $store: any;
-
-  handleConfirmRole(value: string) {
-    this.$store.dispatch('admin/user/setUserInfo', {
-      role: value,
-    });
-  }
-}
-</script>

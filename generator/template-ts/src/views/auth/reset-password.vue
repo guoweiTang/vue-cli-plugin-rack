@@ -3,8 +3,79 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-12 16:57:47
+ * @LastEditTime: 2021-12-07 10:44:26
 -->
+<script setup lang="ts">
+import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import { emailPattern } from '@/config';
+import { resetPassword } from '@/views/service';
+
+const router = useRouter();
+const loading = ref(false);
+const formData = reactive({
+  email: '',
+  oldPassword: '',
+  newPassword: '',
+});
+const validEmail = (rule: any, value: string, callback: (arg0?: Error) => void) => {
+  if (!emailPattern.test(value)) {
+    callback(new Error('请输入正确的邮箱'));
+  } else {
+    callback();
+  }
+};
+const validNewPassword = (rule: any, value: string, callback: (arg0?: Error) => void) => {
+  if (value === formData.oldPassword) {
+    callback(new Error('新密码不能与旧密码相同'));
+  } else {
+    callback();
+  }
+};
+const rules = {
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { validator: validEmail, trigger: 'blur' },
+  ],
+  oldPassword: [
+    { required: true, message: '请输入原密码', trigger: 'blur' },
+    { min: 3, message: '原密码至少为3个字符', trigger: 'blur' },
+  ],
+  newPassword: [
+    { required: true, message: '请输入新密码', trigger: 'blur' },
+    { min: 3, message: '新密码至少为3个字符', trigger: 'blur' },
+    { validator: validNewPassword, trigger: 'blur' },
+  ],
+};
+const ruleForm = ref();
+const submitForm = async () => {
+  ruleForm.value.validate((valid: any) => {
+    if (valid) {
+      loading.value = true;
+      resetPassword({ router, data: formData })
+        .then(() => {
+          loading.value = false;
+          ElMessage.success({
+            duration: 1000,
+            message: '密码重置成功，请重新登录',
+            onClose: () => {
+              router.push({
+                name: 'login',
+              });
+            },
+          });
+        })
+        .catch((e: any) => {
+          loading.value = false;
+          console.error(e);
+        });
+    } else {
+      console.log('error submit!!');
+    }
+  });
+};
+</script>
 <template>
   <div class="auth">
     <div class="modal-box">
@@ -72,72 +143,3 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { emailPattern } from '@/config';
-import { resetPassword } from '@/views/service';
-
-@Options({
-  name: 'ResetPassword',
-})
-export default class extends Vue {
-  private validEmail = (rule: any, value: string, callback: (arg0: Error|undefined) => void) => {
-    if (!emailPattern.test(value)) {
-      callback(new Error('请输入正确的邮箱'));
-    } else {
-      callback(undefined);
-    }
-  }
-
-  private loading = false
-
-  private formData = {
-    email: '',
-    oldPassword: '',
-    newPassword: '',
-  }
-
-  private rules = {
-    email: [
-      { required: true, message: '请输入邮箱', trigger: 'blur' },
-      { validator: this.validEmail, trigger: 'blur' },
-    ],
-    oldPassword: [
-      { required: true, message: '请输入原密码', trigger: 'blur' },
-      { min: 3, message: '原密码至少为3个字符', trigger: 'blur' },
-    ],
-    newPassword: [
-      { required: true, message: '请输入新密码', trigger: 'blur' },
-      { min: 3, message: '新密码至少为3个字符', trigger: 'blur' },
-    ],
-  }
-
-  private submitForm() {
-    (this as any).$refs.ruleForm.validate((valid: any) => {
-      if (valid) {
-        this.loading = true;
-        resetPassword({ router: this.$router, data: this.formData })
-          .then(() => {
-            this.loading = false;
-            (this as any).$message.success({
-              duration: 1000,
-              message: '密码重置成功，请重新登录',
-              onClose: () => {
-                this.$router.push({
-                  name: 'login',
-                });
-              },
-            });
-          })
-          .catch((e: any) => {
-            this.loading = false;
-            console.error(e);
-          });
-      } else {
-        console.log('error submit!!');
-      }
-    });
-  }
-}
-</script>

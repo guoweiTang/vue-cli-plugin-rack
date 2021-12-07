@@ -3,8 +3,80 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 17:06:51
+ * @LastEditTime: 2021-12-07 10:52:09
 -->
+<script setup lang="ts">
+import { ref, reactive } from 'vue';
+import {
+  useStore,
+  mapMutations,
+} from 'vuex';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import { emailPattern } from '@/config';
+import { getToken } from '@/views/service';
+
+const store = useStore();
+const router = useRouter();
+const setToken = mapMutations('admin/user', ['setToken']).setToken.bind({ $store: store });
+const loading = ref(false);
+const validEmail = (rule: any, value: string, callback: (arg0?: Error) => void) => {
+  if (!emailPattern.test(value)) {
+    callback(new Error('请输入正确的邮箱'));
+  } else {
+    callback();
+  }
+};
+const formData = reactive({
+  email: 'admin@vuerack.com',
+  password: 'vuerack',
+});
+const rules = {
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { validator: validEmail, trigger: 'blur' },
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, message: '密码至少为3个字符', trigger: 'blur' },
+  ],
+};
+const ruleForm = ref();
+const submitForm = () => {
+  ruleForm.value.validate((valid: any) => {
+    if (valid) {
+      loading.value = true;
+      getToken({
+        router,
+        data: formData,
+      })
+        .then(({ data } : { data: any}) => {
+          loading.value = false;
+          const { accessToken, refreshToken } = data;
+          setToken({ accessToken, refreshToken });
+          ElMessage.success({
+            duration: 800,
+            message: '登录成功，正在跳转……',
+            onClose: () => {
+              // 重定向对象不存在则返回顶层路径
+              router.replace(
+                router.currentRoute.value.query.redirect || {
+                  name: 'home',
+                },
+              );
+            },
+          });
+        })
+        .catch(() => {
+          loading.value = false;
+        });
+    } else {
+      console.log('error submit!!');
+    }
+  });
+};
+</script>
+
 <template>
   <div class="auth">
     <div class="modal-box">
@@ -75,79 +147,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { mapMutations } from 'vuex';
-import { emailPattern } from '@/config';
-import { getToken } from '@/views/service';
-
-@Options({
-  name: 'Login',
-})
-export default class extends Vue {
-  validEmail = (rule: any, value: string, callback: (arg0: Error|undefined) => void) => {
-    if (!emailPattern.test(value)) {
-      callback(new Error('请输入正确的邮箱'));
-    } else {
-      callback(undefined);
-    }
-  }
-
-  loading = false;
-
-  private formData = {
-    email: 'admin@vuerack.com',
-    password: 'vuerack',
-  };
-
-  rules = {
-    // email: [
-    //   { required: true, message: '请输入邮箱', trigger: 'blur' },
-    //   { validator: this.validEmail, trigger: 'blur' },
-    // ],
-    password: [
-      { required: true, message: '请输入密码', trigger: 'blur' },
-      { min: 3, message: '密码至少为3个字符', trigger: 'blur' },
-    ],
-  };
-
-  submitForm() {
-    (this as any).$refs.ruleForm.validate((valid: any) => {
-      if (valid) {
-        this.loading = true;
-        getToken({
-          router: this.$router,
-          data: this.formData,
-        })
-          .then(({ data } : { data: any}) => {
-            this.loading = false;
-            const { accessToken, refreshToken } = data;
-            this.setToken({ accessToken, refreshToken });
-            (this as any).$message.success({
-              duration: 800,
-              message: '登录成功，正在跳转……',
-              onClose: () => {
-                // 重定向对象不存在则返回顶层路径
-                (this as any).$router.replace(
-                  this.$route.query.redirect || {
-                    name: 'home',
-                  },
-                );
-              },
-            });
-          })
-          .catch(() => {
-            this.loading = false;
-          });
-      } else {
-        console.log('error submit!!');
-      }
-    });
-  }
-
-  private setToken = mapMutations('admin/user', ['setToken']).setToken
-}
-</script>
 <style>
 .auth {
   display: flex;

@@ -3,8 +3,32 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-13 15:16:48
+ * @LastEditTime: 2021-12-06 17:46:40
 -->
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useStore, mapState } from 'vuex';
+import { RouteRecordRaw, RouteMeta } from 'vue-router';
+
+const props = defineProps<{
+  item: RouteRecordRaw,
+}>();
+const store = useStore();
+// 获取路由状态
+const userInfo: any = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+const isShowing = computed(() => {
+  const meta = props.item.meta as RouteMeta;
+  const { auth, hidden } = meta;
+  const isArray = Array.isArray(auth);
+  return (
+    !hidden
+    && (!auth
+      || (userInfo.value.role
+        && ((isArray && (auth as Array<string>).includes(userInfo.value.role)) || auth === true)))
+  );
+});
+</script>
+
 <template>
   <template v-if="isShowing">
     <el-menu-item
@@ -12,17 +36,17 @@
       :index="item.name"
       :route="{ name: item.name }"
     >
-      <i v-if="item.meta.icon" :class="item.meta.icon"></i>
+      <i v-if="item.meta?.icon" :class="item.meta.icon"></i>
       <template #title>
-        <span>{{ item.meta.title }}</span>
+        <span>{{ item.meta?.title }}</span>
       </template>
     </el-menu-item>
     <el-sub-menu v-else class="no-drop-down" :index="item.name">
       <template #title>
-        <i v-if="item.meta.icon" :class="item.meta.icon"></i>
-        <span>{{ item.meta.title }}</span>
+        <i v-if="item.meta?.icon" :class="item.meta.icon"></i>
+        <span>{{ item.meta?.title }}</span>
       </template>
-      <MenuItem
+      <Item
         v-for="(child, index) of item.children"
         :key="index"
         :item="child"
@@ -30,39 +54,3 @@
     </el-sub-menu>
   </template>
 </template>
-
-<script lang="ts">
-import { mapState } from 'vuex';
-import { Options, Vue } from 'vue-class-component';
-import { RouteRecordRaw, RouteMeta } from 'vue-router';
-import { UserInfo } from '@/store/admin/data.d';
-
-@Options({
-  name: 'MenuItem',
-  props: {
-    item: {
-      type: Object,
-      required: true,
-    },
-  },
-  computed: mapState('admin/user', ['userInfo']),
-})
-export default class extends Vue {
-  private item!: RouteRecordRaw
-
-  userInfo!: UserInfo
-
-  get isShowing() {
-    const meta = this.item.meta as RouteMeta;
-    const { auth, hidden } = meta;
-    const { role } = this.userInfo;
-    const isArray = Array.isArray(auth);
-    return (
-      !hidden
-      && (!auth
-        || (role
-          && ((isArray && (auth as Array<string>).includes(role)) || auth === true)))
-    );
-  }
-}
-</script>

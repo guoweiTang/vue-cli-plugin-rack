@@ -3,11 +3,12 @@
  * @Author: tangguowei
  * @Date: 2021-09-30 14:15:56
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 16:30:51
+ * @LastEditTime: 2021-12-07 10:23:36
  */
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import axiosRetry from 'axios-retry';
+import { ElMessage } from 'element-plus';
 import { AxiosRequestConfigCustom, AxiosInstanceCustom } from './data.d';
 import { initToken, refreshToken } from './token';
 import { apiBaseURL } from '@/config/index';
@@ -68,10 +69,8 @@ aiosInstance.interceptors.response.use(
     if (response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      const { status, headers } = response;
-      if (status >= 500) {
-        console.error('服务器错误');
-      }
+      const { status, headers, data: { message: myMessage } } = response;
+      ElMessage.error(status >= 500 ? '服务器错误' : myMessage);
       console.log(headers);
     } else if (request) {
       // The request was made but no response was received

@@ -3,16 +3,15 @@
  * @Author: tangguowei
  * @Date: 2021-10-13 16:51:37
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-07 19:03:30
+ * @LastEditTime: 2021-12-08 15:32:26
  */
-import { RouteRecordRaw } from 'vue-router';
 import Home from '@/views/home/index.vue';
 import UserInfo from '@/views/account/index.vue';
 import Authorzation from '@/views/account/authorzation.vue';
 import BasicTable from '@/views/table/basic-table.vue';
 import Layout from '@/layouts/basic-layout.vue';
 
-const mainRoutes: Array<RouteRecordRaw> = [
+const mainRoutes = [
   {
     path: '/',
     name: 'home',

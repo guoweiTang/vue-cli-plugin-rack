@@ -5,7 +5,12 @@
  * @LastEditors: tangguowei
  * @LastEditTime: 2021-12-07 19:11:17
  */
-import { ref, reactive, watch, toRefs } from 'vue';
+import {
+  ref,
+  reactive,
+  watch,
+  toRefs,
+} from 'vue';
 import { useRouter } from 'vue-router';
 import { getGoods } from '@/views/service';
 

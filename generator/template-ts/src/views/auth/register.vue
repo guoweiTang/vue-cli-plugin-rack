@@ -3,8 +3,82 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 17:07:03
+ * @LastEditTime: 2021-12-07 15:45:12
 -->
+<script setup lang="ts">
+import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import { emailPattern } from '@/config';
+import { register } from '@/views/service';
+
+const router = useRouter();
+// 是否提交中
+const loading = ref(false);
+// 表单数据
+const formData = reactive({
+  email: '',
+  password: '',
+  checkPassword: '',
+});
+const validEmail = (rule: any, value: string, callback: (arg0?: Error) => void) => {
+  if (!emailPattern.test(value)) {
+    callback(new Error('请输入正确的邮箱'));
+  } else {
+    callback();
+  }
+};
+const validCheckPass = (rule: any, value: string, callback: (arg0?: Error) => void) => {
+  if (value !== formData.password) {
+    callback(new Error('两次输入密码不一致!'));
+  } else {
+    callback();
+  }
+};
+const rules = reactive({
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { validator: validEmail, trigger: 'blur' },
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, message: '密码至少为3个字符', trigger: 'blur' },
+  ],
+  checkPassword: [
+    { required: true, message: '请再次输入密码', trigger: 'blur' },
+    { min: 3, message: '再次输入密码至少为3个字符', trigger: 'blur' },
+    { validator: validCheckPass, trigger: 'blur' },
+  ],
+});
+// 表单标识
+const ruleForm = ref();
+// 表单提交
+const submitForm = async () => {
+  ruleForm.value.validate((valid: any) => {
+    if (valid) {
+      loading.value = true;
+      register({ router, data: formData })
+        .then(() => {
+          loading.value = false;
+          ElMessage.success({
+            duration: 1000,
+            message: '注册成功，请继续登录',
+            onClose: () => {
+              router.push({
+                name: 'login',
+              });
+            },
+          });
+        })
+        .catch(() => {
+          loading.value = false;
+        });
+    } else {
+      console.log('error submit!!');
+    }
+  });
+};
+</script>
 <template>
   <div class="auth">
     <div class="modal-box">
@@ -73,83 +147,3 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { emailPattern } from '@/config';
-import { register } from '@/views/service';
-
-@Options({
-  name: 'Register',
-})
-export default class extends Vue {
-  private validEmail = (rule: any, value: string, callback: (arg0: Error|undefined) => void) => {
-    if (!emailPattern.test(value)) {
-      callback(new Error('请输入正确的邮箱'));
-    } else {
-      callback(undefined);
-    }
-  }
-
-  private validCheckPass = (rule: any, value: any, callback: (arg0: Error|undefined) => void) => {
-    if (value !== (this as any).ruleForm.password) {
-      callback(new Error('两次输入密码不一致!'));
-    } else {
-      callback(undefined);
-    }
-  }
-
-  // 是否表单提交中
-  private loading = false
-
-  // 表单值
-  private formData = {
-    email: '',
-    password: '',
-    checkPassword: '',
-  }
-
-  private rules = {
-    email: [
-      { required: true, message: '请输入邮箱', trigger: 'blur' },
-      { validator: this.validEmail, trigger: 'blur' },
-    ],
-    password: [
-      { required: true, message: '请输入密码', trigger: 'blur' },
-      { min: 3, message: '密码至少为3个字符', trigger: 'blur' },
-    ],
-    checkPassword: [
-      { required: true, message: '请再次输入密码', trigger: 'blur' },
-      { min: 3, message: '再次输入密码至少为3个字符', trigger: 'blur' },
-      { validator: this.validCheckPass, trigger: 'blur' },
-    ],
-  }
-
-  // 表单提交
-  private submitForm() {
-    (this as any).$refs.ruleForm.validate((valid: any) => {
-      if (valid) {
-        this.loading = true;
-        register({ router: this.$router, data: this.formData })
-          .then(() => {
-            this.loading = false;
-            (this as any).$message.success({
-              duration: 1000,
-              message: '注册成功，请继续登录',
-              onClose: () => {
-                this.$router.push({
-                  name: 'login',
-                });
-              },
-            });
-          })
-          .catch(() => {
-            this.loading = false;
-          });
-      } else {
-        console.log('error submit!!');
-      }
-    });
-  }
-}
-</script>

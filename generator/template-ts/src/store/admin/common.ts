@@ -3,9 +3,9 @@
  * @Author: tangguowei
  * @Date: 2021-09-16 15:13:33
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 17:05:16
+ * @LastEditTime: 2021-12-08 13:50:12
  */
-import { CommonData } from './data.d';
+import { CommonData } from '@/store/data.d';
 
 export default {
   namespaced: true,

@@ -1,9 +1,16 @@
+/*
+ * @Description: 异步请求包装器
+ * @Author: tangguowei
+ * @Date: 2021-09-30 14:15:56
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-12-08 15:43:34
+ */
 import axios from 'axios';
-import { ElMessage as Message } from 'element-plus';
-import axiosRetry from 'axios-retry';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import axiosRetry from 'axios-retry';
+import { ElMessage } from 'element-plus';
 import { initToken, refreshToken } from './token';
-import { apiBaseURL } from '@/config';
+import { apiBaseURL } from '@/config/index';
 
 const aiosInstance = axios.create({
   baseURL: apiBaseURL,
@@ -11,22 +18,6 @@ const aiosInstance = axios.create({
   withCredentials: false,
 });
 
-function getTipsText(method = '') {
-  let tipsText = '';
-  switch (method) {
-    case 'put':
-    case 'patch':
-      tipsText = '更新';
-      break;
-    case 'delete':
-      tipsText = '删除';
-      break;
-    default:
-  }
-  return tipsText;
-}
-
-let loadingMessage;
 /**
  * 请求拦截
  *
@@ -34,17 +25,10 @@ let loadingMessage;
  *  skipAuthRefresh: boolean, // 是否跳过登录验证
  *  [postType]: 'file', // post类型，默认为空，“file”为文件以流形式上传
  */
+/* eslint-disable no-param-reassign */
 aiosInstance.interceptors.request.use(
   (config) => {
-    // 非get,post请求错误处理
-    let tipsText = getTipsText(config.method);
-    if (tipsText) {
-      loadingMessage = Message({
-        message: `正在${tipsText}`,
-        iconClass: 'el-icon-loading',
-      });
-    }
-
+    config.headers = config.headers || {};
     config.headers['content-type'] = 'application/json';
     // 防止缓存，GET请求默认带_t参数
     if (config.method === 'get') {
@@ -54,69 +38,38 @@ aiosInstance.interceptors.request.use(
       };
     } else if (config.method === 'post' && config.postType === 'file') {
       config.headers['content-type'] = 'multipart/form-data';
-      let data = new FormData();
-      for (let [key, value] of Object.entries(config.data)) {
+      const data = new FormData();
+      Object.entries(config.data).map(([key, value]) => {
         data.append(key, value);
-      }
+        return false;
+      });
       config.data = data;
     }
     if (!config.skipAuthRefresh) {
-      initToken(config);
+      config.headers.Authorization = initToken(config);
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
+/* eslint-enable no-param-reassign */
 
 /**
  * 响应拦截
  */
 aiosInstance.interceptors.response.use(
-  (response) => {
-    // 非get请求错误处理
-    let tipsText = getTipsText(response.config.method);
-    if (tipsText) {
-      loadingMessage.close();
-      if (response.status === 200) {
-        Message.success(`${tipsText}成功`);
-      } else {
-        Message.error(`${tipsText}失败请重试！`);
-      }
-    }
-
-    return response;
-  },
+  (response) => response,
   (error) => {
-    const { response, request, message, config } = error;
-    // 非get,post请求错误处理
-    let tipsText = getTipsText(config.method);
-    if (tipsText) {
-      loadingMessage.close();
-      if (!response || response.status === 400 || response.status === 403) {
-        Message.error(`${tipsText}失败请重试！`);
-      }
-    }
-
+    const { response, request, message } = error;
     if (response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      const { status, headers, data } = response;
-      // token过期重新登录
-      switch (status) {
-        case 400:
-        case 403:
-          Message.error(data.message);
-          break;
-        case 422:
-          console.error('参数校验失败');
-          break;
-        default:
-      }
-      if (status >= 500) {
-        console.error('服务器错误');
-      }
+      const {
+        status,
+        headers,
+        data: { message: myMessage },
+      } = response;
+      ElMessage.error(status >= 500 ? '服务器错误' : myMessage);
       console.log(headers);
     } else if (request) {
       // The request was made but no response was received
@@ -137,14 +90,12 @@ createAuthRefreshInterceptor(aiosInstance, refreshToken);
 // 接口失败重试(默认状态码为5XX重试)
 axiosRetry(aiosInstance, {
   retries: 2,
-  retryDelay: (retryCount) => {
+  retryDelay(retryCount) {
     return retryCount * 1000;
   },
   retryCondition: (axiosError) => {
     const { response } = axiosError;
-    if (response && response.status >= 500) {
-      return true;
-    }
+    return response && response.status >= 500;
   },
 });
 export default aiosInstance;

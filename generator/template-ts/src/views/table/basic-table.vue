@@ -3,49 +3,59 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 16:02:00
+ * @LastEditTime: 2021-12-08 14:53:59
 -->
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage, ElMessageBox } from 'element-plus';
-import { mapState, useStore, mapMutations } from 'vuex';
+import {
+  mapState,
+  useStore,
+  mapMutations,
+} from 'vuex';
 import Expect from './components/expect.vue';
 import useGoods from './composables/useGoods';
 import useGoodsSearch from './composables/useGoodsSearch';
 import Operateodal from './components/operate-modal.vue';
 import { deleteGoods } from '@/views/service';
+import { Goods } from '@/views/data.d';
 
 const operateModal = ref();
 const router = useRouter();
 const store = useStore();
 
 // 同步store数据
-const setTotalCount = mapMutations('basic-table', ['setTotalCount']).setTotalCount.bind({
-  $store: store,
-});
-const totalCount = computed(
-  mapState('basic-table', ['totalCount']).totalCount.bind({ $store: store })
-);
+const setTotalCount = mapMutations('basic-table', ['setTotalCount']).setTotalCount.bind({ $store: store });
+const totalCount = computed(mapState('basic-table', ['totalCount']).totalCount.bind({ $store: store }));
 
-const { goodsRepositories, getGoodsRepositories, page, size, total } = useGoods();
-const { searchQuery, repositoriesMatchingSearchQuery: tableData } =
-  useGoodsSearch(goodsRepositories);
-const handleOperateModal = (id, isPreview) => {
+const {
+  goodsRepositories,
+  getGoodsRepositories,
+  page,
+  size,
+  total,
+} = useGoods();
+const { searchQuery, repositoriesMatchingSearchQuery: tableData } = useGoodsSearch(goodsRepositories);
+const handleOperateModal = (id: string, isPreview?: boolean) => {
   // 如果操作为查询详情，则记录次数
   if (isPreview) {
     setTotalCount(totalCount.value + 1);
   }
   operateModal.value.init(id, isPreview);
 };
-const handleDeleteModal = async (item) => {
+const handleDeleteModal = async (item: Goods) => {
   try {
-    await ElMessageBox.confirm(`确定删除商品《${item.name}》吗？`, '提示', {
-      distinguishCancelAndClose: true,
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-    });
-    await deleteGoods(item.id, {
+    await ElMessageBox.confirm(
+      `确定删除商品《${item.name}》吗？`,
+      '提示',
+      {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      },
+    );
+    await deleteGoods(item.id as string, {
       router,
     });
     ElMessage.success({
@@ -88,16 +98,14 @@ onMounted(getGoodsRepositories);
       <el-table-column prop="description" label="商品介绍"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template #default="{ row }">
-          <el-button type="text" size="small" @click="handleOperateModal(row.id, true)"
-            >详情</el-button
-          >
+          <el-button type="text" size="small" @click="handleOperateModal(row.id, true)">详情</el-button>
           <el-button type="text" size="small" @click="handleOperateModal(row.id)">编辑</el-button>
           <el-button type="text" size="small" @click="handleDeleteModal(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      style="text-align: center; margin-top: 16px"
+   <el-pagination
+      style="text-align: center; margin-top: 16px;"
       layout="total, prev, pager, next"
       v-model:currentPage="page"
       :page-size="size"
@@ -121,4 +129,6 @@ onMounted(getGoodsRepositories);
   margin-bottom: 0;
 }
 </style>
-<style></style>
+<style>
+
+</style>

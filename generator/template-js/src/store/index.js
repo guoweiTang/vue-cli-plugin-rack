@@ -3,28 +3,25 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 18:24:20
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 15:36:46
+ * @LastEditTime: 2021-12-08 15:38:16
  */
 import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
-
-const modules = {};
-
-let files = require.context('./modules', false, /\.js$/);
-files.keys().forEach((key) => {
-  modules[key.replace(/(\.\/|\.js)/g, '')] = files(key).default;
-});
-files = require.context('./admin', false, /\.js$/);
-modules['admin'] = {
-  namespaced: true,
-  modules: {},
-};
-files.keys().forEach((key) => {
-  modules.admin.modules[key.replace(/(\.\/|\.js)/g, '')] = files(key).default;
-});
+import common from './admin/common';
+import user from './admin/user';
+import basicTable from './modules/basic-table';
 
 const store = createStore({
-  modules,
+  modules: {
+    admin: {
+      namespaced: true,
+      modules: {
+        common,
+        user,
+      },
+    },
+    'basic-table': basicTable,
+  },
   plugins: [
     createPersistedState({
       reducer(val) {

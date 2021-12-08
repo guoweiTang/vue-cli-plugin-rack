@@ -56,6 +56,13 @@ module.exports = (api, { typescript }) => {
         'husky': '^7.0.1',
         'prettier': '^2.2.1',
       },
+      eslintConfig: {
+        'globals': {
+          'defineProps': 'readonly',
+          'defineEmits': 'readonly',
+          'defineExpose': 'readonly'
+        },
+      },
     })
   }
 }

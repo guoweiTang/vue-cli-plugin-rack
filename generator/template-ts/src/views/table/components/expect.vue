@@ -3,15 +3,15 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 15:50:19
+ * @LastEditTime: 2021-12-08 11:54:59
 -->
-<script setup>
+<script setup lang="ts">
 /**
  * 继承至父组件的属性和方法
  */
-defineProps({
-  query: String,
-});
+defineProps<{
+  query: string;
+}>();
 defineEmits(['update:query']);
 </script>
 <template>

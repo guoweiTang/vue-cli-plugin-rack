@@ -3,11 +3,11 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:55:09
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 16:55:06
+ * @LastEditTime: 2021-12-07 16:02:40
 -->
 <template>
   <div class="error-page">
-    <el-row type="flex" justify="center" align="center" class="lsl">
+    <el-row type="flex" justify="center" align="center">
       <el-col :span="6"><img src="../../assets/icon-404-color.svg" alt="404 icon" /></el-col>
       <el-col :span="4" :offset="2">
         <h2>404</h2>
@@ -21,9 +21,3 @@
     </el-row>
   </div>
 </template>
-
-<script lang="ts">
-import { Vue } from 'vue-class-component';
-
-export default class Error404 extends Vue {}
-</script>

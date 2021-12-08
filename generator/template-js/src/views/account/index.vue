@@ -3,8 +3,48 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 16:21:48
+ * @LastEditTime: 2021-12-08 15:45:44
 -->
+<script setup>
+import { computed, reactive } from 'vue';
+import { useStore, mapState, mapActions } from 'vuex';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import EditableText from '@/components/editable-text/index.vue';
+import { uploadFile } from '@/views/service';
+
+const store = useStore();
+const router = useRouter();
+// 同步store数据
+const userInfo = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+const setUserInfo = mapActions('admin/user', ['setUserInfo']).setUserInfo.bind({ $store: store });
+
+const rulesOfCommon = reactive([{ required: true, message: '内容不能为空', trigger: 'blur' }]);
+// 图片上传
+const handleAvatarChange = async ({ size, raw: file }) => {
+  const isJPG = file.type === 'image/jpeg';
+  const isPNG = file.type === 'image/png';
+  const isLt2M = size / 1024 / 1024 < 2;
+
+  if (!isJPG && !isPNG) {
+    ElMessage.error('上传头像图片只能是JPG或PNG格式!');
+  } else if (!isLt2M) {
+    ElMessage.error('上传头像图片大小不能超过 2MB!');
+  } else {
+    const {
+      data: { avatarUrl },
+    } = await uploadFile({
+      router,
+      data: {
+        file,
+      },
+    });
+    setUserInfo({ avatarUrl });
+    ElMessage.success('上传成功');
+  }
+};
+</script>
+
 <template>
   <el-card>
     <el-alert
@@ -34,7 +74,7 @@
       label="用户名"
       :value="userInfo.name"
       :rules="rulesOfCommon"
-      @confirm="handleConfirmName"
+      @confirm="(value) => setUserInfo({ name: value })"
     />
     <editable-text
       type="radio"
@@ -44,7 +84,7 @@
       ]"
       label="你的权限"
       :value="userInfo.role"
-      @confirm="handleConfirmRole"
+      @confirm="(value) => setUserInfo({ role: value })"
     />
     <editable-text
       type="radio"
@@ -54,96 +94,23 @@
       ]"
       label="性别"
       :value="userInfo.gender"
-      @confirm="handleConfirmGender"
+      @confirm="(value) => setUserInfo({ gender: value })"
     />
     <editable-text
       label="一句话介绍"
       :value="userInfo.summary"
       :rules="rulesOfCommon"
-      @confirm="handleConfirmSummary"
+      @confirm="(value) => setUserInfo({ summary: value })"
     />
     <editable-text
       type="textarea"
       label="个人简介"
       :value="userInfo.description"
       :rules="rulesOfCommon"
-      @confirm="handleConfirmDescription"
+      @confirm="(value) => setUserInfo({ description: value })"
     />
   </el-card>
 </template>
-
-<script>
-import { mapActions, mapState } from 'vuex';
-import EditableText from '@/components/editable-text';
-import { uploadFile } from '@/views/service';
-
-export default {
-  components: {
-    EditableText,
-  },
-  data() {
-    return {
-      rulesOfCommon: [{ required: true, message: '内容不能为空', trigger: 'blur' }],
-    };
-  },
-  computed: {
-    ...mapState('admin/user', ['userInfo']),
-  },
-  methods: {
-    ...mapActions('admin/user', ['setUserInfo']),
-    // 图片上传
-    async handleAvatarChange({ size, raw: file }) {
-      const isJPG = file.type === 'image/jpeg';
-      const isPNG = file.type === 'image/png';
-      const isLt2M = size / 1024 / 1024 < 2;
-
-      if (!isJPG && !isPNG) {
-        this.$message.error('上传头像图片只能是JPG或PNG格式!');
-      } else if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      } else {
-        const {
-          data: { avatarUrl },
-        } = await uploadFile({
-          router: this.$router,
-          data: {
-            file,
-          },
-        });
-        this.$store.commit('admin/user/setUserInfo', {
-          avatarUrl,
-        });
-        this.$message.success('上传成功');
-      }
-    },
-    handleConfirmName(value) {
-      this.$store.dispatch('admin/user/setUserInfo', {
-        name: value,
-      });
-    },
-    handleConfirmRole(value) {
-      this.$store.dispatch('admin/user/setUserInfo', {
-        role: value,
-      });
-    },
-    handleConfirmSummary(value) {
-      this.$store.dispatch('admin/user/setUserInfo', {
-        summary: value,
-      });
-    },
-    handleConfirmGender(value) {
-      this.$store.dispatch('admin/user/setUserInfo', {
-        gender: value,
-      });
-    },
-    handleConfirmDescription(value) {
-      this.$store.dispatch('admin/user/setUserInfo', {
-        description: value,
-      });
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .avatar-uploader {

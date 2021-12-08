@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-06-10 08:42:53
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 17:21:08
+ * @LastEditTime: 2021-12-08 15:53:28
  */
 import axiosInstance from '@/utils/request';
 
@@ -34,29 +34,6 @@ export function resetPassword(config = {}) {
 }
 
 /**
- * service相关接口
- */
-export function getAllServices(config = {}) {
-  return axiosInstance(`${baseDir}/services`, config);
-}
-
-export function updateService(pathParams, config = {}) {
-  const { serviceId } = pathParams;
-  return axiosInstance(`${baseDir}/services/${serviceId}`, {
-    method: 'PUT',
-    ...config,
-  });
-}
-
-export function deleteService(pathParams, config = {}) {
-  const { serviceId } = pathParams;
-  return axiosInstance(`${baseDir}/services/${serviceId}`, {
-    method: 'DELETE',
-    ...config,
-  });
-}
-
-/**
  * 账户
  */
 export function uploadFile(config = {}) {
@@ -77,14 +54,24 @@ export function updateMyInfo(config = {}) {
     ...config,
   });
 }
-export function getGoods(pathParams, config = {}) {
-  const { storeId } = pathParams;
-  return axiosInstance(`${baseDir}/stores/${storeId}/goods`, config);
+export function getGoods(config = {}) {
+  return axiosInstance(`${baseDir}/goods`, config);
 }
-export function getGoodDetail(pathParams, config = {}) {
-  const { storeId, goodId } = pathParams;
-  return axiosInstance(`${baseDir}/stores/${storeId}/goods/${goodId}`, config);
+
+export function deleteGoods(goodsId, config = {}) {
+  return axiosInstance(`${baseDir}/goods/${goodsId}`, {
+    method: 'DELETE',
+    ...config,
+  });
 }
-export function getStores(config = {}) {
-  return axiosInstance(`${baseDir}/stores`, config);
+
+export function updateGoods(goodsId, config = {}) {
+  return axiosInstance(`${baseDir}/goods/${goodsId}`, {
+    method: 'PUT',
+    ...config,
+  });
+}
+
+export function getGoodDetail(goodsId, config = {}) {
+  return axiosInstance(`${baseDir}/goods/${goodsId}`, config);
 }

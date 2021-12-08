@@ -3,10 +3,10 @@
  * @Author: tangguowei
  * @Date: 2021-09-16 15:13:33
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 11:02:45
+ * @LastEditTime: 2021-12-08 15:35:34
  */
 import { updateMyInfo, getMyInfo } from '@/views/service';
-import router from '@/router';
+import router from '@/router/index';
 
 export default {
   namespaced: true,
@@ -26,11 +26,11 @@ export default {
     },
   },
   actions: {
-    async getUserInfo({ commit }, payload = {}) {
+    async getUserInfo(context, payload = {}) {
       return new Promise((resolve, reject) => {
         getMyInfo({ params: payload })
           .then(({ data }) => {
-            commit('setUserInfo', data);
+            context.commit('setUserInfo', data);
             resolve(data);
           })
           .catch((e) => {
@@ -38,9 +38,9 @@ export default {
           });
       });
     },
-    async setUserInfo({ commit }, payload = {}) {
+    async setUserInfo(context, payload) {
       updateMyInfo({ data: payload }).then(() => {
-        commit('setUserInfo', payload);
+        context.commit('setUserInfo', payload);
 
         if (payload.role) {
           router.push({ name: 'refresh' });

@@ -3,8 +3,28 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:31:07
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 15:27:28
+ * @LastEditTime: 2021-12-08 15:27:35
 -->
+<script setup>
+import { computed } from 'vue';
+import { useStore, mapState } from 'vuex';
+import { routes } from '@/router/index';
+import AsideItem from './item.vue';
+
+/**
+ * 父组件传入的数据及事件
+ */
+defineProps({
+  collapse: Boolean,
+});
+
+const store = useStore();
+// 同步store数据
+const activeRoute = computed(
+  mapState('admin/common', ['activeRoute']).activeRoute.bind({ $store: store })
+);
+</script>
+
 <template>
   <el-aside width="auto" class="aside">
     <div class="menu-content">
@@ -24,27 +44,6 @@
   </el-aside>
 </template>
 
-<script>
-import { routes } from '@/router';
-import AsideItem from './item';
-import { mapState } from 'vuex';
-
-export default {
-  name: 'APPAside',
-  components: {
-    AsideItem,
-  },
-  props: ['collapse'],
-  data() {
-    return {
-      routes,
-    };
-  },
-  computed: {
-    ...mapState('admin/common', ['activeRoute']),
-  },
-};
-</script>
 <style scoped lang="scss">
 .menu-content {
   height: 100vh;

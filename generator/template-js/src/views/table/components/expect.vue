@@ -3,30 +3,26 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-20 10:54:49
+ * @LastEditTime: 2021-12-08 15:50:19
 -->
+<script setup>
+/**
+ * 继承至父组件的属性和方法
+ */
+defineProps({
+  query: String,
+});
+defineEmits(['update:query']);
+</script>
 <template>
   <el-form-item>
     <el-tag @click="$emit('update:query', '零食')">零食</el-tag>
   </el-form-item>
-  <slot name="first"></slot>
-  <slot name="last"></slot>
+  <slot></slot>
   <el-form-item>
     <i>定义插槽样式，更多内容，敬请期待……</i>
   </el-form-item>
 </template>
-
-<script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'Expect',
-  props: {
-    query: String,
-  },
-  emits: ['update:query'],
-});
-</script>
 
 <style lang="scss" scoped>
 :slotted(.first-item) {
@@ -40,13 +36,6 @@ export default defineComponent({
     background: #32c0b2;
     border-color: #32c0b2;
   }
-}
-.screen-modal {
-  background: #fffcde;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 i {
   color: #999;

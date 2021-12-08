@@ -3,8 +3,83 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 17:32:37
+ * @LastEditTime: 2021-12-08 15:48:51
 -->
+<script setup>
+import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import { emailPattern } from '@/config';
+import { resetPassword } from '@/views/service';
+
+const router = useRouter();
+// 是否提交中
+const loading = ref(false);
+// 表单数据
+const formData = reactive({
+  email: '',
+  oldPassword: '',
+  newPassword: '',
+});
+const validEmail = (rule, value, callback) => {
+  if (!emailPattern.test(value)) {
+    callback(new Error('请输入正确的邮箱'));
+  } else {
+    callback();
+  }
+};
+const validNewPassword = (rule, value, callback) => {
+  if (value === formData.oldPassword) {
+    callback(new Error('新密码不能与旧密码相同'));
+  } else {
+    callback();
+  }
+};
+const rules = reactive({
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { validator: validEmail, trigger: 'blur' },
+  ],
+  oldPassword: [
+    { required: true, message: '请输入原密码', trigger: 'blur' },
+    { min: 3, message: '原密码至少为3个字符', trigger: 'blur' },
+  ],
+  newPassword: [
+    { required: true, message: '请输入新密码', trigger: 'blur' },
+    { min: 3, message: '新密码至少为3个字符', trigger: 'blur' },
+    { validator: validNewPassword, trigger: 'blur' },
+  ],
+});
+// 表单标识
+const ruleForm = ref();
+// 表单提交
+const submitForm = async () => {
+  ruleForm.value.validate((valid) => {
+    if (valid) {
+      loading.value = true;
+      resetPassword({ router, data: formData })
+        .then(() => {
+          loading.value = false;
+          ElMessage.success({
+            duration: 1000,
+            message: '密码重置成功，请重新登录',
+            onClose: () => {
+              router.push({
+                name: 'login',
+              });
+            },
+          });
+        })
+        .catch((e) => {
+          loading.value = false;
+          console.error(e);
+        });
+    } else {
+      console.log('error submit!!');
+    }
+  });
+};
+</script>
 <template>
   <div class="auth">
     <div class="modal-box">
@@ -19,21 +94,21 @@
       </div>
       <el-form
         label-position="top"
-        :model="ruleForm"
+        :model="formData"
         :rules="rules"
         ref="ruleForm"
         label-width="100px"
         class="demo-ruleForm"
-        @keyup.enter="submitForm('ruleForm')"
+        @keyup.enter="submitForm"
       >
         <el-form-item label="邮箱" prop="email">
-          <el-input v-model.trim="ruleForm.email" autocomplete="off"></el-input>
+          <el-input v-model.trim="formData.email" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="旧密码" prop="oldPassword">
           <el-input
             show-password
             type="password"
-            v-model="ruleForm.oldPassword"
+            v-model="formData.oldPassword"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -41,14 +116,12 @@
           <el-input
             show-password
             type="password"
-            v-model="ruleForm.newPassword"
+            v-model="formData.newPassword"
             autocomplete="off"
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :loading="loading" @click="submitForm('ruleForm')"
-            >保存</el-button
-          >
+          <el-button type="primary" :loading="loading" @click="submitForm">保存</el-button>
         </el-form-item>
         <div class="no-acoout">
           已有账户？<router-link :to="{ name: 'login' }"
@@ -59,73 +132,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import { emailPattern } from '@/config';
-import { resetPassword } from '@/views/service';
-
-export default {
-  name: 'ResetPassword',
-  data() {
-    const validEmail = (rule, value, callback) => {
-      if (!emailPattern.test(value)) {
-        callback(new Error('请输入正确的邮箱'));
-      } else {
-        callback();
-      }
-    };
-    return {
-      loading: false,
-      ruleForm: {
-        email: '',
-        oldPassword: '',
-        newPassword: '',
-      },
-      rules: {
-        email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { validator: validEmail, trigger: 'blur' },
-        ],
-        oldPassword: [
-          { required: true, message: '请输入原密码', trigger: 'blur' },
-          { min: 3, message: '原密码至少为3个字符', trigger: 'blur' },
-        ],
-        newPassword: [
-          { required: true, message: '请输入新密码', trigger: 'blur' },
-          { min: 3, message: '新密码至少为3个字符', trigger: 'blur' },
-        ],
-      },
-    };
-  },
-  methods: {
-    // 表单提交
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.loading = true;
-          resetPassword({ router: this.$router, data: this.ruleForm })
-            .then(() => {
-              this.loading = false;
-              this.$message.success({
-                duration: 1000,
-                message: '密码重置成功，请重新登录',
-                onClose: () => {
-                  this.$router.push({
-                    name: 'login',
-                  });
-                },
-              });
-            })
-            .catch((e) => {
-              this.loading = false;
-              console.error(e);
-            });
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
-    },
-  },
-};
-</script>

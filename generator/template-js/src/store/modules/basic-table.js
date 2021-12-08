@@ -3,22 +3,18 @@
  * @Author: tangguowei
  * @Date: 2021-09-16 16:50:00
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 18:07:49
+ * @LastEditTime: 2021-12-08 15:35:59
  */
+
 export default {
   namespaced: true,
   state: {
-    // 当前商店
-    currentStore: {},
-  },
-  getters: {
-    currentStoreName(state) {
-      return state.currentStore ? state.currentStore.name : null;
-    },
+    // 总计
+    totalCount: 0,
   },
   mutations: {
-    setCurrentStore(state, payload) {
-      state.currentStore = payload;
+    setTotalCount(state, payload) {
+      state.totalCount = payload;
     },
   },
 };

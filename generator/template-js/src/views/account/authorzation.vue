@@ -3,13 +3,31 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 16:21:23
+ * @LastEditTime: 2021-12-08 15:44:48
 -->
+<script setup>
+import { computed } from 'vue';
+import { useStore, mapState, mapActions } from 'vuex';
+import EditableText from '@/components/editable-text/index.vue';
+
+const store = useStore();
+// 同步store数据
+const userInfo = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+const setUserInfo = mapActions('admin/user', ['setUserInfo']).setUserInfo.bind({ $store: store });
+
+// 更新角色回调
+const handleConfirmRole = (value) => {
+  setUserInfo({
+    role: value,
+  });
+};
+</script>
+
 <template>
   <el-card>
     <el-alert
       :closable="false"
-      title="默认仅“普通用户”可访问「我的账户」页面，“管理员”可访问「卡片列表」页面，"
+      title="默认仅“普通用户”可访问「我的账户」页面"
       :style="{ marginBottom: '20px' }"
       type="warning"
     >
@@ -27,26 +45,3 @@
     />
   </el-card>
 </template>
-
-<script>
-import { mapState } from 'vuex';
-import EditableText from '@/components/editable-text';
-
-export default {
-  components: {
-    EditableText,
-  },
-  computed: {
-    ...mapState('admin/user', ['userInfo']),
-  },
-  methods: {
-    handleConfirmRole(value) {
-      this.$store.dispatch('admin/user/setUserInfo', {
-        role: value,
-      });
-    },
-  },
-};
-</script>
-
-<style scoped></style>

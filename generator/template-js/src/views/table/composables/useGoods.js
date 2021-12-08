@@ -1,28 +1,45 @@
-import { ref, onMounted, watch } from 'vue';
+/*
+ * @Description: 查询商品
+ * @Author: tangguowei
+ * @Date: 2021-12-07 16:20:15
+ * @LastEditors: tangguowei
+ * @LastEditTime: 2021-12-07 19:11:17
+ */
+import { ref, reactive, watch, toRefs } from 'vue';
+import { useRouter } from 'vue-router';
 import { getGoods } from '@/views/service';
 
-export default function useStoreRepositories(storeId) {
+export default function useStoreRepositories() {
+  const router = useRouter();
+  // 分页
+  const pageData = reactive({
+    page: 1,
+    size: 10,
+    total: 0,
+  });
   const goodsRepositories = ref([]);
   const getGoodsRepositories = async () => {
-    if (!storeId.value) return;
-    let res;
+    const { page, size } = pageData;
     try {
-      res = await getGoods({
-        storeId: storeId.value,
+      const { data } = await getGoods({
+        router,
+        params: {
+          page,
+          size,
+        },
       });
+      goodsRepositories.value = data.results || [];
+      pageData.total = data.total;
     } catch (e) {
       console.log(e);
     }
-    if (res) {
-      goodsRepositories.value = res.data.results;
-    }
   };
-
-  onMounted(getGoodsRepositories);
-  watch(storeId, getGoodsRepositories);
+  const { page: currentPage } = toRefs(pageData);
+  watch(currentPage, getGoodsRepositories);
 
   return {
     goodsRepositories,
     getGoodsRepositories,
+    ...toRefs(pageData),
   };
 }

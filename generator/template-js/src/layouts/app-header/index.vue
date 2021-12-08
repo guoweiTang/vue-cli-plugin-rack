@@ -3,8 +3,37 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-16 16:03:28
+ * @LastEditTime: 2021-12-08 15:31:07
 -->
+<script setup>
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore, mapState } from 'vuex';
+import { clearToken } from '@/utils/token';
+
+/**
+ * 继承至父组件的属性和方法
+ */
+defineProps({
+  collapse: Boolean,
+});
+defineEmits(['handleToggleCollapse']);
+
+const router = useRouter();
+const store = useStore();
+// 同步store数据
+const userInfo = computed(mapState('admin/user', ['userInfo']).userInfo.bind({ $store: store }));
+
+// 退出
+const logout = () => clearToken(router);
+// 跳转个人主页
+const handleMyself = () => {
+  router.push({
+    name: 'userInfo',
+  });
+};
+</script>
+
 <template>
   <el-header height="75px">
     <i
@@ -46,28 +75,6 @@
   </el-header>
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import { clearToken } from '@/utils/token';
-export default {
-  name: 'APPHeader',
-  props: ['collapse'],
-  emits: ['handleToggleCollapse'],
-  computed: {
-    ...mapState('admin/user', ['userInfo']),
-  },
-  methods: {
-    handleMyself() {
-      this.$router.push({
-        name: 'userInfo',
-      });
-    },
-    logout() {
-      clearToken(this.$router);
-    },
-  },
-};
-</script>
 <style>
 /* 覆盖组件默认样式 */
 .el-header {

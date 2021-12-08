@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-09-16 15:13:33
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-09-27 17:23:27
+ * @LastEditTime: 2021-12-08 13:50:22
  */
 import { ActionContext } from 'vuex';
 import {
@@ -11,7 +11,7 @@ import {
   getMyInfo,
 } from '@/views/service';
 import router from '@/router/index';
-import { UserData, UserInfo } from './data.d';
+import { UserData, UserInfo } from '@/store/data.d';
 
 export default {
   namespaced: true,

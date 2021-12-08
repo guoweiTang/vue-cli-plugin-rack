@@ -13,7 +13,8 @@ module.exports = {
   },
   globals: {
     defineProps: 'readonly',
-    defineEmits: 'readonly'
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -21,6 +22,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'import/no-cycle': 'off',
+    'max-len': ['error', 150],
     'no-restricted-syntax': [
       'off',
       {

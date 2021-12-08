@@ -3,12 +3,13 @@
  * @Author: tangguowei
  * @Date: 2021-10-13 16:51:37
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-10-13 17:10:03
+ * @LastEditTime: 2021-12-07 19:03:30
  */
 import { RouteRecordRaw } from 'vue-router';
 import Home from '@/views/home/index.vue';
 import UserInfo from '@/views/account/index.vue';
 import Authorzation from '@/views/account/authorzation.vue';
+import BasicTable from '@/views/table/basic-table.vue';
 import Layout from '@/layouts/basic-layout.vue';
 
 const mainRoutes: Array<RouteRecordRaw> = [
@@ -21,6 +22,29 @@ const mainRoutes: Array<RouteRecordRaw> = [
       icon: 'el-icon-s-home',
     },
     component: Home,
+  },
+  {
+    path: '/table',
+    name: 'table',
+    meta: {
+      title: '列表',
+      icon: 'el-icon-s-grid',
+      auth: true,
+    },
+    component: Layout,
+    redirect: {
+      name: 'basicTable',
+    },
+    children: [
+      {
+        path: 'basic-table',
+        name: 'basicTable',
+        meta: {
+          title: '基础列表',
+        },
+        component: BasicTable,
+      },
+    ],
   },
   {
     path: '/account',

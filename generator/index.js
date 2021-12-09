@@ -26,7 +26,6 @@ module.exports = (api, { typescript }) => {
       dependencies: {
         'lodash': '^4.17.21',
         '@types/lodash': '^4.14.174',
-        "vue-class-component": "^8.0.0-0",
       },
       devDependencies: {
         "@typescript-eslint/eslint-plugin": "^4.18.0",

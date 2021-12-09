@@ -2,120 +2,120 @@
 [![npm](https://img.shields.io/npm/dm/vue-cli-plugin-rack?style=flat-square)](https://github.com/guoweiTang/vue-cli-plugin-rack)
 ![NPM](https://img.shields.io/npm/l/vue-cli-plugin-rack?style=flat-square)
 
-**基于vue3的一套完整的后台系统解决方案**
-> 提供js和typescript两种模式
-## 语言
-[English](https://github.com/guoweiTang/vue-cli-plugin-rack/blob/master/README.en.md)
-## 安装
-首先你需要全局安装`@vue/cli` (参考说明) [这里](https://cli.vuejs.org/zh/)).
+**It is a complete background system solution based on vue3.**
+> It provides JS and typescript modes
+## Language
+[中文](https://github.com/guoweiTang/vue-cli-plugin-rack/blob/master/README.zh.md)
+## Install
+First you need to install `@vue/cli` globally (follow the instructions [here](https://cli.vuejs.org/)).
 
-然后创建项目增加`rack`插件:
+Then create a project and add the rack plugin:
 ```bash
 vue create my-app
 ```
-![1634636776(1)](https://user-images.githubusercontent.com/8178166/137889017-fdf89a0f-6b63-44e2-a3bd-4edb94a65a2e.jpg)
+![1634636776(1)](https://user-images.githubusercontent.com/8178166/137888838-9e760516-103c-45bf-85b5-92ba2be3d6cf.jpg)
 ```bash
 cd my-app
 vue add rack
-npm run initPrecommit  #如果添加插件的模式不是typescript,跳过这一步
+npm run initPrecommit  #If the typescript answer is no, Otherwise, skip this step
 ```
-您将被问及一些有关如何在项目中配置rack的问题。命令执行完之后，就能启动项目了
-### 使用vue-cli视图
-如果您已完成“安装”部分中的所有操作，请跳过此部分。
+You'll be asked some questions regarding how rack is configured in your project. After that, you're good to go.
+### Use with vue-cli UI
+Skip this part if you've done everything in the `Install` section.
 
-如果您喜欢在vue cli UI中管理项目（通过运行“vue UI”），下面是添加rack插件的方法：转到“插件”菜单，单击右上角的“添加插件”按钮，找到“vue-cli-plugin-rack”并安装它。
-## 插件功能
-- **通行证**
-  - 登录
-  - 注册
-  - 重置密码
-- **权限认证**
-  - 路由认证
-  - 菜单认证
-- **错误页面**
+If you prefer managing your project in vue-cli UI (by running `vue ui`), here's how you can add rack plugin: go to the Plugins menu, click the upper right `+ Add plugin` button, find `vue-cli-plugin-rack` and install it.
+## Highlights
+- **Passport**
+  - login
+  - register
+  - reset password
+- **Permission Authentication**
+  - Page permission
+  - menu item permission
+- **Error Page**
   - 403
   - 404
   - 500
-- **异步请求包装器**
-  - 重试
-  - 无痛刷新token
-  - 请求反馈
+- **Async Request(axios)**
+  - retry
+  - refresh token 
+  - feedback message
 - **Element-plus**
-- **路由**
-- **状态管理器**
-  - 命名空间
-  - 数据持久化
+- **Router**
+- **Vuex**
+  - namespacing
+  - data persistence
 - **Mock**
-  - 动态数据
-## 项目目录
+  - dynamic data
+## Contents
 ```
 .
-├── mock                                    // 虚拟数据生成文件
+├── mock                                    // virtual data file
 │   └── index.js
 ├── public                                  
 │   ├── favicon.ico
 │   └── index.html
 ├── src
-│   ├── App.vue                             // 入口模板
-│   ├── main.ts                             // 入口文件
-│   ├── shims-vue.d.ts                      // typescript 声明文件
-│   ├── assets                              // 图片、字体多媒体等文件
-│   ├── components                          // 非业务组件
+│   ├── App.vue                             // entry template
+│   ├── main.ts                             // entry file
+│   ├── shims-vue.d.ts                      // ts declaration file
+│   ├── assets                              // extra files
+│   ├── components                          // common components
 │   │   ├── HelloWorld.vue
 │   │   └── editable-text
 │   │       └── index.vue
-│   ├── config                              // 项目配置信息
+│   ├── config                              // common config
 │   │   └── index.ts
-│   ├── layouts                             // 业务组件
-│   │   ├── app-aside                       // 侧边栏（菜单栏）
+│   ├── layouts                             // business component
+│   │   ├── app-aside                       // page aside
 │   │   │   ├── index.vue
 │   │   │   └── item.vue
-│   │   ├── app-footer                      // 页尾
+│   │   ├── app-footer                      // page footer
 │   │   │   └── index.vue
-│   │   ├── app-header                      // 页头
+│   │   ├── app-header                      // page heaer
 │   │   │   └── index.vue
-│   │   └── basic-layout.vue                // 嵌套路由模板
-│   ├── router                              // 路由配置
+│   │   └── basic-layout.vue                // basis of nested routing
+│   ├── router                              // route
 │   │   ├── index.ts
 │   │   └── modules
-│   │       ├── auth.ts                     // 凭证路由
-│   │       ├── common.ts                   // 公共路由
-│   │       └── index.ts                    // 业务路由
-│   ├── store                               // 共享数据
+│   │       ├── auth.ts                     // auth route
+│   │       ├── common.ts                   // common route
+│   │       └── index.ts                    // business route
+│   ├── store                               // shared repository
 │   │   ├── admin
 │   │   │   ├── common.ts
 │   │   │   ├── data.d.ts
 │   │   │   └── user.ts
 │   │   ├── data.d.ts
 │   │   ├── index.ts
-│   │   └── modules                          // 业务数据模块
+│   │   └── modules                          // business store
 │   │       ├── basic-table.ts
 │   │       └── data.d.ts
-│   ├── utils                                // 工具
+│   ├── utils                                // tool
 │   │   ├── data.d.ts
-│   │   ├── request.ts                       // axios实例对象
+│   │   ├── request.ts                       // axios instance object
 │   │   └── token.ts
 │   └── views
 │       ├── account                          
-│       │   ├── authorzation.vue             // 角色权限页面
-│       │   └── index.vue                    // 我的主页
+│       │   ├── authorzation.vue             // role page
+│       │   └── index.vue                    // myself page
 │       ├── auth                              
 │       │   ├── assets
-│       │   ├── login.vue                    // 登录
-│       │   ├── register.vue                 // 注册
-│       │   └── reset-password.vue           // 忘记密码
-│       ├── error                            // 错误页面
+│       │   ├── login.vue                    // login page
+│       │   ├── register.vue                 // register page
+│       │   └── reset-password.vue           // reset password page
+│       ├── error                            // error page
 │       │   ├── 403.vue
 │       │   ├── 404.vue
 │       │   └── 500.vue
-│       ├── home                             // 主页
+│       ├── home                             // home page
 │       │   └── index.vue
-│       ├── table                            // 列表  
-│       │   ├── components                   // 页面组件
-│       │   ├── composables                  // 组合函数
-│       │   └── basic-table.vue              // 基础列表
+│       ├── table                            // table page
+│       │   ├── components                   
+│       │   ├── composables                  
+│       │   └── basic-table.vue              // basic-table page
 │       ├── data.d.ts
-│       └── service.ts                       // 异步请求的入口
+│       └── service.ts                       // entry file of async request
 ├── .editorconfig
 ├── .env.development
 ├── .env.mock
@@ -126,27 +126,26 @@ npm run initPrecommit  #如果添加插件的模式不是typescript,跳过这一
 ├── package.json
 ├── package-lock.json
 ├── README.md
-└── tsconfig.json                           // @vue/cli配置
+└── tsconfig.json                           // @vue/cli config file
 ```
-## 项目配置
-### 编译并热重载以普通开发模式启动
+## Project setup
+### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-### 编译并热重载以模拟数据开发模式启动
+### Compiles and hot-reloads for development and mock data
 ```
 npm run serve:mock
 ```
-### 生产模式构建
+### Compiles and minifies for production
 ```
 npm run build
 ```
-### 检查代码格式（修复部分语法）
+### Lints and fixes files
 ```
 npm run lint
 ```
-## 界面示例
-> [在线预览](https://guoweitang.net/)
-## 自定义配置
-查看 [配置参考](https://cli.vuejs.org/zh/config/).
-
+## Preview
+> [online preview](https://guoweitang.net/)
+## Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

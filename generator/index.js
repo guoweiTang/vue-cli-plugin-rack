@@ -22,7 +22,6 @@ module.exports = (api, { typescript }) => {
     api.extendPackage({
       scripts: {
         'serve:mock': 'vue-cli-service serve --mode mock',
-        'build:dev': 'vue-cli-service build --mode development'
       },
       dependencies: {
         'lodash': '^4.17.21',

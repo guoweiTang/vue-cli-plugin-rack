@@ -1,4 +1,7 @@
 # vue-cli-plugin-rack
+[![npm](https://img.shields.io/npm/dm/vue-cli-plugin-rack?style=flat-square)](https://github.com/guoweiTang/vue-cli-plugin-rack)
+![NPM](https://img.shields.io/npm/l/vue-cli-plugin-rack?style=flat-square)
+
 **基于vue3的一套完整的后台系统解决方案**
 > 提供js和typescript两种模式
 ## 语言
@@ -134,10 +137,6 @@ npm run serve
 ```
 npm run serve:mock
 ```
-### 开发模式构建
-```
-npm run build:prod
-```
 ### 生产模式构建
 ```
 npm run build
@@ -149,5 +148,5 @@ npm run lint
 ## 界面示例
 > [在线预览](https://guoweitang.net/)
 ## 自定义配置
-看 [配置参考](https://cli.vuejs.org/zh/config/).
+查看 [配置参考](https://cli.vuejs.org/zh/config/).
 

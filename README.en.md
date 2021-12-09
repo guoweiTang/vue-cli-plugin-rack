@@ -1,6 +1,6 @@
 # vue-cli-plugin-rack
-[![npm](https://img.shields.io/npm/dm/vue-cli-plugin-rack.svg)](https://github.com/guoweiTang/vue-cli-plugin-rack)
-![NPM](https://img.shields.io/npm/l/vue-cli-plugin-rack)
+[![npm](https://img.shields.io/npm/dm/vue-cli-plugin-rack?style=flat-square)](https://github.com/guoweiTang/vue-cli-plugin-rack)
+![NPM](https://img.shields.io/npm/l/vue-cli-plugin-rack?style=flat-square)
 
 **It is a complete background system solution based on vue3.**
 > It provides JS and typescript modes
@@ -136,10 +136,6 @@ npm run serve
 ### Compiles and hot-reloads for development and mock data
 ```
 npm run serve:mock
-```
-### Compiles for development
-```
-npm run build:dev
 ```
 ### Compiles and minifies for production
 ```

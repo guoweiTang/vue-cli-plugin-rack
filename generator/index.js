@@ -23,10 +23,6 @@ module.exports = (api, { typescript }) => {
       scripts: {
         'serve:mock': 'vue-cli-service serve --mode mock',
       },
-      dependencies: {
-        'lodash': '^4.17.21',
-        '@types/lodash': '^4.14.174',
-      },
       devDependencies: {
         "@typescript-eslint/eslint-plugin": "^4.18.0",
         "@typescript-eslint/parser": "^4.18.0",

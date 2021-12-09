@@ -26,9 +26,7 @@ module.exports = (api, { typescript }) => {
       devDependencies: {
         "@typescript-eslint/eslint-plugin": "^4.18.0",
         "@typescript-eslint/parser": "^4.18.0",
-        "@vue/cli-plugin-router": "~4.5.0",
         "@vue/cli-plugin-typescript": "~4.5.0",
-        "@vue/cli-plugin-vuex": "~4.5.0",
         "@vue/eslint-config-airbnb": "^5.0.2",
         "@vue/eslint-config-typescript": "^7.0.0",
         "eslint-plugin-import": "^2.20.2",

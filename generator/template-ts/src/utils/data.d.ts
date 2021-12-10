@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosInstance } from 'axios';
+import { AxiosRequestConfig, AxiosInstance, AxiosPromise } from 'axios';
 import { Router } from 'vue-router';
 import { MessageHandle, MessageParamsTyped } from 'element-plus';
 

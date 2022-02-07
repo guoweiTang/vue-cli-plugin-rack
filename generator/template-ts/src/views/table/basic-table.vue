@@ -14,12 +14,12 @@ import {
   useStore,
   mapMutations,
 } from 'vuex';
+import { deleteGoods } from '@/views/service';
+import { Goods } from '@/views/data.d';
 import Expect from './components/expect.vue';
 import useGoods from './composables/useGoods';
 import useGoodsSearch from './composables/useGoodsSearch';
 import Operateodal from './components/operate-modal.vue';
-import { deleteGoods } from '@/views/service';
-import { Goods } from '@/views/data.d';
 
 const operateModal = ref();
 const router = useRouter();

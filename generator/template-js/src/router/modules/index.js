@@ -3,8 +3,14 @@
  * @Author: tangguowei
  * @Date: 2021-10-13 16:51:37
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 15:32:26
+ * @LastEditTime: 2022-02-07 18:02:03
  */
+import {
+  HomeFilled,
+  Grid,
+  UserFilled,
+  Lock,
+} from '@element-plus/icons-vue';
 import Home from '@/views/home/index.vue';
 import UserInfo from '@/views/account/index.vue';
 import Authorzation from '@/views/account/authorzation.vue';
@@ -18,7 +24,7 @@ const mainRoutes = [
     meta: {
       auth: true,
       title: '首页',
-      icon: 'el-icon-s-home',
+      icon: HomeFilled,
     },
     component: Home,
   },
@@ -27,7 +33,7 @@ const mainRoutes = [
     name: 'table',
     meta: {
       title: '列表',
-      icon: 'el-icon-s-grid',
+      icon: Grid,
       auth: true,
     },
     component: Layout,
@@ -50,7 +56,7 @@ const mainRoutes = [
     name: 'account',
     meta: {
       title: '个人账户',
-      icon: 'el-icon-user-solid',
+      icon: UserFilled,
       auth: true,
     },
     component: Layout,
@@ -63,7 +69,7 @@ const mainRoutes = [
         name: 'authorzation',
         meta: {
           title: '用户权限',
-          icon: 'el-icon-lock',
+          icon: Lock,
         },
         component: Authorzation,
       },

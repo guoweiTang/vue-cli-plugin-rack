@@ -3,13 +3,14 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 19:44:29
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 15:45:44
+ * @LastEditTime: 2022-02-07 18:13:50
 -->
 <script setup>
 import { computed, reactive } from 'vue';
 import { useStore, mapState, mapActions } from 'vuex';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
+import { Plus, PictureFilled } from '@element-plus/icons-vue';
 import EditableText from '@/components/editable-text/index.vue';
 import { uploadFile } from '@/views/service';
 
@@ -64,11 +65,11 @@ const handleAvatarChange = async ({ size, raw: file }) => {
       <el-image class="avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl">
         <template #error>
           <div class="image-slot">
-            <i class="el-icon-picture-outline"></i>
+            <el-icon><PictureFilled /></el-icon>
           </div>
         </template>
       </el-image>
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
     </el-upload>
     <editable-text
       label="用户名"

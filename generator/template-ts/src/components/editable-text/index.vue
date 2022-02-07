@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import { Edit } from '@element-plus/icons-vue';
 
 /**
  * 父组件传入的数据及事件
@@ -91,7 +92,7 @@ const handleConfirm = () => {
         <!-- 展示区域 -->
         <div class="preview" v-else>
           <span>{{ value }}</span>
-          <i class="el-icon-edit" @click="handleEdit">修改</i>
+          <el-icon color=" rgb(91, 115, 232)" class="el-icon--right el-icon-edit" @click="handleEdit"><Edit /></el-icon>
         </div>
       </el-form-item>
       <el-form-item v-if="isEdit">
@@ -107,9 +108,7 @@ const handleConfirm = () => {
   visibility: visible;
 }
 .el-icon-edit {
-  margin-left: 10px;
   visibility: hidden;
   cursor: pointer;
-  color: rgb(91, 115, 232);
 }
 </style>

@@ -8,7 +8,8 @@ module.exports = (api, { typescript }) => {
       "vue-router": "^4.0.0-0",
       "vuex": "^4.0.0-0",
       'vuex-persistedstate': '^4.1.0',
-      'element-plus': '1.1.0-beta.18',
+      'element-plus': '^2.0.0',
+      '@element-plus/icons-vue': '^0.2.6',
     },
     devDependencies: {
       'sass': '^1.32.11',

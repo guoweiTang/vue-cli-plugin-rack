@@ -3,18 +3,18 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 16:58:40
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 16:02:00
+ * @LastEditTime: 2022-02-07 18:31:09
 -->
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { mapState, useStore, mapMutations } from 'vuex';
+import { deleteGoods } from '@/views/service';
 import Expect from './components/expect.vue';
 import useGoods from './composables/useGoods';
 import useGoodsSearch from './composables/useGoodsSearch';
 import Operateodal from './components/operate-modal.vue';
-import { deleteGoods } from '@/views/service';
 
 const operateModal = ref();
 const router = useRouter();

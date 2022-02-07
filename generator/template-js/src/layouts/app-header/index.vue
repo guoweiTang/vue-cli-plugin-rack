@@ -3,12 +3,18 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 15:42:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 15:31:07
+ * @LastEditTime: 2022-02-07 18:07:42
 -->
 <script setup>
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore, mapState } from 'vuex';
+import {
+  Expand,
+  Fold,
+  UserFilled,
+  ArrowDown,
+} from '@element-plus/icons-vue';
 import { clearToken } from '@/utils/token';
 
 /**
@@ -36,11 +42,10 @@ const handleMyself = () => {
 
 <template>
   <el-header height="75px">
-    <i
-      :class="collapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+    <el-icon
       @click="$emit('handleToggleCollapse')"
       style="cursor: pointer"
-    ></i>
+    ><component :is="collapse ? Expand : Fold" /></el-icon>
     <div class="logo-bar">
       <img src="../../assets/logo.png" alt="logo" />
       <span>VUE RACK</span>
@@ -54,20 +59,19 @@ const handleMyself = () => {
             :src="userInfo.avatarUrl"
             @error="() => true"
           >
-            <i class="el-icon-user-solid"></i>
+            <el-icon><UserFilled /></el-icon>
           </el-avatar>
           <span>{{ userInfo.name }}</span>
-          <i class="el-icon-arrow-down el-icon--right"></i>
+          <el-icon class="el-icon--right"><ArrowDown /></el-icon>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item
               v-show="userInfo.role === '普通用户'"
-              icon="el-icon-user"
               @click="handleMyself"
               >我的账户</el-dropdown-item
             >
-            <el-dropdown-item icon="el-icon-switch-button" @click="logout">登出</el-dropdown-item>
+            <el-dropdown-item @click="logout">登出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>

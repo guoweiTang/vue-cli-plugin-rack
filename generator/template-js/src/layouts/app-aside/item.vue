@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-05-19 10:57:36
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 15:30:07
+ * @LastEditTime: 2022-02-07 18:03:41
 -->
 <script setup>
 import { computed } from 'vue';
@@ -37,14 +37,14 @@ const isShowing = computed(() => {
       :index="item.name"
       :route="{ name: item.name }"
     >
-      <i v-if="item.meta?.icon" :class="item.meta.icon"></i>
+      <el-icon v-if="item.meta && item.meta.icon"><component :is="item.meta.icon" /></el-icon>
       <template #title>
         <span>{{ item.meta?.title }}</span>
       </template>
     </el-menu-item>
     <el-sub-menu v-else class="no-drop-down" :index="item.name">
       <template #title>
-        <i v-if="item.meta?.icon" :class="item.meta.icon"></i>
+        <el-icon v-if="item.meta && item.meta.icon"><component :is="item.meta.icon" /></el-icon>
         <span>{{ item.meta?.title }}</span>
       </template>
       <Item v-for="(child, index) of item.children" :key="index" :item="child" />

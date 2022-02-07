@@ -3,14 +3,14 @@
  * @Author: tangguowei
  * @Date: 2021-09-30 14:15:56
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 15:43:34
+ * @LastEditTime: 2022-02-07 18:30:19
  */
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import axiosRetry from 'axios-retry';
 import { ElMessage } from 'element-plus';
-import { initToken, refreshToken } from './token';
 import { apiBaseURL } from '@/config/index';
+import { initToken, refreshToken } from './token';
 
 const aiosInstance = axios.create({
   baseURL: apiBaseURL,

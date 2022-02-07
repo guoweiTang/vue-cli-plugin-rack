@@ -3,15 +3,15 @@
  * @Author: tangguowei
  * @Date: 2021-09-27 17:52:49
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-11-29 17:10:28
+ * @LastEditTime: 2022-02-07 16:19:44
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import { ElLoading, ILoadingInstance } from 'element-plus';
+import { ElLoading } from 'element-plus';
 import store from '@/store';
+import { clearToken } from '@/utils/token';
 import commonRoutes from './modules/common';
 import authRoutes from './modules/auth';
 import mainRoutes from './modules/index';
-import { clearToken } from '@/utils/token';
 
 export const routes: Array<RouteRecordRaw> = [
   ...mainRoutes,
@@ -28,7 +28,7 @@ function setIsScreen(val: boolean) {
   store.commit('admin/common/setIsScreen', val);
 }
 
-let loadingInstance: ILoadingInstance;
+let loadingInstance: any;
 router.beforeEach(async (to, from, next) => {
   loadingInstance = ElLoading.service({
     fullscreen: true,

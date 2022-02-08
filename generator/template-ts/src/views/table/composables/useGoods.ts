@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-12-07 16:20:15
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-07 19:11:17
+ * @LastEditTime: 2022-02-08 11:56:10
  */
 import {
   ref,
@@ -33,8 +33,8 @@ export default function useStoreRepositories() {
           size,
         },
       });
-      goodsRepositories.value = data.results || [];
-      pageData.total = data.total;
+      goodsRepositories.value = (data as any).results || [];
+      pageData.total = (data as any).total;
     } catch (e) {
       console.log(e);
     }

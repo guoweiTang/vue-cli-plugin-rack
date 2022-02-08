@@ -3,7 +3,7 @@
  * @Author: tangguowei
  * @Date: 2021-09-16 15:13:33
  * @LastEditors: tangguowei
- * @LastEditTime: 2021-12-08 13:50:22
+ * @LastEditTime: 2022-02-08 11:54:00
  */
 import { ActionContext } from 'vuex';
 import {
@@ -34,8 +34,8 @@ export default {
     async getUserInfo(context: ActionContext<string, unknown>, payload = {}) {
       return new Promise((resolve, reject) => {
         getMyInfo({ params: payload })
-          .then(({ data }: { data: UserInfo}) => {
-            context.commit('setUserInfo', data);
+          .then(({ data }) => {
+            context.commit('setUserInfo', data as UserInfo);
             resolve(data);
           })
           .catch((e: any) => {

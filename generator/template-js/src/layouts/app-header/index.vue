@@ -67,7 +67,7 @@ const handleMyself = () => {
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item
-              v-show="userInfo.role === '普通用户'"
+              v-if="userInfo.role === '普通用户'"
               @click="handleMyself"
               >我的账户</el-dropdown-item
             >

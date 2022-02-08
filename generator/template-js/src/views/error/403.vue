@@ -7,7 +7,7 @@
 -->
 <template>
   <div class="error-page">
-    <el-row type="flex" justify="center" align="center">
+    <el-row type="flex" justify="center" align="middle">
       <el-col :span="6"><img src="../../assets/icon-403-color.svg" alt="403 icon" /></el-col>
       <el-col :span="4" :offset="2">
         <h2>403</h2>
